@@ -1,0 +1,37 @@
+﻿@model DepartmentViewModel
+@{
+    ViewData["Title"] = "Department List";
+}
+
+<h2>Department: @Model.CurrentDepartment</h2>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Email</th>
+            <th>Salary</th>
+            <th>Department</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in Model.Employees)
+        {
+            <tr>
+                <td>
+                    <a asp-controller="Employee"
+                       asp-action="Detail"
+                       asp-route-id=@emp.EmployeeId
+                       class="link">@emp.EmployeeId</a>
+                </td>
+                <td>@emp.FirstName</td>
+                <td>@emp.LastName</td>
+                <td>@emp.Email</td>
+                <td>@emp.Salary.ToString("N2")</td>
+                <td>@emp.Department</td>
+            </tr>
+        }
+    </tbody>
+</table>
