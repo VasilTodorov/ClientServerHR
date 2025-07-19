@@ -16,13 +16,14 @@ builder.Services.AddDbContext<ClientServerHRDbContext>(options => {
 });
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ClientServerHRDbContext>();
-//builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ClientServerHRDbContext>().AddDefaultTokenProviders();
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ClientServerHRDbContext>();
+    //.AddDefaultTokenProviders();
 //builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ClientServerHRDbContext>();
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => {
-    options.SignIn.RequireConfirmedAccount = false;
-})
-.AddRoles<IdentityRole>() // if you're using roles
-.AddEntityFrameworkStores<ClientServerHRDbContext>();
+//builder.Services.AddDefaultIdentity<ApplicationUser>(options => {
+//    options.SignIn.RequireConfirmedAccount = false;
+//})
+//.AddRoles<IdentityRole>() // if you're using roles
+//.AddEntityFrameworkStores<ClientServerHRDbContext>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
