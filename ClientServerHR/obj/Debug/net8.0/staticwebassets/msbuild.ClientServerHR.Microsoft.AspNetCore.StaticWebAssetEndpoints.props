@@ -4,13 +4,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\ClientServerHR.qw8m7pvhea.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-mnGYpP44ODkWr\u002BiaO3oKlnej53CgrBfJKlBbQKteSKs="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1132"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022mnGYpP44ODkWr\u002BiaO3oKlnej53CgrBfJKlBbQKteSKs=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Jul 2025 17:31:50 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"1132"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022mnGYpP44ODkWr\u002BiaO3oKlnej53CgrBfJKlBbQKteSKs=\u0022"},{"Name":"Last-Modified","Value":"Sat, 19 Jul 2025 12:08:25 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/ClientServerHR/ClientServerHR.qw8m7pvhea.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\ClientServerHR.qw8m7pvhea.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"qw8m7pvhea"},{"Name":"integrity","Value":"sha256-mnGYpP44ODkWr\u002BiaO3oKlnej53CgrBfJKlBbQKteSKs="},{"Name":"label","Value":"_content/ClientServerHR/ClientServerHR.bundle.scp.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1132"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022mnGYpP44ODkWr\u002BiaO3oKlnej53CgrBfJKlBbQKteSKs=\u0022"},{"Name":"Last-Modified","Value":"Fri, 18 Jul 2025 17:31:50 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1132"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022mnGYpP44ODkWr\u002BiaO3oKlnej53CgrBfJKlBbQKteSKs=\u0022"},{"Name":"Last-Modified","Value":"Sat, 19 Jul 2025 12:08:25 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/ClientServerHR/css/site.c2tiyv64ts.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>

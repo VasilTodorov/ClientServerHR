@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ClientServerHR.Controllers
 {
-    //[Authorize]
+    //[Authorize(Roles = "employee")]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepository _employeeRepository;

@@ -1,10 +1,19 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClientServerHR.Models
 {
     public class ApplicationUser : IdentityUser
-    {
-        //public int EmployeeId { get; set; }
+    {        
+        [PersonalData]
+        [Required]
+        [StringLength(50)]
+        public string FirstName { get; set; } = string.Empty;
+
+        [PersonalData]
+        [Required]
+        [StringLength(50)]
+        public string LastName { get; set; } = string.Empty;
         public Employee? Employee { get; set; } = default!;
     }
 }

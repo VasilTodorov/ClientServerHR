@@ -91,6 +91,8 @@ namespace ClientServerHR.Models
         {
             var user = new ApplicationUser
             {
+                FirstName = firstName,
+                LastName = lastName,
                 UserName = email,
                 Email = email
             };
@@ -105,9 +107,9 @@ namespace ClientServerHR.Models
 
             var employee = new Employee
             {
-                FirstName = firstName,
-                LastName = lastName,
-                Email = email,
+                //FirstName = firstName,
+                //LastName = lastName,
+                //Email = email,
                 Salary = salary,
                 Department = department,
                 ApplicationUserId = user.Id

@@ -26,9 +26,9 @@
                        asp-route-id=@emp.EmployeeId
                        class="link">@emp.EmployeeId</a>
                 </td>
-                <td>@emp.FirstName</td>
-                <td>@emp.LastName</td>
-                <td>@emp.Email</td>
+                <td>@emp.ApplicationUser.FirstName</td>
+                <td>@emp.ApplicationUser.LastName</td>
+                <td>@emp.ApplicationUser.Email</td>
                 <td>@emp.Salary.ToString("N2")</td>
                 <td>@emp.Department</td>
             </tr>

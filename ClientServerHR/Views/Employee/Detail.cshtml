@@ -15,13 +15,13 @@
                 <dd class="col-sm-9">@Model.EmployeeId</dd>
 
                 <dt class="col-sm-3">FirstName</dt>
-                <dd class="col-sm-9">@Model.FirstName</dd>
+                <dd class="col-sm-9">@Model.ApplicationUser.FirstName</dd>
 
                 <dt class="col-sm-3">LastName</dt>
-                <dd class="col-sm-9">@Model.LastName</dd>
+                <dd class="col-sm-9">@Model.ApplicationUser.LastName</dd>
 
                 <dt class="col-sm-3">Email</dt>
-                <dd class="col-sm-9">@Model.Email</dd>
+                <dd class="col-sm-9">@Model.ApplicationUser.Email</dd>
 
                 <dt class="col-sm-3">Salary</dt>
                 <dd class="col-sm-9">$@Model.Salary.ToString("N2")</dd>
