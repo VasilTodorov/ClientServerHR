@@ -16,6 +16,7 @@ builder.Services.AddDbContext<ClientServerHRDbContext>(options => {
     options.UseSqlServer(
         builder.Configuration["ConnectionStrings:ClientServerHRDbContextConnection"]);
 });
+
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ClientServerHRDbContext>();
 //builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<ClientServerHRDbContext>();
