@@ -41,10 +41,9 @@ namespace ClientServerHR.Controllers
             return View(employee);
         }
         [Authorize]
-        public IActionResult Profile(string? userId)
-        {
-            if (userId == null)
-                userId = _userManager.GetUserId(User);
+        public IActionResult MyProfile()
+        {          
+            var  userId = _userManager.GetUserId(User);
 
             ApplicationUser? user = _userManager.Users.Include(u => u.Employee).FirstOrDefault(u => u.Id == userId);
 
@@ -53,6 +52,84 @@ namespace ClientServerHR.Controllers
 
             return View(user);
         }
+        //[Authorize]
+        //public IActionResult Profile(string? userId)
+        //{       
+
+        //    ApplicationUser? user = _userManager.Users.Include(u => u.Employee).FirstOrDefault(u => u.Id == userId);
+
+        //    if (user == null)
+        //        return NotFound();
+
+        //    return View(user);
+        //}
+        [Authorize(Roles = "manager,admin")]
+        public IActionResult Profile(string? userId)
+        {
+
+            //if (userId == null)
+            //    userId = _userManager.GetUserId(User);
+
+            var user = _userManager.Users
+                .Include(u => u.Employee)
+                .FirstOrDefault(u => u.Id == userId);
+
+            if (user == null)
+                return NotFound();
+
+            // Check if current user can edit
+            bool isEditable = false;
+            if(User.IsInRole("manager"))
+            {
+                var currentUserId = _userManager.GetUserId(User);
+                var currentUser = _userManager.Users
+                    .Include(u => u.Employee)
+                    .FirstOrDefault(u => u.Id == currentUserId);
+
+                if(currentUser?.Employee?.Department != null && user.Employee?.Department!=null)
+                    isEditable = currentUser.Employee.Department == user.Employee.Department;
+            }
+            else if(User.IsInRole("admin"))
+            {
+                isEditable = true;
+            }
+            if (!isEditable)
+                return NotFound();
+
+            ViewData["IsEditable"] = isEditable;
+
+            return View(user);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(ApplicationUser model)
+        {
+            var user = _userManager.Users.Include(u => u.Employee)
+                .FirstOrDefault(u => u.Id == model.Id);
+
+            if (user == null) return NotFound();
+
+            // Only allow current user or admin to update
+            var currentUserId = _userManager.GetUserId(User);
+
+            if (!User.IsInRole("manager") && !User.IsInRole("admin"))
+            {
+                return Forbid(); // 403 Forbidden
+            }
+
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            if (user.Employee != null && model.Employee != null)
+            {
+                user.Employee.Salary = model.Employee.Salary;
+                user.Employee.Department = model.Employee.Department;
+            }
+
+            _userManager.UpdateAsync(user).Wait();
+            return RedirectToAction("Profile", new { userId = user.Id });
+        }
+
         [HttpGet]
         public IActionResult HireEmployee()
         {
