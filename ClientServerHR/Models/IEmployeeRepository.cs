@@ -10,9 +10,9 @@ namespace ClientServerHR.Models
 
         public void AddEmployee(Employee employee);
 
-        public void UpdateAsync(Employee employee);
+        public void Update(Employee employee);
 
-        public void DeleteAsync(int id);
+        public void Delete(int id);
         
     }
 }

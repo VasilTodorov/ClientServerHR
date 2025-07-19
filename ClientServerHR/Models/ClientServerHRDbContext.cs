@@ -16,10 +16,16 @@ namespace ClientServerHR.Models
         {
             base.OnModelCreating(builder);
 
-            builder.Entity<ApplicationUser>()
-                .HasOne(u => u.Employee)
-                .WithOne(e => e.ApplicationUser)
-                .HasForeignKey<Employee>(e => e.ApplicationUserId);
+            //builder.Entity<ApplicationUser>()
+            //    .HasOne(u => u.Employee)
+            //    .WithOne(e => e.ApplicationUser)
+            //    .HasForeignKey<Employee>(e => e.ApplicationUserId);
+
+            builder.Entity<Employee>()
+               .HasOne(e => e.ApplicationUser)
+               .WithOne(u => u.Employee)
+               .HasForeignKey<Employee>(e => e.ApplicationUserId)
+               .IsRequired(); // Employee requires a user
         }
     }
 }

@@ -31,22 +31,22 @@ namespace ClientServerHR.Models
         public void AddEmployee(Employee employee)
         {
             _clientServerHRDbContext.Employees.Add(employee);
-            _clientServerHRDbContext.SaveChangesAsync();
+            _clientServerHRDbContext.SaveChanges();
         }
 
-        public void UpdateAsync(Employee employee)
+        public void Update(Employee employee)
         {
             _clientServerHRDbContext.Employees.Update(employee);
-            _clientServerHRDbContext.SaveChangesAsync();
+            _clientServerHRDbContext.SaveChanges();
         }
 
-        public void DeleteAsync(int id)
+        public void Delete(int id)
         {
             var employee = _clientServerHRDbContext.Employees.Find(id);
             if (employee != null)
             {
                 _clientServerHRDbContext.Employees.Remove(employee);
-                _clientServerHRDbContext.SaveChangesAsync();
+                _clientServerHRDbContext.SaveChanges();
             }
         }
 
