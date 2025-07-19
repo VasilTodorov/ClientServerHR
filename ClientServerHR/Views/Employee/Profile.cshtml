@@ -1,0 +1,56 @@
+﻿@model ApplicationUser
+@{
+    ViewData["Title"] = "User Profile";
+}
+
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0">User Profile</h3>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Id</dt>
+                <dd class="col-sm-9">@Model.Id</dd>
+
+                <dt class="col-sm-3">FirstName</dt>
+                <dd class="col-sm-9">@Model.FirstName</dd>
+
+                <dt class="col-sm-3">LastName</dt>
+                <dd class="col-sm-9">@Model.LastName</dd>
+
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">@Model.Email</dd>
+
+                <dt class="col-sm-3">Salary</dt>
+                <dd class="col-sm-9">@(Model.Employee == null ? "NA" : "$"+Model.Employee.Salary.ToString("N2"))</dd>
+
+                <dt class="col-sm-3">Department</dt>
+                <dd class="col-sm-9">@(Model.Employee == null ? "NA" : Model.Employee.Department)</dd>
+
+                <dt class="col-sm-3">Role</dt>
+                @if (User.IsInRole("employee"))
+                {
+                    <dd class="col-sm-9">employee</dd>
+                }
+                else if (User.IsInRole("manager"))
+                {
+                    <dd class="col-sm-9">manager</dd>
+                }
+                else if (User.IsInRole("admin"))
+                {
+                    <dd class="col-sm-9">admin</dd>
+                }
+                else
+                {
+                    <dd class="col-sm-9">NA</dd>
+                }
+
+                         
+                
+            </dl>
+
+            @*<a asp-action="Index" asp-controller="Employee" class="btn btn-secondary mt-3">Back to List</a>*@
+        </div>
+    </div>
+</div>
