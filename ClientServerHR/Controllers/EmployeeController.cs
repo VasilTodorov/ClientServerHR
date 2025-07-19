@@ -94,7 +94,7 @@ namespace ClientServerHR.Controllers
                 isEditable = true;
             }
             if (!isEditable)
-                return NotFound();
+                return Forbid();
 
             ViewData["IsEditable"] = isEditable;
 
@@ -103,6 +103,7 @@ namespace ClientServerHR.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "manager,admin")]
         public IActionResult Edit(ApplicationUser model)
         {
             var user = _userManager.Users.Include(u => u.Employee)
@@ -116,6 +117,20 @@ namespace ClientServerHR.Controllers
             if (!User.IsInRole("manager") && !User.IsInRole("admin"))
             {
                 return Forbid(); // 403 Forbidden
+            }
+
+            if (User.IsInRole("manager"))
+            {
+                //var currentUserId = _userManager.GetUserId(User);
+                var currentUser = _userManager.Users
+                    .Include(u => u.Employee)
+                    .FirstOrDefault(u => u.Id == currentUserId);
+
+                if (currentUser?.Employee?.Department != null && user.Employee?.Department != null)
+                    if(!(currentUser.Employee.Department == user.Employee.Department))
+                    {
+                        return Forbid();
+                    }
             }
 
             user.FirstName = model.FirstName;

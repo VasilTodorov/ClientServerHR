@@ -166,7 +166,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 14,
+          "SelectedChildIndex": 15,
           "Children": [
             {
               "$type": "Bookmark",
@@ -225,6 +225,10 @@
               "Name": "ST:143:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{269a02dc-6af8-11d3-bdc4-00c04f688e50}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Profile.cshtml",
@@ -232,7 +236,7 @@
               "RelativeDocumentMoniker": "ClientServerHR\\Views\\Employee\\Profile.cshtml",
               "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\Profile.cshtml",
               "RelativeToolTip": "ClientServerHR\\Views\\Employee\\Profile.cshtml",
-              "ViewState": "AgIAAC4AAAAAAAAAAAAAAD0AAAA1AAAAAAAAAA==",
+              "ViewState": "AgIAACoAAAAAAAAAAAAAAD0AAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-07-19T15:53:41.249Z",
               "EditorCaption": ""
@@ -245,7 +249,7 @@
               "RelativeDocumentMoniker": "ClientServerHR\\Controllers\\EmployeeController.cs",
               "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Controllers\\EmployeeController.cs",
               "RelativeToolTip": "ClientServerHR\\Controllers\\EmployeeController.cs",
-              "ViewState": "AgIAAGQAAAAAAAAAAAAAAHIAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEsAAAAAAAAAAAAAAIMAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-16T14:32:09.63Z",
               "EditorCaption": ""
@@ -260,8 +264,7 @@
               "RelativeToolTip": "ClientServerHR\\Controllers\\HomeController.cs",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-16T14:30:32.581Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-16T14:30:32.581Z"
             },
             {
               "$type": "Document",
@@ -273,8 +276,7 @@
               "RelativeToolTip": "ClientServerHR\\Models\\ErrorViewModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-15T16:24:38.291Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-15T16:24:38.291Z"
             },
             {
               "$type": "Document",
@@ -286,8 +288,7 @@
               "RelativeToolTip": "ClientServerHR\\Views\\Employee\\MyProfile.cshtml",
               "ViewState": "AgIAAAkAAAAAAAAAAAAAAB8AAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-19T17:21:34.794Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-19T17:21:34.794Z"
             },
             {
               "$type": "Document",
@@ -299,8 +300,7 @@
               "RelativeToolTip": "ClientServerHR\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
               "ViewState": "AgIAAHwAAAAAAAAAAAAAAIoAAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T06:58:15.643Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-19T06:58:15.643Z"
             },
             {
               "$type": "Document",
@@ -312,8 +312,7 @@
               "RelativeToolTip": "ClientServerHR\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
               "ViewState": "AgIAAAYAAAAAAAAAAAAswBgAAABVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-19T13:01:34.024Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-19T13:01:34.024Z"
             },
             {
               "$type": "Document",
@@ -325,12 +324,7 @@
               "RelativeToolTip": "ClientServerHR\\Views\\Employee\\HireEmployee.cshtml",
               "ViewState": "AgIAAAEAAAAAAAAAAAAAAA0AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-17T09:44:01.583Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{269a02dc-6af8-11d3-bdc4-00c04f688e50}"
+              "WhenOpened": "2025-07-17T09:44:01.583Z"
             },
             {
               "$type": "Document",
@@ -342,8 +336,7 @@
               "RelativeToolTip": "ClientServerHR\\Views\\Shared\\_Layout.cshtml",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAAB4AAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-16T14:35:57.528Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-16T14:35:57.528Z"
             },
             {
               "$type": "Document",
@@ -355,8 +348,7 @@
               "RelativeToolTip": "ClientServerHR\\Models\\DbInitializer.cs",
               "ViewState": "AgIAABQAAAAAAAAAAAAAABYAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-16T15:20:26.574Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-16T15:20:26.574Z"
             },
             {
               "$type": "Document",
@@ -368,8 +360,7 @@
               "RelativeToolTip": "ClientServerHR\\ViewModels\\DepartmentViewModel.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-16T17:48:20.157Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-16T17:48:20.157Z"
             },
             {
               "$type": "Document",
@@ -393,8 +384,7 @@
               "RelativeToolTip": "ClientServerHR\\Models\\Employee.cs",
               "ViewState": "AgIAABYAAAAAAAAAAAAAABQAAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-15T16:50:24.926Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-15T16:50:24.926Z"
             },
             {
               "$type": "Document",
@@ -406,8 +396,7 @@
               "RelativeToolTip": "ClientServerHR\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-19T17:26:14.27Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-19T17:26:14.27Z"
             },
             {
               "$type": "Document",
@@ -431,8 +420,7 @@
               "RelativeToolTip": "ClientServerHR\\Areas\\Identity\\Pages\\Account\\Login.cshtml.cs",
               "ViewState": "AgIAADwAAAAAAAAAAAAUwFcAAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T06:52:40.204Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-19T06:52:40.204Z"
             },
             {
               "$type": "Document",
@@ -444,8 +432,7 @@
               "RelativeToolTip": "ClientServerHR\\Models\\ClientServerHRDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwBUAAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-15T17:16:44.846Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-15T17:16:44.846Z"
             },
             {
               "$type": "Document",
@@ -457,8 +444,7 @@
               "RelativeToolTip": "ClientServerHR\\Models\\ApplicationUser.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwA4AAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T06:48:11.056Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-19T06:48:11.056Z"
             },
             {
               "$type": "Document",
