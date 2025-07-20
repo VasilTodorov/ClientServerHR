@@ -5,7 +5,10 @@
 }
 
 <h2>Applicants</h2>
-
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
 <table class="table table-striped table-bordered">
     <thead class="table-dark">
         <tr>
@@ -32,6 +35,12 @@
                        asp-route-userId="@applicant.Id"
                        class="btn btn-sm btn-success">
                         Hire as Employee
+                    </a>
+                    <a asp-controller="Employee"
+                       asp-action="Delete"
+                       asp-route-userId="@applicant.Id"
+                       class="btn btn-sm btn-success">
+                        Delete
                     </a>
                 </td>
                 @*

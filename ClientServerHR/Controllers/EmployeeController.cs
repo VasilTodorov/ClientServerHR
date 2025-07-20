@@ -27,7 +27,8 @@ namespace ClientServerHR.Controllers
         {
             _employeeRepository = employeeRepository;
             _userManager = userManager;
-        }        
+        }
+        [Authorize(Roles = "manager,admin")]
         public IActionResult List()
         {
             List<Employee> employees;
@@ -73,6 +74,7 @@ namespace ClientServerHR.Controllers
             return View(model);
             
         }
+        [Authorize(Roles = "manager,admin")]
         public IActionResult Applicants()
         {
             var applicants = _userManager.Users.Where(u => u.Employee == null).ToList();
@@ -99,7 +101,44 @@ namespace ClientServerHR.Controllers
         {
             return View();
         }
+        [Authorize(Roles = "manager,admin")]
+        public IActionResult Delete(string? userId)
+        {
 
+            var user = _userManager.Users
+                .Include(u => u.Employee)
+                .FirstOrDefault(u => u.Id == userId);
+
+            if (user == null)
+                return NotFound();
+
+            if(user.Employee != null)            
+            {
+                _employeeRepository.Delete(user.Employee.EmployeeId);
+                TempData["Message"] = "Employee deleted successfully.";
+
+                var result = _userManager.DeleteAsync(user).Result;
+                if (result.Succeeded)
+                {
+                    TempData["Message"] = "Employee deleted successfully.";
+                    return RedirectToAction("List"); // Or wherever you list users
+                }
+
+                //TempData["Message"] = "Employee not deleted successfully.";
+                return RedirectToAction("List");
+            }
+            
+            var resultApplicant = _userManager.DeleteAsync(user).Result;
+            if (resultApplicant.Succeeded)
+            {
+                TempData["Message"] = "Applicant deleted successfully.";
+                return RedirectToAction("Applicants"); // Or wherever you list users
+            }
+
+            //TempData["Message"] = "Applicant not deleted successfully.";
+            return RedirectToAction("Applicants");
+            
+        }
         public IActionResult MyProfile()
         {
             if (User.Identity?.IsAuthenticated!=true)
@@ -232,6 +271,7 @@ namespace ClientServerHR.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "manager,admin")]
         public IActionResult HireEmployee(string userId)
         {
             var user = _userManager.Users
