@@ -20,7 +20,21 @@ namespace ClientServerHR.Controllers
         }        
         public IActionResult List()
         {
-            return View(_employeeRepository.AllEmployees);
+            var employees = _employeeRepository.AllEmployees.ToList();
+            var model = new List<EmployeeWithRoleViewModel>();
+
+            foreach (var emp in employees)
+            {
+                var roles = _userManager.GetRolesAsync(emp.ApplicationUser).Result;
+                model.Add(new EmployeeWithRoleViewModel
+                {
+                    Employee = emp,
+                    Roles = roles.ToList()
+                });
+            }
+
+            return View(model);
+            
         }
         public IActionResult Applicants()
         {
@@ -64,17 +78,7 @@ namespace ClientServerHR.Controllers
 
             return View(user);
         }
-        //[Authorize]
-        //public IActionResult Profile(string? userId)
-        //{       
-
-        //    ApplicationUser? user = _userManager.Users.Include(u => u.Employee).FirstOrDefault(u => u.Id == userId);
-
-        //    if (user == null)
-        //        return NotFound();
-
-        //    return View(user);
-        //}
+        
         [Authorize(Roles = "manager,admin")]
         public IActionResult Profile(string? userId)
         {
@@ -165,19 +169,67 @@ namespace ClientServerHR.Controllers
         }
 
         [HttpGet]
-        public IActionResult HireEmployee()
+        public IActionResult HireEmployee(string userId)
         {
-            return View();
+            var user =  _userManager.FindByIdAsync(userId).Result;
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            // Prevent hiring if already an employee
+            //var alreadyEmployee = _employeeRepository.AllEmployees.Any(e => e.ApplicationUserId == userId);
+            //if (alreadyEmployee)
+            //{
+            //    return RedirectToAction("AlreadyHired");
+            //}
+            if(user.Employee != null)
+            {
+                return Forbid();
+            }
+
+            var emp = new Employee
+            {
+                ApplicationUserId = userId
+            };
+
+            return View(emp);
+            //return View();
         }
         [HttpPost]
         public IActionResult HireEmployee(Employee emp)
-        {           
-            if (ModelState.IsValid)
-            {                
-                _employeeRepository.AddEmployee(emp);
-                return RedirectToAction("HireComplete");
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(emp);
             }
-            return View(emp);
+            var user = _userManager.FindByIdAsync(emp.ApplicationUserId).Result;
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+            if (user.Employee != null)
+            {
+                return Forbid();
+            }
+                         
+            _employeeRepository.AddEmployee(emp);
+
+            bool isInRole =  _userManager.IsInRoleAsync(user, "employee").Result;
+            if (!isInRole)
+            {
+                var roleResult =  _userManager.AddToRoleAsync(user, "employee").Result;
+                if (!roleResult.Succeeded)
+                {
+                    // Optional: log or show error if needed
+                    ModelState.AddModelError("", "Failed to assign employee role.");
+                    return View(emp);
+                }
+            }
+
+            return RedirectToAction("Applicants");
+            
+            
         }
 
         public IActionResult HireComplete()

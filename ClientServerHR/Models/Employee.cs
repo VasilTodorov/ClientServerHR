@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -38,6 +39,9 @@ namespace ClientServerHR.Models
         public string Department { get; set; } = string.Empty;
 
         public string ApplicationUserId { get; set; } = string.Empty;
+        
+        [BindNever]
+        [ValidateNever]
         [ForeignKey("ApplicationUserId")]
         public ApplicationUser ApplicationUser { get; set; } = default!;
 

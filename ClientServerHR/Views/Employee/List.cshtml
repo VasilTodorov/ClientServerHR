@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Employee> 
+﻿@model List<EmployeeWithRoleViewModel>
 @{
     ViewData["Title"] = "Employee List";
 }
@@ -14,27 +14,37 @@
             <th>Email</th>
             <th>Salary</th>
             <th>Department</th>
+            <th>Roles</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var emp in Model)
+        @foreach (var view in Model)
         {
             <tr>
                 <td>
                     <a asp-controller="Employee"
                        asp-action="Detail"
-                       asp-route-id=@emp.EmployeeId
-                       class="link">@emp.EmployeeId</a>
+                       asp-route-id=@view.Employee.EmployeeId
+                       class="link">@view.Employee.EmployeeId</a>
                 </td>
-                <td>@emp.ApplicationUser.FirstName</td>
-                <td>@emp.ApplicationUser.LastName</td>
-                <td>@emp.ApplicationUser.Email</td>
-                <td>@emp.Salary.ToString("N2")</td>
+                <td>@view.Employee.ApplicationUser.FirstName</td>
+                <td>@view.Employee.ApplicationUser.LastName</td>
+                <td>@view.Employee.ApplicationUser.Email</td>
+                <td>@view.Employee.Salary.ToString("N2")</td>
                 <td>
                     <a asp-controller="Employee"
                        asp-action="Department"
-                       asp-route-department=@emp.Department
-                       class="link">@emp.Department</a>
+                       asp-route-department=@view.Employee.Department
+                       class="link">@view.Employee.Department</a>
+                </td>
+                <td>@string.Join(", ", view.Roles)</td>
+                <td>
+                    <a asp-controller="Employee"
+                       asp-action="Profile"
+                       asp-route-userId="@view.Employee.ApplicationUser.Id"
+                       class="btn btn-sm btn-success">
+                        Edit
+                    </a>
                 </td>
             </tr>
         }

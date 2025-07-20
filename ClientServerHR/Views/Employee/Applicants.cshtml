@@ -26,6 +26,14 @@
                 <td>@applicant.FirstName</td>
                 <td>@applicant.LastName</td>
                 <td>@applicant.Email</td>
+                <td>
+                    <a asp-controller="Employee"
+                       asp-action="HireEmployee"
+                       asp-route-userId="@applicant.Id"
+                       class="btn btn-sm btn-success">
+                        Hire as Employee
+                    </a>
+                </td>
                 @*
                 <td>@emp.Salary.ToString("N2")</td>
                                 <td>
