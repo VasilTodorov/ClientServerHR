@@ -1,9 +1,7 @@
-﻿@model ApplicationUser
+﻿@model UserProfileEditViewModel
 @{
-    ViewData["Title"] = "User Profile";
-    bool isEditable=false;
-    if (ViewData["IsEditable"] != null)
-        isEditable = (bool)ViewData["IsEditable"]!;
+    ViewData["Title"] = "User Profile";    
+    bool isEditable = (ViewData["IsEditable"] as bool?) ?? false;
 }
 
 <h2>User Profile</h2>
@@ -41,25 +39,26 @@
 
         <dt class="col-sm-3">Salary</dt>
         <dd class="col-sm-9">
-            @if (isEditable && Model.Employee != null)
-            {                
-                <input asp-for="Employee.Salary" class="form-control" />
+            @if (isEditable && Model.Salary.HasValue)
+            {
+                <input asp-for="Salary" class="form-control" />
             }
             else
             {
-                @( Model.Employee == null ? "NA" : $"${Model.Employee.Salary:N2}" )
+                @(Model.Salary.HasValue ? Model.Salary.Value.ToString("C") : "N/A")
             }
         </dd>
 
         <dt class="col-sm-3">Department</dt>
         <dd class="col-sm-9">
-            @if (isEditable && Model.Employee != null && User.IsInRole("admin"))
+            @if (isEditable && User.IsInRole("admin"))
             {
-                <input asp-for="Employee.Department" class="form-control" />
+                <input asp-for="Department" class="form-control" />
             }
             else
             {
-                @(Model.Employee?.Department ?? "N/A")
+                <input asp-for="Department" class="form-control" type="hidden"/>
+                @(Model.Department ?? "N/A")
             }
         </dd>
     </dl>

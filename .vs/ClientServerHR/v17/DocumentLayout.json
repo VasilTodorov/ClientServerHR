@@ -3,12 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|solutionrelative:clientserverhr\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\views\\employee\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|solutionrelative:clientserverhr\\views\\employee\\profile.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|solutionrelative:clientserverhr\\controllers\\employeecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|solutionrelative:clientserverhr\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|solutionrelative:clientserverhr\\areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\areas\\identity\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|solutionrelative:clientserverhr\\areas\\identity\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\viewmodels\\userprofileeditviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|solutionrelative:clientserverhr\\viewmodels\\userprofileeditviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|solutionrelative:clientserverhr\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\views\\employee\\list.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -31,16 +51,8 @@
       "RelativeMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|solutionrelative:clientserverhr\\views\\employee\\applicants.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|solutionrelative:clientserverhr\\models\\employee.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\models\\employeerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|solutionrelative:clientserverhr\\models\\employeerepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|solutionrelative:clientserverhr\\models\\applicationuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\models\\dbinitializer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -65,14 +77,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\viewmodels\\departmentviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|solutionrelative:clientserverhr\\viewmodels\\departmentviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\areas\\identity\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|solutionrelative:clientserverhr\\areas\\identity\\pages\\account\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|solutionrelative:clientserverhr\\areas\\identity\\pages\\account\\register.cshtml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A248C5F0-2C12-4EBB-99FC-FBFAACFDA16D}|ClientServerHR\\ClientServerHR.csproj|c:\\users\\vasil\\source\\repos\\c#oop\\ukg\\ukgclientservermvc\\clientserverhr\\clientserverhr\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -182,7 +186,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 21,
+          "SelectedChildIndex": 16,
           "Children": [
             {
               "$type": "Bookmark",
@@ -246,46 +250,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 5,
+              "Title": "UserProfileEditViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\ViewModels\\UserProfileEditViewModel.cs",
+              "RelativeDocumentMoniker": "ClientServerHR\\ViewModels\\UserProfileEditViewModel.cs",
+              "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\ViewModels\\UserProfileEditViewModel.cs",
+              "RelativeToolTip": "ClientServerHR\\ViewModels\\UserProfileEditViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-20T09:44:03.192Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "EmployeeController.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Controllers\\EmployeeController.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Controllers\\EmployeeController.cs",
               "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Controllers\\EmployeeController.cs",
               "RelativeToolTip": "ClientServerHR\\Controllers\\EmployeeController.cs",
-              "ViewState": "AgIAAI0AAAAAAAAAAAAIwKgAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAKMAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-16T14:32:09.63Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "HireEmployee.cshtml",
-              "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\HireEmployee.cshtml",
-              "RelativeDocumentMoniker": "ClientServerHR\\Views\\Employee\\HireEmployee.cshtml",
-              "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\HireEmployee.cshtml",
-              "RelativeToolTip": "ClientServerHR\\Views\\Employee\\HireEmployee.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-17T09:44:01.583Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "Applicants.cshtml",
-              "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\Applicants.cshtml",
-              "RelativeDocumentMoniker": "ClientServerHR\\Views\\Employee\\Applicants.cshtml",
-              "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\Applicants.cshtml",
-              "RelativeToolTip": "ClientServerHR\\Views\\Employee\\Applicants.cshtml",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAACMAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-20T07:13:52.156Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
               "Title": "ApplicationUser.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Models\\ApplicationUser.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Models\\ApplicationUser.cs",
@@ -298,7 +289,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 13,
               "Title": "DbInitializer.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Models\\DbInitializer.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Models\\DbInitializer.cs",
@@ -306,103 +297,37 @@
               "RelativeToolTip": "ClientServerHR\\Models\\DbInitializer.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-16T15:20:26.574Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-16T15:20:26.574Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
               "Title": "Employee.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Models\\Employee.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Models\\Employee.cs",
               "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Models\\Employee.cs",
               "RelativeToolTip": "ClientServerHR\\Models\\Employee.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAowCsAAAAWAAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAAAowCAAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-15T16:50:24.926Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Profile.cshtml",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\Profile.cshtml",
               "RelativeDocumentMoniker": "ClientServerHR\\Views\\Employee\\Profile.cshtml",
               "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\Profile.cshtml",
               "RelativeToolTip": "ClientServerHR\\Views\\Employee\\Profile.cshtml",
-              "ViewState": "AgIAAAUAAAAAAAAAAAAAACAAAAAQAAAAAAAAAA==",
+              "ViewState": "AgIAACkAAAAAAAAAAAAAADsAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-07-19T15:53:41.249Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "EmployeeWithRoleViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\ViewModels\\EmployeeWithRoleViewModel.cs",
-              "RelativeDocumentMoniker": "ClientServerHR\\ViewModels\\EmployeeWithRoleViewModel.cs",
-              "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\ViewModels\\EmployeeWithRoleViewModel.cs",
-              "RelativeToolTip": "ClientServerHR\\ViewModels\\EmployeeWithRoleViewModel.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-20T09:11:26.813Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "List.cshtml",
-              "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\List.cshtml",
-              "RelativeDocumentMoniker": "ClientServerHR\\Views\\Employee\\List.cshtml",
-              "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\List.cshtml",
-              "RelativeToolTip": "ClientServerHR\\Views\\Employee\\List.cshtml",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-16T14:38:14.397Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "MyProfile.cshtml",
-              "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\MyProfile.cshtml",
-              "RelativeDocumentMoniker": "ClientServerHR\\Views\\Employee\\MyProfile.cshtml",
-              "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\MyProfile.cshtml",
-              "RelativeToolTip": "ClientServerHR\\Views\\Employee\\MyProfile.cshtml",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAAC4AAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-19T17:21:34.794Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "EmployeeRepository.cs",
-              "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Models\\EmployeeRepository.cs",
-              "RelativeDocumentMoniker": "ClientServerHR\\Models\\EmployeeRepository.cs",
-              "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Models\\EmployeeRepository.cs",
-              "RelativeToolTip": "ClientServerHR\\Models\\EmployeeRepository.cs",
-              "ViewState": "AgIAAA0AAAAAAAAAAAAAABsAAABSAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-16T14:20:12.426Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "ClientServerHR\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "ClientServerHR\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAEAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-16T14:35:57.528Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 4,
               "Title": "Register.cshtml",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
               "RelativeDocumentMoniker": "ClientServerHR\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
@@ -410,23 +335,109 @@
               "RelativeToolTip": "ClientServerHR\\Areas\\Identity\\Pages\\Account\\Register.cshtml",
               "ViewState": "AgIAAAYAAAAAAAAAAAAswBgAAABVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-19T13:01:34.024Z"
+              "WhenOpened": "2025-07-19T13:01:34.024Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 3,
               "Title": "Register.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
               "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
               "RelativeToolTip": "ClientServerHR\\Areas\\Identity\\Pages\\Account\\Register.cshtml.cs",
-              "ViewState": "AgIAAHwAAAAAAAAAAAAAAIoAAABSAAAAAAAAAA==",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAAAIoAAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-19T06:58:15.643Z"
+              "WhenOpened": "2025-07-19T06:58:15.643Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 11,
+              "Title": "Applicants.cshtml",
+              "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\Applicants.cshtml",
+              "RelativeDocumentMoniker": "ClientServerHR\\Views\\Employee\\Applicants.cshtml",
+              "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\Applicants.cshtml",
+              "RelativeToolTip": "ClientServerHR\\Views\\Employee\\Applicants.cshtml",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAACMAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-20T07:13:52.156Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "HireEmployee.cshtml",
+              "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\HireEmployee.cshtml",
+              "RelativeDocumentMoniker": "ClientServerHR\\Views\\Employee\\HireEmployee.cshtml",
+              "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\HireEmployee.cshtml",
+              "RelativeToolTip": "ClientServerHR\\Views\\Employee\\HireEmployee.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-17T09:44:01.583Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "EmployeeWithRoleViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\ViewModels\\EmployeeWithRoleViewModel.cs",
+              "RelativeDocumentMoniker": "ClientServerHR\\ViewModels\\EmployeeWithRoleViewModel.cs",
+              "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\ViewModels\\EmployeeWithRoleViewModel.cs",
+              "RelativeToolTip": "ClientServerHR\\ViewModels\\EmployeeWithRoleViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-20T09:11:26.813Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "List.cshtml",
+              "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\List.cshtml",
+              "RelativeDocumentMoniker": "ClientServerHR\\Views\\Employee\\List.cshtml",
+              "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\List.cshtml",
+              "RelativeToolTip": "ClientServerHR\\Views\\Employee\\List.cshtml",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABAAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-16T14:38:14.397Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "MyProfile.cshtml",
+              "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\MyProfile.cshtml",
+              "RelativeDocumentMoniker": "ClientServerHR\\Views\\Employee\\MyProfile.cshtml",
+              "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\MyProfile.cshtml",
+              "RelativeToolTip": "ClientServerHR\\Views\\Employee\\MyProfile.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAAC4AAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-19T17:21:34.794Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "EmployeeRepository.cs",
+              "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Models\\EmployeeRepository.cs",
+              "RelativeDocumentMoniker": "ClientServerHR\\Models\\EmployeeRepository.cs",
+              "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Models\\EmployeeRepository.cs",
+              "RelativeToolTip": "ClientServerHR\\Models\\EmployeeRepository.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAAABsAAABSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-16T14:20:12.426Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "ClientServerHR\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "ClientServerHR\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-16T14:35:57.528Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 41,
               "Title": "HomeController.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Controllers\\HomeController.cs",
@@ -438,7 +449,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "ErrorViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Models\\ErrorViewModel.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Models\\ErrorViewModel.cs",
@@ -450,7 +461,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 15,
               "Title": "_LoginPartial.cshtml",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Shared\\_LoginPartial.cshtml",
               "RelativeDocumentMoniker": "ClientServerHR\\Views\\Shared\\_LoginPartial.cshtml",
@@ -462,7 +473,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 16,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Program.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Program.cs",
@@ -474,7 +485,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 17,
               "Title": "NotRegistered.cshtml",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\NotRegistered.cshtml",
               "RelativeDocumentMoniker": "ClientServerHR\\Views\\Employee\\NotRegistered.cshtml",
@@ -486,7 +497,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "Privacy.cshtml",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Home\\Privacy.cshtml",
               "RelativeDocumentMoniker": "ClientServerHR\\Views\\Home\\Privacy.cshtml",
@@ -498,7 +509,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 43,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "ClientServerHR\\Views\\Home\\Index.cshtml",
@@ -510,7 +521,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 18,
               "Title": "DepartmentViewModel.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\ViewModels\\DepartmentViewModel.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\ViewModels\\DepartmentViewModel.cs",
@@ -522,7 +533,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "Login.cshtml",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
               "RelativeDocumentMoniker": "ClientServerHR\\Areas\\Identity\\Pages\\Account\\Login.cshtml",
@@ -534,7 +545,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "Detail.cshtml",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\Detail.cshtml",
               "RelativeDocumentMoniker": "ClientServerHR\\Views\\Employee\\Detail.cshtml",
@@ -546,7 +557,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "Login.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Areas\\Identity\\Pages\\Account\\Login.cshtml.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Areas\\Identity\\Pages\\Account\\Login.cshtml.cs",
@@ -558,7 +569,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "ClientServerHRDbContext.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Models\\ClientServerHRDbContext.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Models\\ClientServerHRDbContext.cs",
@@ -570,7 +581,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "_ViewImports.cshtml",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\_ViewImports.cshtml",
               "RelativeDocumentMoniker": "ClientServerHR\\Views\\_ViewImports.cshtml",
@@ -582,7 +593,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "Department.cshtml",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\Department.cshtml",
               "RelativeDocumentMoniker": "ClientServerHR\\Views\\Employee\\Department.cshtml",
@@ -594,7 +605,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "20250719132111_RemodellingEmployeeUser.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Migrations\\20250719132111_RemodellingEmployeeUser.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Migrations\\20250719132111_RemodellingEmployeeUser.cs",
@@ -606,7 +617,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "ClientServerHRDbContextModelSnapshot.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Migrations\\ClientServerHRDbContextModelSnapshot.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Migrations\\ClientServerHRDbContextModelSnapshot.cs",
@@ -618,7 +629,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "DummyEmailSender .cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Services\\DummyEmailSender .cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Services\\DummyEmailSender .cs",
@@ -630,7 +641,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "HireComplete.cshtml",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\Employee\\HireComplete.cshtml",
               "RelativeDocumentMoniker": "ClientServerHR\\Views\\Employee\\HireComplete.cshtml",
@@ -642,7 +653,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "20250719115641_DeleteEmailFromEmployee.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Migrations\\20250719115641_DeleteEmailFromEmployee.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Migrations\\20250719115641_DeleteEmailFromEmployee.cs",
@@ -654,7 +665,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "ScaffoldingReadMe.txt",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\ScaffoldingReadMe.txt",
               "RelativeDocumentMoniker": "ClientServerHR\\ScaffoldingReadMe.txt",
@@ -666,7 +677,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "IEmployeeRepository.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Models\\IEmployeeRepository.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Models\\IEmployeeRepository.cs",
@@ -678,7 +689,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "20250719091213_EmployeeUserRelationship.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Migrations\\20250719091213_EmployeeUserRelationship.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Migrations\\20250719091213_EmployeeUserRelationship.cs",
@@ -690,7 +701,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "Logout.cshtml.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Areas\\Identity\\Pages\\Account\\Logout.cshtml.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Areas\\Identity\\Pages\\Account\\Logout.cshtml.cs",
@@ -702,7 +713,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "Logout.cshtml",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Areas\\Identity\\Pages\\Account\\Logout.cshtml",
               "RelativeDocumentMoniker": "ClientServerHR\\Areas\\Identity\\Pages\\Account\\Logout.cshtml",
@@ -714,7 +725,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "20250717114753_IndentityAdded.Designer.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Migrations\\20250717114753_IndentityAdded.Designer.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Migrations\\20250717114753_IndentityAdded.Designer.cs",
@@ -726,7 +737,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "20250717114753_IndentityAdded.cs",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Migrations\\20250717114753_IndentityAdded.cs",
               "RelativeDocumentMoniker": "ClientServerHR\\Migrations\\20250717114753_IndentityAdded.cs",
@@ -738,7 +749,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "ClientServerHR.csproj",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\ClientServerHR.csproj",
               "RelativeDocumentMoniker": "ClientServerHR\\ClientServerHR.csproj",
@@ -750,7 +761,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\appsettings.json",
               "RelativeDocumentMoniker": "ClientServerHR\\appsettings.json",
@@ -762,7 +773,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "_ViewStart.cshtml",
               "DocumentMoniker": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHR\\Views\\_ViewStart.cshtml",
               "RelativeDocumentMoniker": "ClientServerHR\\Views\\_ViewStart.cshtml",

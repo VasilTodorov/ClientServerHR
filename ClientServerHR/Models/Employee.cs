@@ -30,7 +30,7 @@ namespace ClientServerHR.Models
         //public string Email { get; set; } = string.Empty;
 
         [Required(ErrorMessage = "Salary is required")]
-        [Range(0, 1_000_000, ErrorMessage = "Salary must be between 0 and 1,000,000")]
+        [Range(300, 1_000_000, ErrorMessage = "Salary must be between 300 and 1,000,000")]
         [Precision(18, 2)]
         public decimal Salary { get; set; }
 

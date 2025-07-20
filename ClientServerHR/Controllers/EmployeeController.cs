@@ -112,15 +112,25 @@ namespace ClientServerHR.Controllers
             if (!isEditable)
                 return Forbid();
 
+            var viewModel = new UserProfileEditViewModel
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email!,
+                Salary = user.Employee?.Salary,
+                Department = user.Employee?.Department
+            };
+
             ViewData["IsEditable"] = isEditable;
 
-            return View(user);
+            return View(viewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "manager,admin")]
-        public IActionResult Edit(ApplicationUser model)
+        public IActionResult Edit(UserProfileEditViewModel model)
         {
             var user = _userManager.Users.Include(u => u.Employee)
                 .FirstOrDefault(u => u.Id == model.Id);
@@ -149,7 +159,7 @@ namespace ClientServerHR.Controllers
                         return Forbid();
                     }
                     else if(currentUser.Employee.Department == user.Employee.Department &&
-                            user.Employee.Department != model.Employee?.Department )
+                            user.Employee.Department != model.Department )
                     {
                         return Forbid();
                     }
@@ -158,10 +168,11 @@ namespace ClientServerHR.Controllers
 
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
-            if (user.Employee != null && model.Employee != null)
+            if (user.Employee != null)
             {
-                user.Employee.Salary = model.Employee.Salary;
-                user.Employee.Department = model.Employee.Department;
+                user.Employee.Salary = model.Salary ?? user.Employee.Salary;
+                if (User.IsInRole("admin"))
+                    user.Employee.Department = model.Department ?? user.Employee.Department;
             }
 
             _userManager.UpdateAsync(user).Wait();
