@@ -41,8 +41,9 @@ namespace ClientServerHR.Models
                     firstName: "Vasil",
                     lastName: "Todorov",
                     email: "vtodorov00@gmail.com",
+                    position: "Junior Dev",
                     salary: 1000m,
-                    department: "Junior",
+                    department: "HR",
                     role: "employee",
                     password: "Test123!");
 
@@ -50,8 +51,9 @@ namespace ClientServerHR.Models
                     firstName: "Galin",
                     lastName: "Todorov",
                     email: "gtodorov00@gmail.com",
+                    position: "Senior Dev",
                     salary: 3050m,
-                    department: "Senior",
+                    department: "HR",
                     role: "manager",
                     password: "Test123!");
 
@@ -59,8 +61,9 @@ namespace ClientServerHR.Models
                     firstName: "Toni",
                     lastName: "Apatra",
                     email: "apacha121@gmail.com",
+                    position: "Junior Dev",
                     salary: 1000m,
-                    department: "Junior",
+                    department: "HR",
                     role: "employee",
                     password: "Test123!");
 
@@ -68,8 +71,9 @@ namespace ClientServerHR.Models
                     firstName: "Ivan",
                     lastName: "Grudev",
                     email: "igrudev77@gmail.com",
+                    position: "Senior Dev",
                     salary: 4200m,
-                    department: "Senior",
+                    department: "HR",
                     role: "admin",
                     password: "Test123!");
             }
@@ -87,7 +91,7 @@ namespace ClientServerHR.Models
             context.SaveChanges();
         }
         private static void CreateUserWithEmployee(UserManager<ApplicationUser> userManager, ClientServerHRDbContext context,
-            string firstName, string lastName, string email, decimal salary, string department, string role, string password)
+            string firstName, string lastName, string email,string position, decimal salary, string department, string role, string password)
         {
             var user = new ApplicationUser
             {
@@ -110,6 +114,7 @@ namespace ClientServerHR.Models
                 //FirstName = firstName,
                 //LastName = lastName,
                 //Email = email,
+                Position = position,
                 Salary = salary,
                 Department = department,
                 ApplicationUserId = user.Id

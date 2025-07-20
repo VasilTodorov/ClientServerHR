@@ -29,8 +29,24 @@
                 <dt class="col-sm-3">Department</dt>
                 <dd class="col-sm-9">@Model.Department</dd>
 
-                         
-                
+                @*<dt class="col-sm-3">Role</dt>
+                @if (Model.ApplicationUser.IsInRole("employee"))
+                {
+                    <dd class="col-sm-9">employee33</dd>
+                }
+                else if (User.IsInRole("manager"))
+                {
+                    <dd class="col-sm-9">manager</dd>
+                }
+                else if (User.IsInRole("admin"))
+                {
+                    <dd class="col-sm-9">admin</dd>
+                }
+                else
+                {
+                    <dd class="col-sm-9">N/A</dd>
+                }*@
+
             </dl>
 
             @*<a asp-action="Index" asp-controller="Employee" class="btn btn-secondary mt-3">Back to List</a>*@

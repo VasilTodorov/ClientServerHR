@@ -12,6 +12,7 @@
             <th>FirstName</th>
             <th>LastName</th>
             <th>Email</th>
+            <th>Position</th>
             <th>Salary</th>
             <th>Department</th>
             <th>Roles</th>
@@ -30,6 +31,7 @@
                 <td>@view.Employee.ApplicationUser.FirstName</td>
                 <td>@view.Employee.ApplicationUser.LastName</td>
                 <td>@view.Employee.ApplicationUser.Email</td>
+                <td>@view.Employee.Position</td>
                 <td>@view.Employee.Salary.ToString("N2")</td>
                 <td>
                     <a asp-controller="Employee"
@@ -50,8 +52,8 @@
         }
     </tbody>
 </table>
-<div class="text-center mt-4">
+@*<div class="text-center mt-4">
     <a asp-controller="Employee" asp-action="HireEmployee" class="btn btn-success btn-lg">
         ➕ Create New Employee
     </a>
-</div>
+</div>*@

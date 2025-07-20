@@ -22,6 +22,9 @@
                 <dt class="col-sm-3">Email</dt>
                 <dd class="col-sm-9">@Model.Email</dd>
 
+                <dt class="col-sm-3">Position</dt>
+                <dd class="col-sm-9">@(Model.Employee == null ? "N/A" : Model.Employee.Position)</dd>
+
                 <dt class="col-sm-3">Salary</dt>
                 <dd class="col-sm-9">@(Model.Employee == null ? "N/A" : "$" + Model.Employee.Salary.ToString("N2"))</dd>
 

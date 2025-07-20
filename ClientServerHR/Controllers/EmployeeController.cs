@@ -1,9 +1,11 @@
 ﻿using ClientServerHR.Models;
 using ClientServerHR.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace ClientServerHR.Controllers
 {
@@ -12,6 +14,14 @@ namespace ClientServerHR.Controllers
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly UserManager<ApplicationUser> _userManager;
+        private static readonly List<string> AllowedDepartments = new()
+        {
+            "HR", "IT", "Finance", "Sales", "Marketing"
+        };
+        private static readonly List<string> AllowedPositions = new()
+        {
+            "Junior Dev", "Mid Dev", "Senior dev", "Devops" 
+        };
 
         public EmployeeController(IEmployeeRepository employeeRepository, UserManager<ApplicationUser> userManager)
         {
@@ -20,7 +30,34 @@ namespace ClientServerHR.Controllers
         }        
         public IActionResult List()
         {
-            var employees = _employeeRepository.AllEmployees.ToList();
+            List<Employee> employees;
+            var userId = _userManager.GetUserId(User);
+            if (userId != null)
+            {
+                var user = _userManager.Users
+                .Include(u => u.Employee)
+                .FirstOrDefault(u => u.Id == userId);
+
+                if (user == null)
+                    return NotFound();
+
+                var roles = _userManager.GetRolesAsync(user!).Result;
+                if(roles.Any(r=>r== "manager"))
+                {
+                    employees = _employeeRepository.AllEmployees.Where(e=>e.Department==user.Employee?.Department).ToList();
+                }
+                else
+                {
+                    employees = _employeeRepository.AllEmployees.ToList();
+                }
+            }
+            else
+            {
+                return NotFound();
+            }
+
+            //roles = _userManager.GetRolesAsync(User).;
+            //List<Employee> employees = _employeeRepository.AllEmployees.ToList();
             var model = new List<EmployeeWithRoleViewModel>();
 
             foreach (var emp in employees)
@@ -118,6 +155,7 @@ namespace ClientServerHR.Controllers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email!,
+                Position = user.Employee?.Position,
                 Salary = user.Employee?.Salary,
                 Department = user.Employee?.Department
             };
@@ -132,6 +170,15 @@ namespace ClientServerHR.Controllers
         [Authorize(Roles = "manager,admin")]
         public IActionResult Edit(UserProfileEditViewModel model)
         {
+            if(model.Department==null) ModelState.AddModelError("Department", "Department cant be null");
+            if (!AllowedDepartments.Contains(model.Department!))
+            {
+                ModelState.AddModelError("Department", "Invalid department selected.");
+            }
+            if (!AllowedPositions.Contains(model.Position!))
+            {
+                ModelState.AddModelError("Department", "Invalid position selected.");
+            }
             var user = _userManager.Users.Include(u => u.Employee)
                 .FirstOrDefault(u => u.Id == model.Id);
 
@@ -165,35 +212,37 @@ namespace ClientServerHR.Controllers
                     }
                 }
             }
-
-            user.FirstName = model.FirstName;
-            user.LastName = model.LastName;
-            if (user.Employee != null)
-            {
-                user.Employee.Salary = model.Salary ?? user.Employee.Salary;
-                if (User.IsInRole("admin"))
-                    user.Employee.Department = model.Department ?? user.Employee.Department;
+            if (ModelState.IsValid)
+            { 
+                user.FirstName = model.FirstName;
+                user.LastName = model.LastName;
+                if (user.Employee != null)
+                {
+                    user.Employee.Salary = model.Salary ?? user.Employee.Salary;
+                    user.Employee.Position = model.Position ?? user.Employee.Position;
+                    if (User.IsInRole("admin"))
+                        user.Employee.Department = model.Department ?? user.Employee.Department;
+                }
+                _userManager.UpdateAsync(user).Wait();
+                return RedirectToAction("List");
             }
 
-            _userManager.UpdateAsync(user).Wait();
             return RedirectToAction("Profile", new { userId = user.Id });
+
         }
 
         [HttpGet]
         public IActionResult HireEmployee(string userId)
         {
-            var user =  _userManager.FindByIdAsync(userId).Result;
+            var user = _userManager.Users
+                .Include(u => u.Employee)
+                .FirstOrDefault(u => u.Id == userId);
+            //var user =  _userManager.FindByIdAsync(userId).Result;
             if (user == null)
             {
                 return NotFound("User not found");
             }
-
-            // Prevent hiring if already an employee
-            //var alreadyEmployee = _employeeRepository.AllEmployees.Any(e => e.ApplicationUserId == userId);
-            //if (alreadyEmployee)
-            //{
-            //    return RedirectToAction("AlreadyHired");
-            //}
+            
             if(user.Employee != null)
             {
                 return Forbid();
@@ -210,6 +259,14 @@ namespace ClientServerHR.Controllers
         [HttpPost]
         public IActionResult HireEmployee(Employee emp)
         {
+            if (!AllowedDepartments.Contains(emp.Department))
+            {
+                ModelState.AddModelError("Department", "Invalid department selected.");
+            }
+            if (!AllowedPositions.Contains(emp.Position))
+            {
+                ModelState.AddModelError("Department", "Invalid position selected.");
+            }
             if (!ModelState.IsValid)
             {
                 return View(emp);
