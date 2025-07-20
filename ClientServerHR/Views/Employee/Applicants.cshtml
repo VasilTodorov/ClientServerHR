@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ApplicationUser>
+
+@{
+    ViewData["Title"] = "Applicants";
+}
+
+<h2>Applicants</h2>
+
+<table class="table table-striped table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>Email</th>
+            @*<th>Salary</th>
+            <th>Department</th>*@
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var applicant in Model)
+        {
+            <tr>
+                <td>@applicant.Id</td>
+                <td>@applicant.FirstName</td>
+                <td>@applicant.LastName</td>
+                <td>@applicant.Email</td>
+                @*
+                <td>@emp.Salary.ToString("N2")</td>
+                                <td>
+                                    <a asp-controller="Employee"
+                                       asp-action="Department"
+                                       asp-route-department=@emp.Department
+                                       class="link">@emp.Department</a>
+                                </td>
+                *@
+                
+            </tr>
+        }
+    </tbody>
+</table>

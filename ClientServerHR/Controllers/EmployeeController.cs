@@ -17,11 +17,15 @@ namespace ClientServerHR.Controllers
         {
             _employeeRepository = employeeRepository;
             _userManager = userManager;
-        }
-
+        }        
         public IActionResult List()
         {
             return View(_employeeRepository.AllEmployees);
+        }
+        public IActionResult Applicants()
+        {
+            var applicants = _userManager.Users.Where(u => u.Employee == null).ToList();
+            return View(applicants);
         }
         public IActionResult Department(string? department)
         {
@@ -40,9 +44,17 @@ namespace ClientServerHR.Controllers
                 return NotFound();
             return View(employee);
         }
-        [Authorize]
+        public IActionResult NotRegistered()
+        {
+            return View();
+        }
+
         public IActionResult MyProfile()
-        {          
+        {
+            if (User.Identity?.IsAuthenticated!=true)
+            {
+                return RedirectToAction("NotRegistered", "Employee");
+            }
             var  userId = _userManager.GetUserId(User);
 
             ApplicationUser? user = _userManager.Users.Include(u => u.Employee).FirstOrDefault(u => u.Id == userId);
@@ -127,10 +139,17 @@ namespace ClientServerHR.Controllers
                     .FirstOrDefault(u => u.Id == currentUserId);
 
                 if (currentUser?.Employee?.Department != null && user.Employee?.Department != null)
-                    if(!(currentUser.Employee.Department == user.Employee.Department))
+                {
+                    if (currentUser.Employee.Department != user.Employee.Department)
                     {
                         return Forbid();
                     }
+                    else if(currentUser.Employee.Department == user.Employee.Department &&
+                            user.Employee.Department != model.Employee?.Department )
+                    {
+                        return Forbid();
+                    }
+                }
             }
 
             user.FirstName = model.FirstName;
@@ -168,7 +187,7 @@ namespace ClientServerHR.Controllers
         }
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction("MyProfile");
         }
     }
 }

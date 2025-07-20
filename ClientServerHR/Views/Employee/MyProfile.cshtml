@@ -46,11 +46,14 @@
                     <dd class="col-sm-9">N/A</dd>
                 }
 
-
-
             </dl>
-
+            
             @*<a asp-action="Index" asp-controller="Employee" class="btn btn-secondary mt-3">Back to List</a>*@
         </div>
     </div>
+    @if (!User.IsInRole("employee") && !User.IsInRole("manager") && !User.IsInRole("admin"))
+    {
+        <h2>Your registration is under review</h2>
+        <p>Waiting for HR approval.</p>
+    }
 </div>

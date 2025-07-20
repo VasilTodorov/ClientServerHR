@@ -56,6 +56,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Vasil/source/repos/C\#OOP/UKG/UKGClientServerMVC/ClientServerHR/ClientServerHR/Views/Employee/Applicants.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcQXBwbGljYW50cy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Vasil/source/repos/C\#OOP/UKG/UKGClientServerMVC/ClientServerHR/ClientServerHR/Views/Employee/Department.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcRGVwYXJ0bWVudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -80,16 +84,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcTXlQcm9maWxlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Vasil/source/repos/C\#OOP/UKG/UKGClientServerMVC/ClientServerHR/ClientServerHR/Views/Employee/NotRegistered.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcTm90UmVnaXN0ZXJlZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Vasil/source/repos/C\#OOP/UKG/UKGClientServerMVC/ClientServerHR/ClientServerHR/Views/Employee/Profile.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVcUHJvZmlsZS5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Vasil/source/repos/C\#OOP/UKG/UKGClientServerMVC/ClientServerHR/ClientServerHR/Views/Home/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Vasil/source/repos/C\#OOP/UKG/UKGClientServerMVC/ClientServerHR/ClientServerHR/Views/Home/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Vasil/source/repos/C\#OOP/UKG/UKGClientServerMVC/ClientServerHR/ClientServerHR/Views/Shared/Error.cshtml]
