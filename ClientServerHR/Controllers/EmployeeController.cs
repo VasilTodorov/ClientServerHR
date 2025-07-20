@@ -14,6 +14,8 @@ namespace ClientServerHR.Controllers
     {
         private readonly IEmployeeRepository _employeeRepository;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly ILogger<EmployeeController> _logger;
+
         private static readonly List<string> AllowedDepartments = new()
         {
             "HR", "IT", "Finance", "Sales", "Marketing"
@@ -23,10 +25,11 @@ namespace ClientServerHR.Controllers
             "Junior Dev", "Mid Dev", "Senior dev", "Devops" 
         };
 
-        public EmployeeController(IEmployeeRepository employeeRepository, UserManager<ApplicationUser> userManager)
+        public EmployeeController(IEmployeeRepository employeeRepository, UserManager<ApplicationUser> userManager, ILogger<EmployeeController> logger)
         {
             _employeeRepository = employeeRepository;
             _userManager = userManager;
+            _logger = logger;
         }
         [Authorize(Roles = "manager,admin")]
         public IActionResult List()
@@ -54,11 +57,10 @@ namespace ClientServerHR.Controllers
             }
             else
             {
+                _logger.LogInformation("EmployeeController.List called with invalid user id: {UserId}", userId);
                 return NotFound();
             }
 
-            //roles = _userManager.GetRolesAsync(User).;
-            //List<Employee> employees = _employeeRepository.AllEmployees.ToList();
             var model = new List<EmployeeWithRoleViewModel>();
 
             foreach (var emp in employees)
@@ -80,31 +82,15 @@ namespace ClientServerHR.Controllers
             var applicants = _userManager.Users.Where(u => u.Employee == null).ToList();
             return View(applicants);
         }
-        public IActionResult Department(string? department)
-        {
-            //string department = "Junior";
-            if (string.IsNullOrEmpty(department))
-            {
-                return NotFound("Department is required.");
-            }
-            DepartmentViewModel myDepartment = new DepartmentViewModel(_employeeRepository.GetAllEmployeesByDepartment(department), department);
-            return View(myDepartment);
-        }
-        public IActionResult Detail(int id)
-        {
-            var employee = _employeeRepository.GetEmployeeById(id);
-            if (employee == null)
-                return NotFound();
-            return View(employee);
-        }
+
         public IActionResult NotRegistered()
         {
             return View();
         }
-        [Authorize(Roles = "manager,admin")]
-        public IActionResult Delete(string? userId)
-        {
 
+        [Authorize(Roles = "manager,admin")]
+        public IActionResult Delete(string userId)
+        {
             var user = _userManager.Users
                 .Include(u => u.Employee)
                 .FirstOrDefault(u => u.Id == userId);
@@ -118,13 +104,14 @@ namespace ClientServerHR.Controllers
                 TempData["Message"] = "Employee deleted successfully.";
 
                 var result = _userManager.DeleteAsync(user).Result;
+
                 if (result.Succeeded)
                 {
+                    this._logger.LogInformation("EmployeeController.Delete {UserId} was deleted by {DeleterUserId}", userId, user.Id);
                     TempData["Message"] = "Employee deleted successfully.";
                     return RedirectToAction("List"); // Or wherever you list users
                 }
 
-                //TempData["Message"] = "Employee not deleted successfully.";
                 return RedirectToAction("List");
             }
             
@@ -135,7 +122,6 @@ namespace ClientServerHR.Controllers
                 return RedirectToAction("Applicants"); // Or wherever you list users
             }
 
-            //TempData["Message"] = "Applicant not deleted successfully.";
             return RedirectToAction("Applicants");
             
         }
@@ -150,7 +136,10 @@ namespace ClientServerHR.Controllers
             ApplicationUser? user = _userManager.Users.Include(u => u.Employee).FirstOrDefault(u => u.Id == userId);
 
             if (user == null)
+            {
+                _logger.LogInformation("EmployeeController.MyProfile called with invalid user id: {UserId}", userId);
                 return NotFound();
+            }
 
             return View(user);
         }
@@ -158,10 +147,6 @@ namespace ClientServerHR.Controllers
         [Authorize(Roles = "manager,admin")]
         public IActionResult Profile(string? userId)
         {
-
-            //if (userId == null)
-            //    userId = _userManager.GetUserId(User);
-
             var user = _userManager.Users
                 .Include(u => u.Employee)
                 .FirstOrDefault(u => u.Id == userId);
@@ -186,7 +171,11 @@ namespace ClientServerHR.Controllers
                 isEditable = true;
             }
             if (!isEditable)
+            {
+                _logger.LogInformation("EmployeeController.Profile called with invalid with no permissions user id: {UserId}", userId);
                 return Forbid();
+            }
+                
 
             var viewModel = new UserProfileEditViewModel
             {
@@ -228,6 +217,7 @@ namespace ClientServerHR.Controllers
 
             if (!User.IsInRole("manager") && !User.IsInRole("admin"))
             {
+                _logger.LogInformation("EmployeeController.Edit called with invalid with no permissions user id: {UserId}", user.Id);
                 return Forbid(); // 403 Forbidden
             }
 
@@ -277,7 +267,7 @@ namespace ClientServerHR.Controllers
             var user = _userManager.Users
                 .Include(u => u.Employee)
                 .FirstOrDefault(u => u.Id == userId);
-            //var user =  _userManager.FindByIdAsync(userId).Result;
+
             if (user == null)
             {
                 return NotFound("User not found");
@@ -294,8 +284,8 @@ namespace ClientServerHR.Controllers
             };
 
             return View(emp);
-            //return View();
         }
+
         [HttpPost]
         public IActionResult HireEmployee(Employee emp)
         {
@@ -329,7 +319,7 @@ namespace ClientServerHR.Controllers
                 var roleResult =  _userManager.AddToRoleAsync(user, "employee").Result;
                 if (!roleResult.Succeeded)
                 {
-                    // Optional: log or show error if needed
+                    this._logger.LogError("EmployeeController.HireEmployee called with invalid with no permissions user id: {UserId}", user.Id);
                     ModelState.AddModelError("", "Failed to assign employee role.");
                     return View(emp);
                 }
