@@ -44,7 +44,12 @@ A web-based Human Resources Management System built with **ASP.NET**. This proje
 ```bash
 dotnet ef database update
 ```
-2. Run Tests
+2. Run program on port 5182
+```bash
+dotnet run
+```
+
+3. Run Tests
 ```bash
 dotnet test
 ```
