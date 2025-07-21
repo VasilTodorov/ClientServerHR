@@ -288,7 +288,6 @@ C:\Users\Vasil\source\repos\C#OOP\UKG\UKGClientServerMVC\ClientServerHR\ClientSe
 C:\Users\Vasil\source\repos\C#OOP\UKG\UKGClientServerMVC\ClientServerHR\ClientServerHR\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.ClientServerHR.props
 C:\Users\Vasil\source\repos\C#OOP\UKG\UKGClientServerMVC\ClientServerHR\ClientServerHR\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.ClientServerHR.props
 C:\Users\Vasil\source\repos\C#OOP\UKG\UKGClientServerMVC\ClientServerHR\ClientServerHR\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\Vasil\source\repos\C#OOP\UKG\UKGClientServerMVC\ClientServerHR\ClientServerHR\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\Vasil\source\repos\C#OOP\UKG\UKGClientServerMVC\ClientServerHR\ClientServerHR\obj\Debug\net8.0\ClientSe.8BA40CB4.Up2Date
 C:\Users\Vasil\source\repos\C#OOP\UKG\UKGClientServerMVC\ClientServerHR\ClientServerHR\obj\Debug\net8.0\ClientServerHR.dll
 C:\Users\Vasil\source\repos\C#OOP\UKG\UKGClientServerMVC\ClientServerHR\ClientServerHR\obj\Debug\net8.0\refint\ClientServerHR.dll

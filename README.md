@@ -21,8 +21,12 @@ A web-based Human Resources Management System built with **ASP.NET**. This proje
 - Bootstrap 
 
 ## 📷 Screenshots
-
-> *(Insert screenshots here using the format below, if available)*
+### Applicants
+![](./Screenshots/Applicants.png)
+### Employees
+![](./Screenshots/HR_Employees.png)
+### Profile
+![](./Screenshots/MyProfile_admin.png)
 
 
 ## 🛠️ Getting Started
@@ -44,6 +48,8 @@ dotnet ef database update
 ```bash
 dotnet test
 ```
+
+3. Test user. You can use igrudev77@gmail.com, Test123!
 
 ## ➕ TODO
 1. Validate user mail
