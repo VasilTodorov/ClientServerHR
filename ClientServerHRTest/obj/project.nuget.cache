@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "FF2qPp58fhU=",
+  "dgSpecHash": "uyjgo0OU8O4=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Vasil\\source\\repos\\C#OOP\\UKG\\UKGClientServerMVC\\ClientServerHR\\ClientServerHRTest\\ClientServerHRTest.csproj",
+  "projectFilePath": "D:\\workspace\\C#OOP\\Projects\\ClientServerHR\\ClientServerHRTest\\ClientServerHRTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Vasil\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Vasil\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
