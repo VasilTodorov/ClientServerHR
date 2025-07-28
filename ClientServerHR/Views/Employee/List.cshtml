@@ -12,8 +12,7 @@
     <thead class="table-dark">
         <tr>
             <th>Id</th>
-            <th>FirstName</th>
-            <th>LastName</th>
+            <th>Name</th>            
             <th>Email</th>
             <th>Position</th>
             <th>Salary</th>
@@ -32,8 +31,7 @@
                        class="link">@view.Employee.EmployeeId</a>*@
                     @view.Employee.EmployeeId
                 </td>
-                <td>@view.Employee.ApplicationUser.FirstName</td>
-                <td>@view.Employee.ApplicationUser.LastName</td>
+                <td>@view.Employee.ApplicationUser.FirstName @view.Employee.ApplicationUser.LastName</td>                
                 <td>@view.Employee.ApplicationUser.Email</td>
                 <td>@view.Employee.Position</td>
                 <td>@view.Employee.Salary.ToString("N2")</td>

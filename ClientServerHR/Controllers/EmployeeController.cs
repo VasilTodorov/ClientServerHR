@@ -243,8 +243,8 @@ namespace ClientServerHR.Controllers
             }
             if (ModelState.IsValid)
             { 
-                user.FirstName = model.FirstName;
-                user.LastName = model.LastName;
+                //user.FirstName = model.FirstName;
+                //user.LastName = model.LastName;
                 if (user.Employee != null)
                 {
                     user.Employee.Salary = model.Salary ?? user.Employee.Salary;
