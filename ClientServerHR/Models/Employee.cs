@@ -20,10 +20,12 @@ namespace ClientServerHR.Models
         [Precision(18, 2)]
         public decimal Salary { get; set; }
 
-        [Required(ErrorMessage = "Department is required")]
-        [StringLength(50)]
-        public string Department { get; set; } = string.Empty;
+        //[Required(ErrorMessage = "Department is required")]
+        //[StringLength(50)]
+        //public string Department { get; set; } = string.Empty;
 
+        public int DepartmentId { get; set; }
+        public Department Department { get; set; } = default!;
         public string ApplicationUserId { get; set; } = string.Empty;
         
         [BindNever]
