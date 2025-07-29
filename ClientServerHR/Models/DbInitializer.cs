@@ -35,6 +35,10 @@ namespace ClientServerHR.Models
             }
 
             // 2. Seed users + employees (only if none exist)
+            if(!context.Departments.Any())
+            {
+                context.Departments.AddRange(Departments.Select(c => c.Value));
+            }
             if (!context.Users.Any())
             {
                 CreateUserWithEmployee(userManager, context,

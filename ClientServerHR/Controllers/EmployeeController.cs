@@ -17,10 +17,10 @@ namespace ClientServerHR.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<EmployeeController> _logger;
 
-        private static readonly List<string> AllowedDepartments = new()
-        {
-            "HR", "IT", "Finance", "Sales", "Marketing"
-        };
+        //private static readonly List<string> AllowedDepartments = new()
+        //{
+        //    "HR", "IT", "Finance", "Sales", "Marketing"
+        //};
         private static readonly List<string> AllowedPositions = new()
         {
             "Junior Dev", "Mid Dev", "Senior dev", "Devops" 
@@ -178,7 +178,7 @@ namespace ClientServerHR.Controllers
                 _logger.LogInformation("EmployeeController.Profile called with invalid with no permissions user id: {UserId}", userId);
                 return Forbid();
             }
-                
+
 
             var viewModel = new UserProfileEditViewModel
             {
@@ -188,7 +188,8 @@ namespace ClientServerHR.Controllers
                 Email = user.Email!,
                 Position = user.Employee?.Position,
                 Salary = user.Employee?.Salary,
-                DepartmentName = user.Employee?.Department.Name
+                DepartmentName = user.Employee?.Department.Name,
+                Departments = _departmentRepository.AllDepartments.ToList()
             };
 
             ViewData["IsEditable"] = isEditable;
@@ -202,7 +203,7 @@ namespace ClientServerHR.Controllers
         public IActionResult Edit(UserProfileEditViewModel model)
         {
             if(model.DepartmentName==null) ModelState.AddModelError("Department", "Department cant be null");
-            if (!AllowedDepartments.Contains(model.DepartmentName!))
+            if (!_departmentRepository.AllDepartments.Select(d => d.Name).Contains(model.DepartmentName))
             {
                 ModelState.AddModelError("Department", "Invalid department selected.");
             }
@@ -254,7 +255,7 @@ namespace ClientServerHR.Controllers
                     user.Employee.Position = model.Position ?? user.Employee.Position;
                     if (User.IsInRole("admin"))
                     {
-                        var modelDepartment = _departmentRepository.GetDepartmentByName(user.Employee.Department.Name);
+                        var modelDepartment = _departmentRepository.GetDepartmentByName(model.DepartmentName!);
                         user.Employee.Department = modelDepartment ?? user.Employee.Department;
                     }
                         
@@ -285,56 +286,78 @@ namespace ClientServerHR.Controllers
                 return Forbid();
             }
 
-            var emp = new Employee
-            {
-                ApplicationUserId = userId
-            };
+            //var emp = new Employee
+            //{
+            //    ApplicationUserId = userId
+            //};
 
+            var emp = new HireEmployeeViewModel
+            {
+                ApplicationUserId = userId,
+                Departments = _departmentRepository.AllDepartments.ToList()
+            };
             return View(emp);
         }
 
         [HttpPost]
-        public IActionResult HireEmployee(Employee emp)
+        [Authorize(Roles = "manager,admin")]
+        public IActionResult HireEmployee(HireEmployeeViewModel emp)
         {
-            if (!AllowedDepartments.Contains(emp.Department.Name))
+            if (emp.DepartmentName == null) ModelState.AddModelError("Department", "Department cant be null");
+            if (!_departmentRepository.AllDepartments.Select(d=>d.Name).Contains(emp.DepartmentName))
             {
                 ModelState.AddModelError("Department", "Invalid department selected.");
             }
-            if (!AllowedPositions.Contains(emp.Position))
+            if (!AllowedPositions.Contains(emp.Position ?? ""))
             {
                 ModelState.AddModelError("Department", "Invalid position selected.");
             }
-            if (!ModelState.IsValid)
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(emp);
+            //}
+            
+            if(ModelState.IsValid)
             {
-                return View(emp);
-            }
-            var user = _userManager.FindByIdAsync(emp.ApplicationUserId).Result;
-            if (user == null)
-            {
-                return NotFound("User not found");
-            }
-            if (user.Employee != null)
-            {
-                return Forbid();
-            }
-                         
-            _employeeRepository.AddEmployee(emp);
-
-            bool isInRole =  _userManager.IsInRoleAsync(user, "employee").Result;
-            if (!isInRole)
-            {
-                var roleResult =  _userManager.AddToRoleAsync(user, "employee").Result;
-                if (!roleResult.Succeeded)
+                var user = _userManager.FindByIdAsync(emp.ApplicationUserId!).Result;
+                if (user == null)
                 {
-                    this._logger.LogError("EmployeeController.HireEmployee called with invalid with no permissions user id: {UserId}", user.Id);
-                    ModelState.AddModelError("", "Failed to assign employee role.");
-                    return View(emp);
+                    return NotFound("User not found");
                 }
-            }
+                if (user.Employee != null)
+                {
+                    return Forbid();
+                }
+                var newEmployee = new Employee
+                {
+                    ApplicationUserId = emp.ApplicationUserId!,// TODO check for ApplicationUserId
+                    Position = emp.Position!,
+                    Salary = (decimal)emp.Salary!,
+                    Department = _departmentRepository.GetDepartmentByName(emp.DepartmentName!)!
+                    
+                };
+                _employeeRepository.AddEmployee(newEmployee);
 
-            return RedirectToAction("Applicants");
-            
-            
+                bool isInRole = _userManager.IsInRoleAsync(user, "employee").Result;
+                if (!isInRole)
+                {
+                    var roleResult =  _userManager.AddToRoleAsync(user, "employee").Result;
+                    if (!roleResult.Succeeded)
+                    {
+                        this._logger.LogError("EmployeeController.HireEmployee called with invalid with no permissions user id: {UserId}", user.Id);
+                        ModelState.AddModelError("", "Failed to assign employee role.");
+                        return View(emp);
+                    }
+                }
+
+                return RedirectToAction("Applicants");
+            }
+            else
+            {
+                emp.Departments = _departmentRepository.AllDepartments.ToList();
+                return View(emp); 
+            }
+                                 
         }
 
         public IActionResult HireComplete()

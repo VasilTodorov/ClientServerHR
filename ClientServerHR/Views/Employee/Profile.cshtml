@@ -1,6 +1,6 @@
 ﻿@model UserProfileEditViewModel
 @{
-    var departments = new List<string> { "HR", "IT", "Finance", "Marketing" };
+    //var departments = new List<string> { "HR", "IT", "Finance", "Marketing" };
     var positions = new List<string> { "Junior Dev", "Mid Dev", "Senior dev", "Devops" };
     ViewData["Title"] = "User Profile";    
     bool isEditable = (ViewData["IsEditable"] as bool?) ?? false;
@@ -83,9 +83,9 @@
             {
                  <select asp-for="DepartmentName" class="form-control">
                     <option value="">-- Select Department --</option>
-                    @foreach (var dept in departments)
+                    @foreach (var dept in Model.Departments)
                     {
-                        <option value="@dept">@dept</option>
+                        <option value="@dept.Name">@dept.Name</option>
                     }
                 </select>
             }

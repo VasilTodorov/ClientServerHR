@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ClientServerHR.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClientServerHR.ViewModels
 {
@@ -28,6 +31,10 @@ namespace ClientServerHR.ViewModels
 
         [StringLength(50)]
         public string? DepartmentName { get; set; }
+
+        [BindNever]
+        [ValidateNever]
+        public List<Department> Departments { get; set; }
     }
 
 }
