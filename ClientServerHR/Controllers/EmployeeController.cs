@@ -294,6 +294,7 @@ namespace ClientServerHR.Controllers
             var emp = new HireEmployeeViewModel
             {
                 ApplicationUserId = userId,
+                Salary = 0m,
                 Departments = _departmentRepository.AllDepartments.ToList()
             };
             return View(emp);

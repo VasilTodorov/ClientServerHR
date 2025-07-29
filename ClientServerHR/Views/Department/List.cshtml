@@ -1,0 +1,21 @@
+﻿@model List<string>
+
+@{
+    ViewData["Title"] = "Departments";
+}
+
+<h1>Departments</h1>
+
+@if (Model != null && Model.Any())
+{
+    <ul>
+        @foreach (var name in Model)
+        {
+            <li>@name</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No departments found.</p>
+}
