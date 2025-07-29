@@ -13,12 +13,14 @@ namespace ClientServerHR.Tests
     public class EmployeeControllerTests
     {
         private Mock<IEmployeeRepository> _employeeRepoMock;
+        private Mock<IDepartmentRepository> _departmentRepoMock;
         private Mock<UserManager<ApplicationUser>> _userManagerMock;
         private Mock<ILogger<EmployeeController>> _loggerMock;
 
         public EmployeeControllerTests()
         {
             _employeeRepoMock = new Mock<IEmployeeRepository>();
+            _departmentRepoMock = new Mock<IDepartmentRepository>();
 
             var store = new Mock<IUserStore<ApplicationUser>>();
             _userManagerMock = new Mock<UserManager<ApplicationUser>>(
@@ -32,6 +34,7 @@ namespace ClientServerHR.Tests
         {
             var controller = new EmployeeController(
                 _employeeRepoMock.Object,
+                _departmentRepoMock.Object,
                 _userManagerMock.Object,
                 _loggerMock.Object
             );

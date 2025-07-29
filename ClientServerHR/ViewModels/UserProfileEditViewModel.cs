@@ -27,7 +27,7 @@ namespace ClientServerHR.ViewModels
         public decimal? Salary { get; set; }
 
         [StringLength(50)]
-        public string? Department { get; set; }
+        public string? DepartmentName { get; set; }
     }
 
 }

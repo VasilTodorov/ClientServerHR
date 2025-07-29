@@ -18,6 +18,11 @@ namespace ClientServerHR.Models
                 return _clientServerHRDbContext.Departments;
             }
         }
+        public Department? GetDepartmentById(int departmentId)
+        {
+            var result = _clientServerHRDbContext.Departments.FirstOrDefault(d => d.DepartmentId == departmentId);
+            return result;
+        }
 
         public void AddDepartment(Department department)
         {
@@ -35,15 +40,16 @@ namespace ClientServerHR.Models
             }
         }
 
-        public Department? GetDepartmentById(int departmentId)
-        {
-            var result = _clientServerHRDbContext.Departments.FirstOrDefault(d=> d.DepartmentId == departmentId);            
-            return result;
-        }
-
         public void Update(Department department)
         {
-            throw new NotImplementedException();
+            _clientServerHRDbContext.Departments.Update(department);
+            _clientServerHRDbContext.SaveChanges();
+        }
+
+        public Department? GetDepartmentByName(string departmentName)
+        {
+            var result = _clientServerHRDbContext.Departments.FirstOrDefault(d => d.Name == departmentName);
+            return result;
         }
     }
 }

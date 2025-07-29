@@ -4,6 +4,7 @@
     {
         IEnumerable<Department> AllDepartments { get; }
         Department? GetDepartmentById(int departmentId);
+        Department? GetDepartmentByName(string departmentName);
 
         public void AddDepartment(Department department);
 

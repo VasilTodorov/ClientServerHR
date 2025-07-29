@@ -13,6 +13,7 @@ namespace ClientServerHR.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IDepartmentRepository _departmentRepository;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<EmployeeController> _logger;
 
@@ -25,9 +26,10 @@ namespace ClientServerHR.Controllers
             "Junior Dev", "Mid Dev", "Senior dev", "Devops" 
         };
 
-        public EmployeeController(IEmployeeRepository employeeRepository, UserManager<ApplicationUser> userManager, ILogger<EmployeeController> logger)
+        public EmployeeController(IEmployeeRepository employeeRepository, IDepartmentRepository departmentRepository, UserManager<ApplicationUser> userManager, ILogger<EmployeeController> logger)
         {
             _employeeRepository = employeeRepository;
+            _departmentRepository = departmentRepository;
             _userManager = userManager;
             _logger = logger;
         }
@@ -133,7 +135,7 @@ namespace ClientServerHR.Controllers
             }
             var  userId = _userManager.GetUserId(User);
 
-            ApplicationUser? user = _userManager.Users.Include(u => u.Employee).FirstOrDefault(u => u.Id == userId);
+            ApplicationUser? user = _userManager.Users.Include(u => u.Employee).ThenInclude(e=>e.Department).FirstOrDefault(u => u.Id == userId);
 
             if (user == null)
             {
@@ -149,6 +151,7 @@ namespace ClientServerHR.Controllers
         {
             var user = _userManager.Users
                 .Include(u => u.Employee)
+                .ThenInclude(e => e.Department)
                 .FirstOrDefault(u => u.Id == userId);
 
             if (user == null)
@@ -185,7 +188,7 @@ namespace ClientServerHR.Controllers
                 Email = user.Email!,
                 Position = user.Employee?.Position,
                 Salary = user.Employee?.Salary,
-                Department = user.Employee?.Department
+                DepartmentName = user.Employee?.Department.Name
             };
 
             ViewData["IsEditable"] = isEditable;
@@ -198,8 +201,8 @@ namespace ClientServerHR.Controllers
         [Authorize(Roles = "manager,admin")]
         public IActionResult Edit(UserProfileEditViewModel model)
         {
-            if(model.Department==null) ModelState.AddModelError("Department", "Department cant be null");
-            if (!AllowedDepartments.Contains(model.Department!))
+            if(model.DepartmentName==null) ModelState.AddModelError("Department", "Department cant be null");
+            if (!AllowedDepartments.Contains(model.DepartmentName!))
             {
                 ModelState.AddModelError("Department", "Invalid department selected.");
             }
@@ -207,7 +210,7 @@ namespace ClientServerHR.Controllers
             {
                 ModelState.AddModelError("Department", "Invalid position selected.");
             }
-            var user = _userManager.Users.Include(u => u.Employee)
+            var user = _userManager.Users.Include(u => u.Employee).ThenInclude(e=>e.Department)
                 .FirstOrDefault(u => u.Id == model.Id);
 
             if (user == null) return NotFound();
@@ -225,7 +228,7 @@ namespace ClientServerHR.Controllers
             {
                 //var currentUserId = _userManager.GetUserId(User);
                 var currentUser = _userManager.Users
-                    .Include(u => u.Employee)
+                    .Include(u => u.Employee).ThenInclude(e => e.Department)
                     .FirstOrDefault(u => u.Id == currentUserId);
 
                 if (currentUser?.Employee?.Department != null && user.Employee?.Department != null)
@@ -235,7 +238,7 @@ namespace ClientServerHR.Controllers
                         return Forbid();
                     }
                     else if(currentUser.Employee.Department == user.Employee.Department &&
-                            user.Employee.Department != model.Department )
+                            user.Employee.Department.Name != model.DepartmentName )
                     {
                         return Forbid();
                     }
@@ -250,7 +253,11 @@ namespace ClientServerHR.Controllers
                     user.Employee.Salary = model.Salary ?? user.Employee.Salary;
                     user.Employee.Position = model.Position ?? user.Employee.Position;
                     if (User.IsInRole("admin"))
-                        user.Employee.Department = model.Department ?? user.Employee.Department;
+                    {
+                        var modelDepartment = _departmentRepository.GetDepartmentByName(user.Employee.Department.Name);
+                        user.Employee.Department = modelDepartment ?? user.Employee.Department;
+                    }
+                        
                 }
                 _userManager.UpdateAsync(user).Wait();
                 return RedirectToAction("List");
@@ -289,7 +296,7 @@ namespace ClientServerHR.Controllers
         [HttpPost]
         public IActionResult HireEmployee(Employee emp)
         {
-            if (!AllowedDepartments.Contains(emp.Department))
+            if (!AllowedDepartments.Contains(emp.Department.Name))
             {
                 ModelState.AddModelError("Department", "Invalid department selected.");
             }

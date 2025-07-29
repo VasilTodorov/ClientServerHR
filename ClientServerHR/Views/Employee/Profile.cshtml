@@ -81,7 +81,7 @@
         <dd class="col-sm-9">
             @if (isEditable && User.IsInRole("admin"))
             {
-                 <select asp-for="Department" class="form-control">
+                 <select asp-for="DepartmentName" class="form-control">
                     <option value="">-- Select Department --</option>
                     @foreach (var dept in departments)
                     {
@@ -91,8 +91,8 @@
             }
             else
             {
-                <input asp-for="Department" class="form-control" type="hidden"/>
-                @(Model.Department ?? "N/A")
+                <input asp-for="DepartmentName" class="form-control" type="hidden"/>
+                @(Model.DepartmentName ?? "N/A")
             }
         </dd>
     </dl>

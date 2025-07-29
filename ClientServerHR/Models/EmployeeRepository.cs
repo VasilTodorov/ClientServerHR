@@ -16,13 +16,13 @@ namespace ClientServerHR.Models
         {
             get
             {
-                return _clientServerHRDbContext.Employees.Include(e=>e.ApplicationUser);
+                return _clientServerHRDbContext.Employees.Include(e=>e.ApplicationUser).Include(e=>e.Department);
             }
         }
-        public IEnumerable<Employee> GetAllEmployeesByDepartment(string department)
-        {
-            return _clientServerHRDbContext.Employees.Where(p => p.Department == department).Include(e => e.ApplicationUser);
-        }
+        //public IEnumerable<Employee> GetAllEmployeesByDepartment(string department)
+        //{
+        //    return _clientServerHRDbContext.Employees.Where(p => p.Department == department).Include(e => e.ApplicationUser);
+        //}
         public Employee? GetEmployeeById(int employeeId)
         {
             return _clientServerHRDbContext.Employees.Include(e=>e.ApplicationUser).FirstOrDefault(p => p.EmployeeId == employeeId);
