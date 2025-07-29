@@ -355,3 +355,9 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+
+# Ignore Visual Studio and build folders
+.vs/
+ClientServerHR/bin/
+ClientServerHR/obj/
+ClientServerHRTest/obj/
