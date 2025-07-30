@@ -25,6 +25,12 @@
     {
         <p>No departments found.</p>
     }
+
+    <a asp-controller="Department"
+       asp-action="Create"
+       class="btn btn-sm btn-success">
+        ➕ Create Department
+    </a>
 }
 else if (User.IsInRole("manager"))
 {

@@ -210,14 +210,14 @@ namespace ClientServerHR.Controllers
         [Authorize(Roles = "manager,admin")]
         public IActionResult Edit(UserProfileEditViewModel model)
         {
-            if(model.DepartmentName==null) ModelState.AddModelError("Department", "Department cant be null");
+            if(model.DepartmentName==null) ModelState.AddModelError("DepartmentName", "Department cant be null");
             if (!_departmentRepository.AllDepartments.Select(d => d.Name).Contains(model.DepartmentName))
             {
-                ModelState.AddModelError("Department", "Invalid department selected.");
+                ModelState.AddModelError("DepartmentName", "Invalid department selected.");
             }
             if (!AllowedPositions.Contains(model.Position!))
             {
-                ModelState.AddModelError("Department", "Invalid position selected.");
+                ModelState.AddModelError("DepartmentName", "Invalid position selected.");
             }
             var user = _userManager.Users.Include(u => u.Employee).ThenInclude(e=>e.Department)
                 .FirstOrDefault(u => u.Id == model.Id);
@@ -312,19 +312,15 @@ namespace ClientServerHR.Controllers
         [Authorize(Roles = "manager,admin")]
         public IActionResult HireEmployee(HireEmployeeViewModel emp)
         {
-            if (emp.DepartmentName == null) ModelState.AddModelError("Department", "Department cant be null");
+            if (emp.DepartmentName == null) ModelState.AddModelError("DepartmentName", "Department cant be null");
             if (!_departmentRepository.AllDepartments.Select(d=>d.Name).Contains(emp.DepartmentName))
             {
-                ModelState.AddModelError("Department", "Invalid department selected.");
+                ModelState.AddModelError("DepartmentName", "Invalid department selected.");
             }
             if (!AllowedPositions.Contains(emp.Position ?? ""))
             {
-                ModelState.AddModelError("Department", "Invalid position selected.");
-            }
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(emp);
-            //}
+                ModelState.AddModelError("DepartmentName", "Invalid position selected.");
+            }           
             
             if(ModelState.IsValid)
             {
@@ -339,7 +335,7 @@ namespace ClientServerHR.Controllers
                 }
                 var newEmployee = new Employee
                 {
-                    ApplicationUserId = emp.ApplicationUserId!,// TODO check for ApplicationUserId
+                    ApplicationUserId = emp.ApplicationUserId!,
                     Position = emp.Position!,
                     Salary = (decimal)emp.Salary!,
                     Department = _departmentRepository.GetDepartmentByName(emp.DepartmentName!)!
