@@ -5,22 +5,43 @@
 }
 
 <h1>Departments</h1>
+@if (User.IsInRole("admin"))
+{
+    @if (Model != null && Model.Any())
+    {
+        <ul>
+            @foreach (var department in Model)
+            {
+                <li>                    
+                    <a asp-controller="Employee"
+                        asp-action="List"
+                        asp-route-departmentId=@department.DepartmentId
+                    class="link">@department.Name</a>                                        
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No departments found.</p>
+    }
+}
+else if (User.IsInRole("manager"))
+{
+    @if (Model != null && Model.Any())
+    {
+        <ul>
+            @foreach (var department in Model)
+            {
+                <li>                    
+                      @department.Name
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>No departments found.</p>
+    }
+}
 
-@if (Model != null && Model.Any())
-{
-    <ul>
-        @foreach (var department in Model)
-        {
-            <li>
-                <a asp-controller="Employee"
-                   asp-action="List"
-                   asp-route-departmentId=@department.DepartmentId
-                   class="link">@department.Name</a>
-            </li>
-        }
-    </ul>
-}
-else
-{
-    <p>No departments found.</p>
-}
