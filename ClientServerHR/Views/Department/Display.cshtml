@@ -1,12 +1,13 @@
-﻿@model List<EmployeeWithRoleViewModel>
+﻿@model DepartmentWithRoleViewModel
 @{
     ViewData["Title"] = "Employee List";
-    TempData["Controller"] = "Employee";
-    TempData["Action"] = "List";
-    TempData["ByDepartment"] = false;
+    TempData["Controller"] = "Department";
+    TempData["Action"] = "Display";
+    TempData["id"] = Model.DepartmentId;
+    TempData["ByDepartment"] = true;
 }
 
-<h2>Employees</h2>
+<h2>Department: @Model.DepartmentName</h2>
 @if (TempData["Message"] != null)
 {
     <div class="alert alert-success">@TempData["Message"]</div>
@@ -15,7 +16,7 @@
     <thead class="table-dark">
         <tr>
             <th>Id</th>
-            <th>Name</th>            
+            <th>Name</th>
             <th>Email</th>
             <th>Position</th>
             <th>Salary</th>
@@ -24,27 +25,15 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var view in Model)
+        @foreach (var view in Model.Employees)
         {
             <tr>
-                <td>
-                    @*<a asp-controller="Employee"
-                       asp-action="Detail"
-                       asp-route-id=@view.Employee.EmployeeId
-                       class="link">@view.Employee.EmployeeId</a>*@
-                    @view.Employee.EmployeeId
-                </td>
-                <td>@view.Employee.ApplicationUser.FirstName @view.Employee.ApplicationUser.LastName</td>                
+                <td>@view.Employee.EmployeeId</td>
+                <td>@view.Employee.ApplicationUser.FirstName @view.Employee.ApplicationUser.LastName</td>
                 <td>@view.Employee.ApplicationUser.Email</td>
                 <td>@view.Employee.Position</td>
                 <td>@view.Employee.Salary.ToString("N2")</td>
-                <td>
-                    @*<a asp-controller="Employee"
-                       asp-action="Department"
-                       asp-route-department=@view.Employee.Department
-                       class="link">@view.Employee.Department</a>*@
-                    @view.Employee.Department.Name
-                </td>
+                <td>@view.Employee.Department.Name</td>
                 <td>@string.Join(", ", view.Roles)</td>
                 <td>
                     <a asp-controller="Employee"
@@ -64,8 +53,6 @@
         }
     </tbody>
 </table>
-@*<div class="text-center mt-4">
-    <a asp-controller="Employee" asp-action="HireEmployee" class="btn btn-success btn-lg">
-        ➕ Create New Employee
-    </a>
-</div>*@
+
+
+

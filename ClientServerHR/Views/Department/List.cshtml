@@ -1,7 +1,7 @@
 ﻿@model List<Department>
 
 @{
-    ViewData["Title"] = "Departments";
+    ViewData["Title"] = "Departments";   
 }
 
 <h1>Departments</h1>
@@ -13,8 +13,8 @@
             @foreach (var department in Model)
             {
                 <li>                    
-                    <a asp-controller="Employee"
-                        asp-action="List"
+                    <a asp-controller="Department"
+                        asp-action="Display"
                         asp-route-departmentId=@department.DepartmentId
                     class="link">@department.Name</a>                                        
                 </li>

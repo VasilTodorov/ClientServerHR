@@ -269,7 +269,16 @@ namespace ClientServerHR.Controllers
                         
                 }
                 _userManager.UpdateAsync(user).Wait();
-                return RedirectToAction("List");
+                if (TempData["ByDepartment"] is bool byDept && byDept &&
+                TempData["id"] is int departmentId)
+                {
+                    return RedirectToAction("Display", "Department", new { departmentId });
+                }
+                else
+                {
+                    return RedirectToAction("List");
+                }
+
             }
 
             return RedirectToAction("Profile", new { userId = user.Id });
@@ -312,7 +321,7 @@ namespace ClientServerHR.Controllers
         [Authorize(Roles = "manager,admin")]
         public IActionResult HireEmployee(HireEmployeeViewModel emp)
         {
-            if (emp.DepartmentName == null) ModelState.AddModelError("DepartmentName", "Department cant be null");
+            if (emp.DepartmentName == null) ModelState.AddModelError("DepartmentName", "Department Name cant be null");
             if (!_departmentRepository.AllDepartments.Select(d=>d.Name).Contains(emp.DepartmentName))
             {
                 ModelState.AddModelError("DepartmentName", "Invalid department selected.");

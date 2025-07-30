@@ -35,6 +35,7 @@ namespace ClientServerHR.ViewModels
         [BindNever]
         [ValidateNever]
         public List<Department> Departments { get; set; } = default!;
+
     }
 
 }

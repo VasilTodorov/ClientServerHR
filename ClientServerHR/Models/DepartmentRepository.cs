@@ -20,7 +20,7 @@ namespace ClientServerHR.Models
         }
         public Department? GetDepartmentById(int departmentId)
         {
-            var result = _clientServerHRDbContext.Departments.FirstOrDefault(d => d.DepartmentId == departmentId);
+            var result = _clientServerHRDbContext.Departments.Include(d=>d.Employees)!.ThenInclude(e=>e.ApplicationUser).FirstOrDefault(d => d.DepartmentId == departmentId);
             return result;
         }
 
@@ -48,7 +48,7 @@ namespace ClientServerHR.Models
 
         public Department? GetDepartmentByName(string departmentName)
         {
-            var result = _clientServerHRDbContext.Departments.FirstOrDefault(d => d.Name == departmentName);
+            var result = _clientServerHRDbContext.Departments.Include(d => d.Employees).FirstOrDefault(d => d.Name == departmentName);
             return result;
         }
     }

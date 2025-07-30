@@ -16,11 +16,35 @@ namespace ClientServerHR.Controllers
             _departmentRepository = departmentRepository;
             _userManager = userManager;           
         }
+
         [Authorize(Roles = "manager,admin")]
         public IActionResult List()
         {
             var list = _departmentRepository.AllDepartments.ToList() ;
             return View(list);
+        }
+        public IActionResult Display(int departmentId)
+        {
+            var department = _departmentRepository.GetDepartmentById(departmentId);
+            if(department == null)
+            {
+                return NotFound();
+            }
+            var employees = department.Employees;
+            var model = new DepartmentWithRoleViewModel();
+            
+            foreach (var emp in employees!)
+            {
+                var roles = _userManager.GetRolesAsync(emp.ApplicationUser).Result;
+                model.Employees.Add(new EmployeeWithRoleViewModel
+                {
+                    Employee = emp,
+                    Roles = roles.ToList()
+                });
+            }
+            model.DepartmentName = department.Name;
+            model.DepartmentId = departmentId;
+            return View(model);
         }
         [HttpGet]
         [Authorize(Roles = "admin")]
