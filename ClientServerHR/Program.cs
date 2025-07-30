@@ -9,6 +9,7 @@ var connectionString = builder.Configuration.GetConnectionString("ClientServerHR
 
 // Add services to the container.
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

@@ -1,6 +1,6 @@
 ﻿@model UserProfileEditViewModel
 @{
-    var departments = new List<string> { "HR", "IT", "Finance", "Marketing" };
+    //var departments = new List<string> { "HR", "IT", "Finance", "Marketing" };
     var positions = new List<string> { "Junior Dev", "Mid Dev", "Senior dev", "Devops" };
     ViewData["Title"] = "User Profile";    
     bool isEditable = (ViewData["IsEditable"] as bool?) ?? false;
@@ -10,7 +10,7 @@
 
 <form asp-action="Edit" method="post">
     <input type="hidden" asp-for="Id" />
-
+    <input type="hidden" asp-for="ViewDepartmentId" />
     <dl class="row">
         <dt class="col-sm-3">First Name</dt>
         <dd class="col-sm-9">
@@ -81,18 +81,18 @@
         <dd class="col-sm-9">
             @if (isEditable && User.IsInRole("admin"))
             {
-                 <select asp-for="Department" class="form-control">
+                 <select asp-for="DepartmentName" class="form-control">
                     <option value="">-- Select Department --</option>
-                    @foreach (var dept in departments)
+                    @foreach (var dept in Model.Departments)
                     {
-                        <option value="@dept">@dept</option>
+                        <option value="@dept.Name">@dept.Name</option>
                     }
                 </select>
             }
             else
             {
-                <input asp-for="Department" class="form-control" type="hidden"/>
-                @(Model.Department ?? "N/A")
+                <input asp-for="DepartmentName" class="form-control" type="hidden"/>
+                @(Model.DepartmentName ?? "N/A")
             }
         </dd>
     </dl>

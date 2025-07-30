@@ -29,7 +29,7 @@
                 <dd class="col-sm-9">@(Model.Employee == null ? "N/A" : "$" + Model.Employee.Salary.ToString("N2"))</dd>
 
                 <dt class="col-sm-3">Department</dt>
-                <dd class="col-sm-9">@(Model.Employee == null ? "N/A" : Model.Employee.Department)</dd>
+                <dd class="col-sm-9">@(Model.Employee == null ? "N/A" : Model.Employee.Department.Name)</dd>
 
                 <dt class="col-sm-3">Role</dt>
                 @if (User.IsInRole("employee"))

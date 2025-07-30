@@ -1,0 +1,13 @@
+﻿@model DepartmentViewModel
+<form asp-action="Create" method="post" role="form">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <span asp-validation-for="DepartmentName" class="text-danger"></span>
+
+    <div class="form-group">
+        <label asp-for="DepartmentName"></label>
+        <input asp-for="DepartmentName" class="form-control" />
+    </div>   
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

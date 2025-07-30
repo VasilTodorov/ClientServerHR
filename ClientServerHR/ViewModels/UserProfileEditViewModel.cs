@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using ClientServerHR.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClientServerHR.ViewModels
 {
@@ -27,7 +30,15 @@ namespace ClientServerHR.ViewModels
         public decimal? Salary { get; set; }
 
         [StringLength(50)]
-        public string? Department { get; set; }
+        public string? DepartmentName { get; set; }
+
+        [BindNever]
+        [ValidateNever]
+        public List<Department> Departments { get; set; } = default!;
+
+        
+        [ValidateNever]
+        public int? ViewDepartmentId { get; set; }
     }
 
 }

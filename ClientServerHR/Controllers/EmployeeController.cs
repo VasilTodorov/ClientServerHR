@@ -13,46 +13,69 @@ namespace ClientServerHR.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly IDepartmentRepository _departmentRepository;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<EmployeeController> _logger;
 
-        private static readonly List<string> AllowedDepartments = new()
-        {
-            "HR", "IT", "Finance", "Sales", "Marketing"
-        };
+        //private static readonly List<string> AllowedDepartments = new()
+        //{
+        //    "HR", "IT", "Finance", "Sales", "Marketing"
+        //};
         private static readonly List<string> AllowedPositions = new()
         {
             "Junior Dev", "Mid Dev", "Senior dev", "Devops" 
         };
 
-        public EmployeeController(IEmployeeRepository employeeRepository, UserManager<ApplicationUser> userManager, ILogger<EmployeeController> logger)
+        public EmployeeController(IEmployeeRepository employeeRepository, IDepartmentRepository departmentRepository, UserManager<ApplicationUser> userManager, ILogger<EmployeeController> logger)
         {
             _employeeRepository = employeeRepository;
+            _departmentRepository = departmentRepository;
             _userManager = userManager;
             _logger = logger;
         }
         [Authorize(Roles = "manager,admin")]
-        public IActionResult List()
+        public IActionResult List(int? departmentId)
         {
             List<Employee> employees;
+            var model = new DepartmentWithRoleViewModel();
             var userId = _userManager.GetUserId(User);
             if (userId != null)
             {
                 var user = _userManager.Users
                 .Include(u => u.Employee)
+                .ThenInclude(e=>e.Department)
                 .FirstOrDefault(u => u.Id == userId);
 
                 if (user == null)
                     return NotFound();
 
                 var roles = _userManager.GetRolesAsync(user!).Result;
-                if(roles.Any(r=>r== "manager"))
+                if(roles.Any(r=>r== "admin"))
                 {
-                    employees = _employeeRepository.AllEmployees.Where(e=>e.Department==user.Employee?.Department).ToList();
+                    //employees = _employeeRepository.AllEmployees.ToList();
+                    if(departmentId.HasValue)
+                    {
+                        var result = _departmentRepository.GetDepartmentById((int)departmentId);
+                        if (result == null)
+                            return NotFound();
+                        model.Title = "Department: " + result.Name;
+                        employees = _employeeRepository.AllEmployees.Where(e => e.DepartmentId == departmentId).ToList();
+                    }
+                    else
+                    {
+                        model.Title = "Employees";
+                        employees = _employeeRepository.AllEmployees.ToList();
+                    }
+                    
+                }
+                else if(roles.Any(r => r == "manager"))
+                {
+                    model.Title= "Department: " + user.Employee?.Department?.Name ?? "";
+                    employees = _employeeRepository.AllEmployees.Where(e => e.DepartmentId == user.Employee?.DepartmentId).ToList();
                 }
                 else
                 {
-                    employees = _employeeRepository.AllEmployees.ToList();
+                    return Forbid();
                 }
             }
             else
@@ -61,21 +84,23 @@ namespace ClientServerHR.Controllers
                 return NotFound();
             }
 
-            var model = new List<EmployeeWithRoleViewModel>();
+            
 
             foreach (var emp in employees)
             {
                 var roles = _userManager.GetRolesAsync(emp.ApplicationUser).Result;
-                model.Add(new EmployeeWithRoleViewModel
+                model.Employees.Add(new EmployeeWithRoleViewModel
                 {
                     Employee = emp,
                     Roles = roles.ToList()
                 });
             }
-
+            model.DepartmentId = departmentId;            
+                
             return View(model);
             
         }
+        
         [Authorize(Roles = "manager,admin")]
         public IActionResult Applicants()
         {
@@ -89,7 +114,7 @@ namespace ClientServerHR.Controllers
         }
 
         [Authorize(Roles = "manager,admin")]
-        public IActionResult Delete(string userId)
+        public IActionResult Delete(string userId, int? viewDepartmentId)
         {
             var user = _userManager.Users
                 .Include(u => u.Employee)
@@ -109,10 +134,22 @@ namespace ClientServerHR.Controllers
                 {
                     this._logger.LogInformation("EmployeeController.Delete {UserId} was deleted by {DeleterUserId}", userId, user.Id);
                     TempData["Message"] = "Employee deleted successfully.";
-                    return RedirectToAction("List"); // Or wherever you list users
+                    //return RedirectToAction("List"); // Or wherever you list users
+                }else
+                {
+                    TempData["Message"] = "Employee deleted but user not.";
                 }
-
-                return RedirectToAction("List");
+                //if (TempData["ByDepartment"] is bool byDept && byDept &&
+                //TempData["id"] is int departmentId)
+                //{
+                //    return RedirectToAction("Display", "Department", new { departmentId });
+                //}
+                //else
+                //{
+                //    return RedirectToAction("List");
+                //}
+                //return RedirectToAction("List");
+                return RedirectToAction("List", new { departmentId = viewDepartmentId });
             }
             
             var resultApplicant = _userManager.DeleteAsync(user).Result;
@@ -133,7 +170,7 @@ namespace ClientServerHR.Controllers
             }
             var  userId = _userManager.GetUserId(User);
 
-            ApplicationUser? user = _userManager.Users.Include(u => u.Employee).FirstOrDefault(u => u.Id == userId);
+            ApplicationUser? user = _userManager.Users.Include(u => u.Employee).ThenInclude(e=>e.Department).FirstOrDefault(u => u.Id == userId);
 
             if (user == null)
             {
@@ -145,10 +182,11 @@ namespace ClientServerHR.Controllers
         }
         
         [Authorize(Roles = "manager,admin")]
-        public IActionResult Profile(string? userId)
+        public IActionResult Profile(string? userId,int? viewDepartmentId)
         {
             var user = _userManager.Users
                 .Include(u => u.Employee)
+                .ThenInclude(e => e.Department)
                 .FirstOrDefault(u => u.Id == userId);
 
             if (user == null)
@@ -175,7 +213,7 @@ namespace ClientServerHR.Controllers
                 _logger.LogInformation("EmployeeController.Profile called with invalid with no permissions user id: {UserId}", userId);
                 return Forbid();
             }
-                
+
 
             var viewModel = new UserProfileEditViewModel
             {
@@ -185,7 +223,9 @@ namespace ClientServerHR.Controllers
                 Email = user.Email!,
                 Position = user.Employee?.Position,
                 Salary = user.Employee?.Salary,
-                Department = user.Employee?.Department
+                DepartmentName = user.Employee?.Department.Name,
+                Departments = _departmentRepository.AllDepartments.ToList(),
+                ViewDepartmentId = viewDepartmentId
             };
 
             ViewData["IsEditable"] = isEditable;
@@ -198,16 +238,16 @@ namespace ClientServerHR.Controllers
         [Authorize(Roles = "manager,admin")]
         public IActionResult Edit(UserProfileEditViewModel model)
         {
-            if(model.Department==null) ModelState.AddModelError("Department", "Department cant be null");
-            if (!AllowedDepartments.Contains(model.Department!))
+            if(model.DepartmentName==null) ModelState.AddModelError("DepartmentName", "Department cant be null");
+            if (!_departmentRepository.AllDepartments.Select(d => d.Name).Contains(model.DepartmentName))
             {
-                ModelState.AddModelError("Department", "Invalid department selected.");
+                ModelState.AddModelError("DepartmentName", "Invalid department selected.");
             }
             if (!AllowedPositions.Contains(model.Position!))
             {
-                ModelState.AddModelError("Department", "Invalid position selected.");
+                ModelState.AddModelError("DepartmentName", "Invalid position selected.");
             }
-            var user = _userManager.Users.Include(u => u.Employee)
+            var user = _userManager.Users.Include(u => u.Employee).ThenInclude(e=>e.Department)
                 .FirstOrDefault(u => u.Id == model.Id);
 
             if (user == null) return NotFound();
@@ -225,7 +265,7 @@ namespace ClientServerHR.Controllers
             {
                 //var currentUserId = _userManager.GetUserId(User);
                 var currentUser = _userManager.Users
-                    .Include(u => u.Employee)
+                    .Include(u => u.Employee).ThenInclude(e => e.Department)
                     .FirstOrDefault(u => u.Id == currentUserId);
 
                 if (currentUser?.Employee?.Department != null && user.Employee?.Department != null)
@@ -235,7 +275,7 @@ namespace ClientServerHR.Controllers
                         return Forbid();
                     }
                     else if(currentUser.Employee.Department == user.Employee.Department &&
-                            user.Employee.Department != model.Department )
+                            user.Employee.Department.Name != model.DepartmentName )
                     {
                         return Forbid();
                     }
@@ -250,13 +290,26 @@ namespace ClientServerHR.Controllers
                     user.Employee.Salary = model.Salary ?? user.Employee.Salary;
                     user.Employee.Position = model.Position ?? user.Employee.Position;
                     if (User.IsInRole("admin"))
-                        user.Employee.Department = model.Department ?? user.Employee.Department;
+                    {
+                        var modelDepartment = _departmentRepository.GetDepartmentByName(model.DepartmentName!);
+                        user.Employee.Department = modelDepartment ?? user.Employee.Department;
+                    }
+                        
                 }
                 _userManager.UpdateAsync(user).Wait();
-                return RedirectToAction("List");
+                //if (TempData["ByDepartment"] is bool byDept && byDept &&
+                //TempData["id"] is int departmentId)
+                //{
+                //    return RedirectToAction("Display", "Department", new { departmentId });
+                //}
+                //else
+                //{
+                //    return RedirectToAction("List");
+                //}
+                return RedirectToAction("List", new { departmentId=model.ViewDepartmentId });
             }
 
-            return RedirectToAction("Profile", new { userId = user.Id });
+            return RedirectToAction("Profile", new { userId = user.Id, viewDepartmentId= model.ViewDepartmentId });
 
         }
 
@@ -278,56 +331,75 @@ namespace ClientServerHR.Controllers
                 return Forbid();
             }
 
-            var emp = new Employee
-            {
-                ApplicationUserId = userId
-            };
+            //var emp = new Employee
+            //{
+            //    ApplicationUserId = userId
+            //};
 
+            var emp = new HireEmployeeViewModel
+            {
+                ApplicationUserId = userId,
+                Salary = 0m,
+                Departments = _departmentRepository.AllDepartments.ToList()
+            };
             return View(emp);
         }
 
         [HttpPost]
-        public IActionResult HireEmployee(Employee emp)
+        [Authorize(Roles = "manager,admin")]
+        public IActionResult HireEmployee(HireEmployeeViewModel emp)
         {
-            if (!AllowedDepartments.Contains(emp.Department))
+            if (emp.DepartmentName == null) ModelState.AddModelError("DepartmentName", "Department Name cant be null");
+            if (!_departmentRepository.AllDepartments.Select(d=>d.Name).Contains(emp.DepartmentName))
             {
-                ModelState.AddModelError("Department", "Invalid department selected.");
+                ModelState.AddModelError("DepartmentName", "Invalid department selected.");
             }
-            if (!AllowedPositions.Contains(emp.Position))
+            if (!AllowedPositions.Contains(emp.Position ?? ""))
             {
-                ModelState.AddModelError("Department", "Invalid position selected.");
-            }
-            if (!ModelState.IsValid)
+                ModelState.AddModelError("DepartmentName", "Invalid position selected.");
+            }           
+            
+            if(ModelState.IsValid)
             {
-                return View(emp);
-            }
-            var user = _userManager.FindByIdAsync(emp.ApplicationUserId).Result;
-            if (user == null)
-            {
-                return NotFound("User not found");
-            }
-            if (user.Employee != null)
-            {
-                return Forbid();
-            }
-                         
-            _employeeRepository.AddEmployee(emp);
-
-            bool isInRole =  _userManager.IsInRoleAsync(user, "employee").Result;
-            if (!isInRole)
-            {
-                var roleResult =  _userManager.AddToRoleAsync(user, "employee").Result;
-                if (!roleResult.Succeeded)
+                var user = _userManager.FindByIdAsync(emp.ApplicationUserId!).Result;
+                if (user == null)
                 {
-                    this._logger.LogError("EmployeeController.HireEmployee called with invalid with no permissions user id: {UserId}", user.Id);
-                    ModelState.AddModelError("", "Failed to assign employee role.");
-                    return View(emp);
+                    return NotFound("User not found");
                 }
-            }
+                if (user.Employee != null)
+                {
+                    return Forbid();
+                }
+                var newEmployee = new Employee
+                {
+                    ApplicationUserId = emp.ApplicationUserId!,
+                    Position = emp.Position!,
+                    Salary = (decimal)emp.Salary!,
+                    Department = _departmentRepository.GetDepartmentByName(emp.DepartmentName!)!
+                    
+                };
+                _employeeRepository.AddEmployee(newEmployee);
 
-            return RedirectToAction("Applicants");
-            
-            
+                bool isInRole = _userManager.IsInRoleAsync(user, "employee").Result;
+                if (!isInRole)
+                {
+                    var roleResult =  _userManager.AddToRoleAsync(user, "employee").Result;
+                    if (!roleResult.Succeeded)
+                    {
+                        this._logger.LogError("EmployeeController.HireEmployee called with invalid with no permissions user id: {UserId}", user.Id);
+                        ModelState.AddModelError("", "Failed to assign employee role.");
+                        return View(emp);
+                    }
+                }
+
+                return RedirectToAction("Applicants");
+            }
+            else
+            {
+                emp.Departments = _departmentRepository.AllDepartments.ToList();
+                return View(emp); 
+            }
+                                 
         }
 
         public IActionResult HireComplete()

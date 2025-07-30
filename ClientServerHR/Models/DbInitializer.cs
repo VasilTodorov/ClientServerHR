@@ -35,6 +35,10 @@ namespace ClientServerHR.Models
             }
 
             // 2. Seed users + employees (only if none exist)
+            if(!context.Departments.Any())
+            {
+                context.Departments.AddRange(Departments.Select(c => c.Value));
+            }
             if (!context.Users.Any())
             {
                 CreateUserWithEmployee(userManager, context,
@@ -90,6 +94,7 @@ namespace ClientServerHR.Models
             context.Users.RemoveRange(context.Users); // only if you want to clear Identity users
             context.SaveChanges();
         }
+        
         private static void CreateUserWithEmployee(UserManager<ApplicationUser> userManager, ClientServerHRDbContext context,
             string firstName, string lastName, string email,string position, decimal salary, string department, string role, string password)
         {
@@ -116,11 +121,39 @@ namespace ClientServerHR.Models
                 //Email = email,
                 Position = position,
                 Salary = salary,
-                Department = department,
+                Department = Departments[department],
                 ApplicationUserId = user.Id
             };
 
             context.Employees.Add(employee);
+        }
+
+        private static Dictionary<string, Department>? departments;
+
+        public static Dictionary<string, Department> Departments
+        {
+            get
+            {
+                if (departments == null)
+                {
+                    var departmentList = new Department[]
+                    {
+                        new Department { Name = "HR" },
+                        new Department { Name = "IT" },
+                        new Department { Name = "Finance" },
+                        new Department { Name = "Marketing" }
+                    };
+
+                    departments = new Dictionary<string, Department>();
+
+                    foreach (Department department in departmentList)
+                    {
+                        departments.Add(department.Name, department);
+                    }
+                }
+
+                return departments;
+            }
         }
     }
 

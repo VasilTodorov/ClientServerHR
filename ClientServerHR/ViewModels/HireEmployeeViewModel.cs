@@ -1,0 +1,31 @@
+﻿using ClientServerHR.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace ClientServerHR.ViewModels
+{
+    public class HireEmployeeViewModel
+    {        
+
+        [Required(ErrorMessage = "Position is required")]
+        [StringLength(50)]
+        public string? Position { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Salary is required")]
+        [Range(300, 1_000_000, ErrorMessage = "Salary must be between 300 and 1,000,000")]
+        [Precision(18, 2)]
+        public decimal? Salary { get; set; }
+        
+        [Required(ErrorMessage = "Department is required")]
+        [StringLength(50)]
+        public string? DepartmentName { get; set; } = string.Empty;        
+        public string ApplicationUserId { get; set; } = string.Empty;       
+
+        [BindNever]
+        [ValidateNever]
+        public List<Department> Departments { get; set; } = default!;
+    }
+}
