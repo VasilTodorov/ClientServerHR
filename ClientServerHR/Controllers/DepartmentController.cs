@@ -23,29 +23,7 @@ namespace ClientServerHR.Controllers
             var list = _departmentRepository.AllDepartments.ToList() ;
             return View(list);
         }
-        public IActionResult Display(int departmentId)
-        {
-            var department = _departmentRepository.GetDepartmentById(departmentId);
-            if(department == null)
-            {
-                return NotFound();
-            }
-            var employees = department.Employees;
-            var model = new DepartmentWithRoleViewModel();
-            
-            foreach (var emp in employees!)
-            {
-                var roles = _userManager.GetRolesAsync(emp.ApplicationUser).Result;
-                model.Employees.Add(new EmployeeWithRoleViewModel
-                {
-                    Employee = emp,
-                    Roles = roles.ToList()
-                });
-            }
-            model.Title = department.Name;
-            model.DepartmentId = departmentId;
-            return View(model);
-        }
+        
         [HttpGet]
         [Authorize(Roles = "admin")]
         public IActionResult Create()
