@@ -1,12 +1,10 @@
-﻿@model List<EmployeeWithRoleViewModel>
+﻿@model DepartmentWithRoleViewModel
 @{
-    ViewData["Title"] = "Employee List";
-    TempData["Controller"] = "Employee";
-    TempData["Action"] = "List";
-    TempData["ByDepartment"] = false;
+    ViewData["Title"] = "Employee List";    
+    
 }
 
-<h2>Employees</h2>
+<h2>@Model.Title</h2>
 @if (TempData["Message"] != null)
 {
     <div class="alert alert-success">@TempData["Message"]</div>
@@ -24,7 +22,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var view in Model)
+        @foreach (var view in Model.Employees)
         {
             <tr>
                 <td>
@@ -50,12 +48,14 @@
                     <a asp-controller="Employee"
                        asp-action="Profile"
                        asp-route-userId="@view.Employee.ApplicationUser.Id"
+                       asp-route-viewDepartmentId="@Model.DepartmentId"
                        class="btn btn-sm btn-success">
                         Edit
                     </a>
                     <a asp-controller="Employee"
                        asp-action="Delete"
                        asp-route-userId="@view.Employee.ApplicationUser.Id"
+                       asp-route-viewDepartmentId="@Model.DepartmentId"
                        class="btn btn-sm btn-success">
                         Delete
                     </a>

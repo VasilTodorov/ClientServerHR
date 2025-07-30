@@ -37,11 +37,13 @@ namespace ClientServerHR.Controllers
         public IActionResult List(int? departmentId)
         {
             List<Employee> employees;
+            var model = new DepartmentWithRoleViewModel();
             var userId = _userManager.GetUserId(User);
             if (userId != null)
             {
                 var user = _userManager.Users
                 .Include(u => u.Employee)
+                .ThenInclude(e=>e.Department)
                 .FirstOrDefault(u => u.Id == userId);
 
                 if (user == null)
@@ -51,12 +53,24 @@ namespace ClientServerHR.Controllers
                 if(roles.Any(r=>r== "admin"))
                 {
                     //employees = _employeeRepository.AllEmployees.ToList();
-                    employees = departmentId.HasValue
-                    ? _employeeRepository.AllEmployees.Where(e => e.DepartmentId == departmentId).ToList()
-                    : _employeeRepository.AllEmployees.ToList();
+                    if(departmentId.HasValue)
+                    {
+                        var result = _departmentRepository.GetDepartmentById((int)departmentId);
+                        if (result == null)
+                            return NotFound();
+                        model.Title = "Department: " + result.Name;
+                        employees = _employeeRepository.AllEmployees.Where(e => e.DepartmentId == departmentId).ToList();
+                    }
+                    else
+                    {
+                        model.Title = "Employees";
+                        employees = _employeeRepository.AllEmployees.ToList();
+                    }
+                    
                 }
                 else if(roles.Any(r => r == "manager"))
                 {
+                    model.Title= "Department: " + user.Employee?.Department?.Name ?? "";
                     employees = _employeeRepository.AllEmployees.Where(e => e.DepartmentId == user.Employee?.DepartmentId).ToList();
                 }
                 else
@@ -70,18 +84,19 @@ namespace ClientServerHR.Controllers
                 return NotFound();
             }
 
-            var model = new List<EmployeeWithRoleViewModel>();
+            
 
             foreach (var emp in employees)
             {
                 var roles = _userManager.GetRolesAsync(emp.ApplicationUser).Result;
-                model.Add(new EmployeeWithRoleViewModel
+                model.Employees.Add(new EmployeeWithRoleViewModel
                 {
                     Employee = emp,
                     Roles = roles.ToList()
                 });
             }
-
+            model.DepartmentId = departmentId;            
+                
             return View(model);
             
         }
@@ -99,7 +114,7 @@ namespace ClientServerHR.Controllers
         }
 
         [Authorize(Roles = "manager,admin")]
-        public IActionResult Delete(string userId)
+        public IActionResult Delete(string userId, int? viewDepartmentId)
         {
             var user = _userManager.Users
                 .Include(u => u.Employee)
@@ -119,10 +134,22 @@ namespace ClientServerHR.Controllers
                 {
                     this._logger.LogInformation("EmployeeController.Delete {UserId} was deleted by {DeleterUserId}", userId, user.Id);
                     TempData["Message"] = "Employee deleted successfully.";
-                    return RedirectToAction("List"); // Or wherever you list users
+                    //return RedirectToAction("List"); // Or wherever you list users
+                }else
+                {
+                    TempData["Message"] = "Employee deleted but user not.";
                 }
-
-                return RedirectToAction("List");
+                //if (TempData["ByDepartment"] is bool byDept && byDept &&
+                //TempData["id"] is int departmentId)
+                //{
+                //    return RedirectToAction("Display", "Department", new { departmentId });
+                //}
+                //else
+                //{
+                //    return RedirectToAction("List");
+                //}
+                //return RedirectToAction("List");
+                return RedirectToAction("List", new { departmentId = viewDepartmentId });
             }
             
             var resultApplicant = _userManager.DeleteAsync(user).Result;
@@ -155,7 +182,7 @@ namespace ClientServerHR.Controllers
         }
         
         [Authorize(Roles = "manager,admin")]
-        public IActionResult Profile(string? userId)
+        public IActionResult Profile(string? userId,int? viewDepartmentId)
         {
             var user = _userManager.Users
                 .Include(u => u.Employee)
@@ -197,7 +224,8 @@ namespace ClientServerHR.Controllers
                 Position = user.Employee?.Position,
                 Salary = user.Employee?.Salary,
                 DepartmentName = user.Employee?.Department.Name,
-                Departments = _departmentRepository.AllDepartments.ToList()
+                Departments = _departmentRepository.AllDepartments.ToList(),
+                ViewDepartmentId = viewDepartmentId
             };
 
             ViewData["IsEditable"] = isEditable;
@@ -269,19 +297,19 @@ namespace ClientServerHR.Controllers
                         
                 }
                 _userManager.UpdateAsync(user).Wait();
-                if (TempData["ByDepartment"] is bool byDept && byDept &&
-                TempData["id"] is int departmentId)
-                {
-                    return RedirectToAction("Display", "Department", new { departmentId });
-                }
-                else
-                {
-                    return RedirectToAction("List");
-                }
-
+                //if (TempData["ByDepartment"] is bool byDept && byDept &&
+                //TempData["id"] is int departmentId)
+                //{
+                //    return RedirectToAction("Display", "Department", new { departmentId });
+                //}
+                //else
+                //{
+                //    return RedirectToAction("List");
+                //}
+                return RedirectToAction("List", new { departmentId=model.ViewDepartmentId });
             }
 
-            return RedirectToAction("Profile", new { userId = user.Id });
+            return RedirectToAction("Profile", new { userId = user.Id, viewDepartmentId= model.ViewDepartmentId });
 
         }
 

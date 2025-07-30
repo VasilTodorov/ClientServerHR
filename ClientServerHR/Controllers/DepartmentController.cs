@@ -42,7 +42,7 @@ namespace ClientServerHR.Controllers
                     Roles = roles.ToList()
                 });
             }
-            model.DepartmentName = department.Name;
+            model.Title = department.Name;
             model.DepartmentId = departmentId;
             return View(model);
         }

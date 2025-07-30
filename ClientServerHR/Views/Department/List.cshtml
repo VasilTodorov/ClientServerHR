@@ -13,8 +13,8 @@
             @foreach (var department in Model)
             {
                 <li>                    
-                    <a asp-controller="Department"
-                        asp-action="Display"
+                    <a asp-controller="Employee"
+                        asp-action="List"
                         asp-route-departmentId=@department.DepartmentId
                     class="link">@department.Name</a>                                        
                 </li>
