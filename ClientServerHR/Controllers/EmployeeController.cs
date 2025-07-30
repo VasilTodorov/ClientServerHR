@@ -34,7 +34,7 @@ namespace ClientServerHR.Controllers
             _logger = logger;
         }
         [Authorize(Roles = "manager,admin")]
-        public IActionResult List()
+        public IActionResult List(int? departmentId)
         {
             List<Employee> employees;
             var userId = _userManager.GetUserId(User);
@@ -48,13 +48,20 @@ namespace ClientServerHR.Controllers
                     return NotFound();
 
                 var roles = _userManager.GetRolesAsync(user!).Result;
-                if(roles.Any(r=>r== "manager"))
+                if(roles.Any(r=>r== "admin"))
                 {
-                    employees = _employeeRepository.AllEmployees.Where(e=>e.Department==user.Employee?.Department).ToList();
+                    //employees = _employeeRepository.AllEmployees.ToList();
+                    employees = departmentId.HasValue
+                    ? _employeeRepository.AllEmployees.Where(e => e.DepartmentId == departmentId).ToList()
+                    : _employeeRepository.AllEmployees.ToList();
+                }
+                else if(roles.Any(r => r == "manager"))
+                {
+                    employees = _employeeRepository.AllEmployees.Where(e => e.DepartmentId == user.Employee?.DepartmentId).ToList();
                 }
                 else
                 {
-                    employees = _employeeRepository.AllEmployees.ToList();
+                    return Forbid();
                 }
             }
             else
@@ -78,6 +85,7 @@ namespace ClientServerHR.Controllers
             return View(model);
             
         }
+        
         [Authorize(Roles = "manager,admin")]
         public IActionResult Applicants()
         {

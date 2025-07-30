@@ -1,4 +1,4 @@
-﻿@model List<string>
+﻿@model List<Department>
 
 @{
     ViewData["Title"] = "Departments";
@@ -9,9 +9,14 @@
 @if (Model != null && Model.Any())
 {
     <ul>
-        @foreach (var name in Model)
+        @foreach (var department in Model)
         {
-            <li>@name</li>
+            <li>
+                <a asp-controller="Employee"
+                   asp-action="List"
+                   asp-route-departmentId=@department.DepartmentId
+                   class="link">@department.Name</a>
+            </li>
         }
     </ul>
 }

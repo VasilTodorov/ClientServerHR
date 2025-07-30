@@ -18,7 +18,7 @@ namespace ClientServerHR.Controllers
         [Authorize(Roles = "manager,admin")]
         public IActionResult List()
         {
-            var list = _departmentRepository.AllDepartments.Select(d => d.Name).ToList() ?? new List<string>();
+            var list = _departmentRepository.AllDepartments.ToList() ;
             return View(list);
         }
     }
