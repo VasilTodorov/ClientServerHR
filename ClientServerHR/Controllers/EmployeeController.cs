@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using System.Globalization;
 
 namespace ClientServerHR.Controllers
 {
@@ -176,6 +177,46 @@ namespace ClientServerHR.Controllers
             return RedirectToAction("Applicants");
             
         }
+        [HttpPost]
+        public IActionResult GetWorkingDays([FromForm] int month, [FromForm] int year)
+        {
+            var userId = _userManager.GetUserId(User);
+            var user = _userManager.Users
+                .Include(u => u.Employee).ThenInclude(e => e!.Country)
+                .FirstOrDefault(u => u.Id == userId);
+
+            if (user?.Employee?.Country == null)
+                return Json(new { success = false });
+
+            try
+            {
+                int workingDays;
+                var monthName = new DateTime(year, month, 1)
+                    .ToString("MMMM", CultureInfo.GetCultureInfo("en-US"));
+                if (DateTime.Today.Year == year)
+                {
+                    workingDays = _service.GetWorkingDaysThisMonth(user.Employee.Country.Name, month);
+                }
+                else
+                {
+                    workingDays = _service.GetWorkingDaysThisMonth(user.Employee.Country.Name, month, year);
+                }
+                return Json(new 
+                { 
+                    success = true,
+                    workingDays,
+                    month,
+                    year,
+                    monthName
+                }
+                );
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Failed to fetch working days");
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
         public IActionResult MyProfile()
         {
             if (User.Identity?.IsAuthenticated!=true)
@@ -202,7 +243,7 @@ namespace ClientServerHR.Controllers
             if(user?.Employee?.Country != null)
             {
                 model.IsEmployee= true;
-                model.MonthWorkingDays = _service.GetWorkingDaysThisMonth(user.Employee.Country.Name, DateTime.Today.Month).Result;
+                model.MonthWorkingDays = _service.GetWorkingDaysThisMonth(user.Employee.Country.Name, DateTime.Today.Month);
             }
             else
             {

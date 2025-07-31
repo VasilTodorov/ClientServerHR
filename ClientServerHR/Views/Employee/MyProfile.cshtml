@@ -1,6 +1,9 @@
 ﻿@model MyProfileViewModel
 @{
     ViewData["Title"] = "User Profile";
+    var currentYear = DateTime.Today.Year;
+    var currentMonth = DateTime.Today.Month;
+    var enUS = CultureInfo.GetCultureInfo("en-US");
 }
 
 <div class="container mt-5">
@@ -63,4 +66,63 @@
         <h2>Your registration is under review</h2>
         <p>Waiting for HR approval.</p>
     }
+    @if (User.IsInRole("employee") || User.IsInRole("manager") || User.IsInRole("admin"))
+    {
+        <form id="monthForm">
+            <label>Month:</label>
+            <select id="month" name="month" class="form-control">
+                @for (int m = 1; m <= 12; m++)
+                {
+                    //var selectedMine = m == currentMonth ? "selected" : "";
+                    <option value="@m" selected="@(m == currentMonth)">
+                        @enUS.DateTimeFormat.GetMonthName(m)
+                    </option>
+                }
+            </select>
+
+            <label>Year:</label>
+            <select id="year" name="year" class="form-control">
+                @for (int y = currentYear - 5; y <= currentYear + 5; y++)
+                {
+                    <option value="@y" selected="@(y == currentYear)">@y</option>
+                }
+            </select>
+
+            <button type="submit" class="btn btn-primary mt-2">Get Working Days</button>
+        </form>
+
+        <hr />
+
+        <div id="resultArea">
+            <h4><span id="workingDaysResult"></span></h4>
+        </div>
+    }
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById("monthForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+
+            fetch('/Employee/GetWorkingDays', {
+                method: 'POST',
+                headers: {
+                    'RequestVerificationToken': formData.get('__RequestVerificationToken')
+                },
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const resultText = `Working days in ${data.monthName} ${data.year}: ${data.workingDays}`;
+                    document.getElementById("workingDaysResult").innerText = resultText;                    
+                } else {
+                    alert("Failed to fetch working days.");
+                }
+            });
+        });
+    </script>
+}
