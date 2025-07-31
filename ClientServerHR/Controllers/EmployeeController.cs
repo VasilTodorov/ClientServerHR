@@ -123,7 +123,26 @@ namespace ClientServerHR.Controllers
             if (user == null)
                 return NotFound();
 
-            if(user.Employee != null)            
+            var currentUserId = _userManager.GetUserId(User);
+
+            if (User.IsInRole("manager") && !User.IsInRole("admin"))
+            {
+                //var currentUserId = _userManager.GetUserId(User);
+                var currentUser = _userManager.Users
+                    .Include(u => u.Employee).ThenInclude(e => e.Department)
+                    .FirstOrDefault(u => u.Id == currentUserId);
+                
+                if(currentUser?.Employee?.DepartmentId == null)
+                {
+                    return Forbid();
+                }
+                else if (currentUser.Employee.DepartmentId != user.Employee?.DepartmentId)
+                {
+                    return Forbid();
+                }                                    
+            }
+
+            if (user.Employee != null)            
             {
                 _employeeRepository.Delete(user.Employee.EmployeeId);
                 TempData["Message"] = "Employee deleted successfully.";
@@ -138,17 +157,7 @@ namespace ClientServerHR.Controllers
                 }else
                 {
                     TempData["Message"] = "Employee deleted but user not.";
-                }
-                //if (TempData["ByDepartment"] is bool byDept && byDept &&
-                //TempData["id"] is int departmentId)
-                //{
-                //    return RedirectToAction("Display", "Department", new { departmentId });
-                //}
-                //else
-                //{
-                //    return RedirectToAction("List");
-                //}
-                //return RedirectToAction("List");
+                }                
                 return RedirectToAction("List", new { departmentId = viewDepartmentId });
             }
             
@@ -194,7 +203,7 @@ namespace ClientServerHR.Controllers
 
             // Check if current user can edit
             bool isEditable = false;
-            if(User.IsInRole("manager"))
+            if(User.IsInRole("manager") && !User.IsInRole("admin"))
             {
                 var currentUserId = _userManager.GetUserId(User);
                 var currentUser = _userManager.Users
@@ -251,61 +260,47 @@ namespace ClientServerHR.Controllers
                 .FirstOrDefault(u => u.Id == model.Id);
 
             if (user == null) return NotFound();
+            if (user.Employee == null) return Forbid();
 
             // Only allow current user or admin to update
-            var currentUserId = _userManager.GetUserId(User);
+            var currentUserId = _userManager.GetUserId(User);            
 
-            if (!User.IsInRole("manager") && !User.IsInRole("admin"))
-            {
-                _logger.LogInformation("EmployeeController.Edit called with invalid with no permissions user id: {UserId}", user.Id);
-                return Forbid(); // 403 Forbidden
-            }
-
-            if (User.IsInRole("manager"))
+            if (User.IsInRole("manager") && !User.IsInRole("admin"))
             {
                 //var currentUserId = _userManager.GetUserId(User);
                 var currentUser = _userManager.Users
                     .Include(u => u.Employee).ThenInclude(e => e.Department)
                     .FirstOrDefault(u => u.Id == currentUserId);
 
-                if (currentUser?.Employee?.Department != null && user.Employee?.Department != null)
+                if (currentUser?.Employee?.DepartmentId == null || user.Employee?.DepartmentId == null)
                 {
-                    if (currentUser.Employee.Department != user.Employee.Department)
-                    {
-                        return Forbid();
-                    }
-                    else if(currentUser.Employee.Department == user.Employee.Department &&
-                            user.Employee.Department.Name != model.DepartmentName )
-                    {
-                        return Forbid();
-                    }
+                    return Forbid();
                 }
+                else if (currentUser.Employee.DepartmentId != user.Employee.DepartmentId)
+                {
+                    return Forbid();
+                }
+                else if(currentUser.Employee.DepartmentId == user.Employee.DepartmentId &&
+                        user.Employee.Department.Name != model.DepartmentName )
+                {
+                    return Forbid();
+                }
+                
             }
             if (ModelState.IsValid)
             { 
                 //user.FirstName = model.FirstName;
                 //user.LastName = model.LastName;
-                if (user.Employee != null)
+                
+                user.Employee.Salary = model.Salary ?? user.Employee.Salary;
+                user.Employee.Position = model.Position ?? user.Employee.Position;
+                if (User.IsInRole("admin"))
                 {
-                    user.Employee.Salary = model.Salary ?? user.Employee.Salary;
-                    user.Employee.Position = model.Position ?? user.Employee.Position;
-                    if (User.IsInRole("admin"))
-                    {
-                        var modelDepartment = _departmentRepository.GetDepartmentByName(model.DepartmentName!);
-                        user.Employee.Department = modelDepartment ?? user.Employee.Department;
-                    }
-                        
+                    var modelDepartment = _departmentRepository.GetDepartmentByName(model.DepartmentName!);
+                    user.Employee.Department = modelDepartment ?? user.Employee.Department;
                 }
-                _userManager.UpdateAsync(user).Wait();
-                //if (TempData["ByDepartment"] is bool byDept && byDept &&
-                //TempData["id"] is int departmentId)
-                //{
-                //    return RedirectToAction("Display", "Department", new { departmentId });
-                //}
-                //else
-                //{
-                //    return RedirectToAction("List");
-                //}
+                                       
+                _userManager.UpdateAsync(user).Wait();                
                 return RedirectToAction("List", new { departmentId=model.ViewDepartmentId });
             }
 
