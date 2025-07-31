@@ -33,5 +33,7 @@ namespace ClientServerHR.Models
         [ForeignKey("ApplicationUserId")]
         public ApplicationUser ApplicationUser { get; set; } = default!;
 
+        public int CountryId { get; set; } // FK to Country
+        public Country Country { get; set; } = null!;
     }
 }

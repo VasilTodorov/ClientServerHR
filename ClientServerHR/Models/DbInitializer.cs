@@ -39,6 +39,10 @@ namespace ClientServerHR.Models
             {
                 context.Departments.AddRange(Departments.Select(c => c.Value));
             }
+            if (!context.Countries.Any())
+            {
+                context.Countries.AddRange(Countries.Select(c => c.Value));
+            }
             if (!context.Users.Any())
             {
                 CreateUserWithEmployee(userManager, context,
@@ -48,7 +52,8 @@ namespace ClientServerHR.Models
                     position: "Junior Dev",
                     salary: 1000m,
                     department: "HR",
-                    role: "employee",
+                    country: "Bulgaria",
+                    role: "employee",                    
                     password: "Test123!");
 
                 CreateUserWithEmployee(userManager, context,
@@ -58,6 +63,7 @@ namespace ClientServerHR.Models
                     position: "Senior Dev",
                     salary: 3050m,
                     department: "HR",
+                    country: "Bulgaria",
                     role: "manager",
                     password: "Test123!");
 
@@ -68,6 +74,7 @@ namespace ClientServerHR.Models
                     position: "Junior Dev",
                     salary: 1000m,
                     department: "HR",
+                    country: "Bulgaria",
                     role: "employee",
                     password: "Test123!");
 
@@ -78,6 +85,7 @@ namespace ClientServerHR.Models
                     position: "Senior Dev",
                     salary: 4200m,
                     department: "HR",
+                    country: "Bulgaria",
                     role: "admin",
                     password: "Test123!");
             }
@@ -96,7 +104,7 @@ namespace ClientServerHR.Models
         }
         
         private static void CreateUserWithEmployee(UserManager<ApplicationUser> userManager, ClientServerHRDbContext context,
-            string firstName, string lastName, string email,string position, decimal salary, string department, string role, string password)
+            string firstName, string lastName, string email,string position, decimal salary, string department,string country, string role, string password)
         {
             var user = new ApplicationUser
             {
@@ -122,6 +130,7 @@ namespace ClientServerHR.Models
                 Position = position,
                 Salary = salary,
                 Department = Departments[department],
+                Country = Countries[country],
                 ApplicationUserId = user.Id
             };
 
@@ -153,6 +162,34 @@ namespace ClientServerHR.Models
                 }
 
                 return departments;
+            }
+        }
+
+        private static Dictionary<string, Country>? countries;
+
+        public static Dictionary<string, Country> Countries
+        {
+            get
+            {
+                if (countries == null)
+                {
+                    var countryList = new Country[]
+                    {
+                        new Country { Name = "United States" },
+                        new Country { Name = "Germany" },
+                        new Country { Name = "India" },
+                        new Country { Name = "Bulgaria" }
+                    };
+
+                    countries = new Dictionary<string, Country>();
+
+                    foreach (Country country in countryList)
+                    {
+                        countries.Add(country.Name, country);
+                    }
+                }
+
+                return countries;
             }
         }
     }

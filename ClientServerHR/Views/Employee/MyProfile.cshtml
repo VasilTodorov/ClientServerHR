@@ -1,6 +1,9 @@
-﻿@model ApplicationUser
+﻿@model MyProfileViewModel
 @{
     ViewData["Title"] = "User Profile";
+    var currentYear = DateTime.Today.Year;
+    var currentMonth = DateTime.Today.Month;
+    var enUS = CultureInfo.GetCultureInfo("en-US");
 }
 
 <div class="container mt-5">
@@ -11,25 +14,28 @@
         <div class="card-body">
             <dl class="row">
                 <dt class="col-sm-3">Id</dt>
-                <dd class="col-sm-9">@Model.Id</dd>
+                <dd class="col-sm-9">@Model.User!.Id</dd>
 
                 <dt class="col-sm-3">FirstName</dt>
-                <dd class="col-sm-9">@Model.FirstName</dd>
+                <dd class="col-sm-9">@Model.User!.FirstName</dd>
 
                 <dt class="col-sm-3">LastName</dt>
-                <dd class="col-sm-9">@Model.LastName</dd>
+                <dd class="col-sm-9">@Model.User!.LastName</dd>
 
                 <dt class="col-sm-3">Email</dt>
-                <dd class="col-sm-9">@Model.Email</dd>
+                <dd class="col-sm-9">@Model.User!.Email</dd>
 
                 <dt class="col-sm-3">Position</dt>
-                <dd class="col-sm-9">@(Model.Employee == null ? "N/A" : Model.Employee.Position)</dd>
+                <dd class="col-sm-9">@(!Model.IsEmployee ? "N/A" : Model.User!.Employee!.Position)</dd>
 
                 <dt class="col-sm-3">Salary</dt>
-                <dd class="col-sm-9">@(Model.Employee == null ? "N/A" : "$" + Model.Employee.Salary.ToString("N2"))</dd>
+                <dd class="col-sm-9">@(!Model.IsEmployee ? "N/A" : "$" + Model.User!.Employee!.Salary.ToString("N2"))</dd>
+
+                <dt class="col-sm-3">Country</dt>
+                <dd class="col-sm-9">@(!Model.IsEmployee ? "N/A" : Model.User!.Employee!.Country.Name)</dd>
 
                 <dt class="col-sm-3">Department</dt>
-                <dd class="col-sm-9">@(Model.Employee == null ? "N/A" : Model.Employee.Department.Name)</dd>
+                <dd class="col-sm-9">@(!Model.IsEmployee ? "N/A" : Model.User!.Employee!.Department.Name)</dd>
 
                 <dt class="col-sm-3">Role</dt>
                 @if (User.IsInRole("employee"))
@@ -48,7 +54,8 @@
                 {
                     <dd class="col-sm-9">N/A</dd>
                 }
-
+                <dt class="col-sm-3">Month Working Days</dt>
+                <dd class="col-sm-9">@(!Model.IsEmployee ? "N/A" : Model.MonthWorkingDays)</dd>
             </dl>
             
             @*<a asp-action="Index" asp-controller="Employee" class="btn btn-secondary mt-3">Back to List</a>*@
@@ -59,4 +66,63 @@
         <h2>Your registration is under review</h2>
         <p>Waiting for HR approval.</p>
     }
+    @if (User.IsInRole("employee") || User.IsInRole("manager") || User.IsInRole("admin"))
+    {
+        <form id="monthForm">
+            <label>Month:</label>
+            <select id="month" name="month" class="form-control">
+                @for (int m = 1; m <= 12; m++)
+                {
+                    //var selectedMine = m == currentMonth ? "selected" : "";
+                    <option value="@m" selected="@(m == currentMonth)">
+                        @enUS.DateTimeFormat.GetMonthName(m)
+                    </option>
+                }
+            </select>
+
+            <label>Year:</label>
+            <select id="year" name="year" class="form-control">
+                @for (int y = currentYear - 5; y <= currentYear + 5; y++)
+                {
+                    <option value="@y" selected="@(y == currentYear)">@y</option>
+                }
+            </select>
+
+            <button type="submit" class="btn btn-primary mt-2">Get Working Days</button>
+        </form>
+
+        <hr />
+
+        <div id="resultArea">
+            <h4><span id="workingDaysResult"></span></h4>
+        </div>
+    }
 </div>
+
+@section Scripts {
+    <script>
+        document.getElementById("monthForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const form = e.target;
+            const formData = new FormData(form);
+
+            fetch('/Employee/GetWorkingDays', {
+                method: 'POST',
+                headers: {
+                    'RequestVerificationToken': formData.get('__RequestVerificationToken')
+                },
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    const resultText = `Working days in ${data.monthName} ${data.year}: ${data.workingDays}`;
+                    document.getElementById("workingDaysResult").innerText = resultText;                    
+                } else {
+                    alert("Failed to fetch working days.");
+                }
+            });
+        });
+    </script>
+}

@@ -17,6 +17,7 @@
             <th>Email</th>
             <th>Position</th>
             <th>Salary</th>
+            <th>Country</th>
             <th>Department</th>
             <th>Roles</th>
         </tr>
@@ -36,6 +37,7 @@
                 <td>@view.Employee.ApplicationUser.Email</td>
                 <td>@view.Employee.Position</td>
                 <td>@view.Employee.Salary.ToString("N2")</td>
+                <td>@view.Employee.Country.Name</td>
                 <td>
                     @*<a asp-controller="Employee"
                        asp-action="Department"
@@ -46,7 +48,7 @@
                 <td>@string.Join(", ", view.Roles)</td>
                 <td>
                     <a asp-controller="Employee"
-                       asp-action="Profile"
+                       asp-action="Edit"
                        asp-route-userId="@view.Employee.ApplicationUser.Id"
                        asp-route-viewDepartmentId="@Model.DepartmentId"
                        class="btn btn-sm btn-success">

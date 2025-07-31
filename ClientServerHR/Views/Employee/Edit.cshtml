@@ -8,9 +8,10 @@
 
 <h2>User Profile</h2>
 
-<form asp-action="Edit" method="post">
+<form asp-action="Edit" method="post">    
     <input type="hidden" asp-for="Id" />
     <input type="hidden" asp-for="ViewDepartmentId" />
+    
     <dl class="row">
         <dt class="col-sm-3">First Name</dt>
         <dd class="col-sm-9">
@@ -46,7 +47,7 @@
         <dd class="col-sm-9">@Model.Email</dd>
 
         <dt class="col-sm-3">Position</dt>
-        <dd class="col-sm-9">
+        <dd class="col-sm-9">        
             @if (isEditable)
             {
                 <select asp-for="Position" class="form-control">
@@ -56,6 +57,7 @@
                         <option value="@pos">@pos</option>
                     }
                 </select>
+                
             }
             else
             {
@@ -76,7 +78,16 @@
                 @(Model.Salary.HasValue ? Model.Salary.Value.ToString("C") : "N/A")
             }
         </dd>
-
+        <dt class="col-sm-3">Country</dt>
+        <dd class="col-sm-9">
+            @{
+            //<label asp-for="CountryId">Country</label>
+                <select asp-for="CountryId" asp-items="Model.CountryOptions" class="form-control">
+                    <option value="">-- Select Country --</option>
+                </select>
+                <span asp-validation-for="CountryId" class="text-danger"></span>
+            }
+        </dd>
         <dt class="col-sm-3">Department</dt>
         <dd class="col-sm-9">
             @if (isEditable && User.IsInRole("admin"))
@@ -88,6 +99,7 @@
                         <option value="@dept.Name">@dept.Name</option>
                     }
                 </select>
+                
             }
             else
             {
@@ -95,6 +107,7 @@
                 @(Model.DepartmentName ?? "N/A")
             }
         </dd>
+        
     </dl>
 
     @if (isEditable)

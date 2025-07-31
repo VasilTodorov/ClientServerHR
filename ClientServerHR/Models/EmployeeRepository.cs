@@ -16,7 +16,7 @@ namespace ClientServerHR.Models
         {
             get
             {
-                return _clientServerHRDbContext.Employees.Include(e=>e.ApplicationUser).Include(e=>e.Department);
+                return _clientServerHRDbContext.Employees.Include(e=>e.ApplicationUser).Include(e=>e.Department).Include(e=>e.Country);
             }
         }
         //public IEnumerable<Employee> GetAllEmployeesByDepartment(string department)
