@@ -1,0 +1,4 @@
+Fix validation "Edit" button (span doesn't work) 
+complete department functionality
+complete country functionality
+Clean LINQ quaries and put them in repository functions

@@ -13,6 +13,8 @@ namespace ClientServerHR.Controllers
     //[Authorize(Roles = "employee")]
     public class EmployeeController : Controller
     {
+        private readonly WorkingDaysService _service = new WorkingDaysService();
+
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IDepartmentRepository _departmentRepository;
         private readonly ICountryRepository _countryRepository;
@@ -193,7 +195,21 @@ namespace ClientServerHR.Controllers
                 return NotFound();
             }
 
-            return View(user);
+            var model = new MyProfileViewModel
+            {
+                User = user
+            };
+            if(user?.Employee?.Country != null)
+            {
+                model.IsEmployee= true;
+                model.MonthWorkingDays = _service.GetWorkingDaysThisMonth(user.Employee.Country.Name, DateTime.Today.Month).Result;
+            }
+            else
+            {
+                model.IsEmployee = false;
+            }
+
+            return View(model);
         }
         
         [Authorize(Roles = "manager,admin")]
