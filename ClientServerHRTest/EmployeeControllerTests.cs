@@ -14,6 +14,7 @@ namespace ClientServerHR.Tests
     {
         private Mock<IEmployeeRepository> _employeeRepoMock;
         private Mock<IDepartmentRepository> _departmentRepoMock;
+        private Mock<ICountryRepository> _countryRepoMock;
         private Mock<UserManager<ApplicationUser>> _userManagerMock;
         private Mock<ILogger<EmployeeController>> _loggerMock;
 
@@ -21,6 +22,7 @@ namespace ClientServerHR.Tests
         {
             _employeeRepoMock = new Mock<IEmployeeRepository>();
             _departmentRepoMock = new Mock<IDepartmentRepository>();
+            _countryRepoMock = new Mock<ICountryRepository>();
 
             var store = new Mock<IUserStore<ApplicationUser>>();
             _userManagerMock = new Mock<UserManager<ApplicationUser>>(
@@ -34,8 +36,9 @@ namespace ClientServerHR.Tests
         {
             var controller = new EmployeeController(
                 _employeeRepoMock.Object,
-                _departmentRepoMock.Object,
+                _departmentRepoMock.Object,                
                 _userManagerMock.Object,
+                _countryRepoMock.Object,
                 _loggerMock.Object
             );
 
@@ -60,7 +63,7 @@ namespace ClientServerHR.Tests
             var controller = CreateController();
 
             // Act
-            var result = controller.List();
+            var result = controller.List(null);
 
             // Assert
             Assert.IsType<NotFoundResult>(result);

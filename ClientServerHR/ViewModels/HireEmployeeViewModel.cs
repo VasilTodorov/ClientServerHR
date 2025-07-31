@@ -1,6 +1,7 @@
 ﻿using ClientServerHR.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -27,5 +28,11 @@ namespace ClientServerHR.ViewModels
         [BindNever]
         [ValidateNever]
         public List<Department> Departments { get; set; } = default!;
+
+        [Required(ErrorMessage = "Country is required")]
+        public int? CountryId { get; set; }
+        [BindNever]
+        [ValidateNever]
+        public List<SelectListItem> CountryOptions { get; set; } = new List<SelectListItem>();
     }
 }

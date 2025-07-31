@@ -1,6 +1,7 @@
 ﻿using ClientServerHR.Models;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.ComponentModel.DataAnnotations;
 
 namespace ClientServerHR.ViewModels
@@ -26,9 +27,11 @@ namespace ClientServerHR.ViewModels
         [Required(ErrorMessage = "Position is required")]
         [StringLength(50)]
         public string? Position { get; set; } = string.Empty;
-        [Range(0, 1_000_000)]
-        public decimal? Salary { get; set; }
 
+        [Required(ErrorMessage = "Salary is required")]
+        [Range(300, 1_000_000)]
+        public decimal? Salary { get; set; }
+        [Required(ErrorMessage = "Department is required")]
         [StringLength(50)]
         public string? DepartmentName { get; set; }
 
@@ -39,6 +42,10 @@ namespace ClientServerHR.ViewModels
         
         [ValidateNever]
         public int? ViewDepartmentId { get; set; }
+        [Required(ErrorMessage = "Country is required")]
+        public int CountryId { get; set; }
+
+        public IEnumerable<SelectListItem> CountryOptions { get; set; } = new List<SelectListItem>();
     }
 
 }
