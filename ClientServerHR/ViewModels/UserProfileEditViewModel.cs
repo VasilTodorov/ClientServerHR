@@ -46,6 +46,8 @@ namespace ClientServerHR.ViewModels
         public int CountryId { get; set; }
 
         public IEnumerable<SelectListItem> CountryOptions { get; set; } = new List<SelectListItem>();
+
+        //public string? IBAN { get; set; }
     }
 
 }

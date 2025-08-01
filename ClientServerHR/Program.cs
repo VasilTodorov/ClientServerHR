@@ -1,8 +1,9 @@
 using ClientServerHR.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
 using ClientServerHR.Services;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("ClientServerHRDbContextConnection") ?? throw new InvalidOperationException("Connection string 'ClientServerHRDbContextConnection' not found.");
@@ -18,6 +19,9 @@ builder.Services.AddDbContext<ClientServerHRDbContext>(options => {
     options.UseSqlServer(
         builder.Configuration["ConnectionStrings:ClientServerHRDbContextConnection"]);
 });
+
+builder.Services.AddScoped<IBankDataProtectorService, BankDataProtectorService>();
+builder.Services.AddDataProtection();
 
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 //builder.Services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ClientServerHRDbContext>();
@@ -64,6 +68,8 @@ app.MapRazorPages();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Employee}/{action=Index}/{id?}");
+    
+DbInitializer.Seed(app); 
 
-DbInitializer.Seed(app);
+//DbInitializer.Seed(app);
 app.Run();

@@ -1,4 +1,5 @@
 ﻿using ClientServerHR.Models;
+using ClientServerHR.Services;
 using ClientServerHR.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -15,6 +16,7 @@ namespace ClientServerHR.Controllers
     public class EmployeeController : Controller
     {
         private readonly WorkingDaysService _service = new WorkingDaysService();
+        private readonly IBankDataProtectorService _ibanProtector;
 
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IDepartmentRepository _departmentRepository;
@@ -31,13 +33,15 @@ namespace ClientServerHR.Controllers
                                 , IDepartmentRepository departmentRepository
                                 , UserManager<ApplicationUser> userManager
                                 , ICountryRepository countryRepository
-                                , ILogger<EmployeeController> logger)
+                                , ILogger<EmployeeController> logger
+                                , IBankDataProtectorService ibanProtector)
         {
             _employeeRepository = employeeRepository;
             _departmentRepository = departmentRepository;
             _userManager = userManager;
             _countryRepository = countryRepository;
             _logger = logger;
+            _ibanProtector = ibanProtector;
         }
         #region Display               
         
@@ -237,7 +241,7 @@ namespace ClientServerHR.Controllers
                 _logger.LogInformation("EmployeeController.MyProfile called with invalid user id: {UserId}", userId);
                 return NotFound();
             }
-
+            
             var model = new MyProfileViewModel
             {
                 User = user
@@ -245,6 +249,7 @@ namespace ClientServerHR.Controllers
             if(user?.Employee?.Country != null)
             {
                 model.IsEmployee= true;
+                model.User.Employee!.IBAN = _ibanProtector.DecryptIban(model.User.Employee.EncryptedIban);
                 model.MonthWorkingDays = _service.GetWorkingDaysThisMonth(user.Employee.Country.Name, DateTime.Today.Month);
             }
             else
@@ -301,7 +306,8 @@ namespace ClientServerHR.Controllers
                 Departments = _departmentRepository.AllDepartments.ToList(),
                 CountryOptions =  _countryRepository.CountryOptions,
                 CountryId = user.Employee!.CountryId,
-                ViewDepartmentId = viewDepartmentId
+                ViewDepartmentId = viewDepartmentId,
+                //IBAN = user.Employee?.IBAN
             };
 
             //ViewData["IsEditable"] = isEditable;
@@ -372,8 +378,9 @@ namespace ClientServerHR.Controllers
                     var modelDepartment = _departmentRepository.GetDepartmentByName(model.DepartmentName!);
                     user.Employee.Department = modelDepartment ?? user.Employee.Department;
                 }
-                                       
-                _userManager.UpdateAsync(user).Wait();                
+
+                _employeeRepository.Update(user.Employee);
+                //_userManager.UpdateAsync(user).Wait();                
                 return RedirectToAction("List", new { departmentId=model.ViewDepartmentId });
             }
 
