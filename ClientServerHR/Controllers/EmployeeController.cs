@@ -39,6 +39,8 @@ namespace ClientServerHR.Controllers
             _countryRepository = countryRepository;
             _logger = logger;
         }
+        #region Display               
+        
         [Authorize(Roles = "manager,admin")]
         public IActionResult List(int? departmentId)
         {
@@ -118,7 +120,7 @@ namespace ClientServerHR.Controllers
         {
             return View();
         }
-
+        #endregion
         [Authorize(Roles = "manager,admin")]
         public IActionResult Delete(string userId, int? viewDepartmentId)
         {
@@ -252,7 +254,7 @@ namespace ClientServerHR.Controllers
 
             return View(model);
         }
-        
+        #region Edit        
         [Authorize(Roles = "manager,admin")]
         public IActionResult Edit(string? userId,int? viewDepartmentId)
         {
@@ -264,27 +266,27 @@ namespace ClientServerHR.Controllers
             if (user == null) return NotFound();
             if (user.Employee == null) return Forbid();
 
-                // Check if current user can edit
-                bool isEditable = false;
-            if(User.IsInRole("manager") && !User.IsInRole("admin"))
-            {
-                var currentUserId = _userManager.GetUserId(User);
-                var currentUser = _userManager.Users
-                    .Include(u => u.Employee)
-                    .FirstOrDefault(u => u.Id == currentUserId);
+            // Check if current user can edit
+            //bool isEditable = false;
+            //if(User.IsInRole("manager") && !User.IsInRole("admin"))
+            //{
+            //    var currentUserId = _userManager.GetUserId(User);
+            //    var currentUser = _userManager.Users
+            //        .Include(u => u.Employee)
+            //        .FirstOrDefault(u => u.Id == currentUserId);
 
-                if(currentUser?.Employee?.Department != null && user.Employee?.Department!=null)
-                    isEditable = currentUser.Employee.Department == user.Employee.Department;
-            }
-            else if(User.IsInRole("admin"))
-            {
-                isEditable = true;
-            }
-            if (!isEditable)
-            {
-                _logger.LogInformation("EmployeeController.Profile called with invalid with no permissions user id: {UserId}", userId);
-                return Forbid();
-            }
+            //    if(currentUser?.Employee?.Department != null && user.Employee?.Department!=null)
+            //        isEditable = currentUser.Employee.Department == user.Employee.Department;
+            //}
+            //else if(User.IsInRole("admin"))
+            //{
+            //    isEditable = true;
+            //}
+            //if (!isEditable)
+            //{
+            //    _logger.LogInformation("EmployeeController.Profile called with invalid with no permissions user id: {UserId}", userId);
+            //    return Forbid();
+            //}
 
 
             var viewModel = new UserProfileEditViewModel
@@ -302,7 +304,7 @@ namespace ClientServerHR.Controllers
                 ViewDepartmentId = viewDepartmentId
             };
 
-            ViewData["IsEditable"] = isEditable;
+            //ViewData["IsEditable"] = isEditable;
 
             return View(viewModel);
         }
@@ -378,7 +380,9 @@ namespace ClientServerHR.Controllers
             return RedirectToAction("Edit", new { userId = user.Id, viewDepartmentId= model.ViewDepartmentId });
 
         }
-
+        #endregion
+        #region HireEmployee
+        
         [HttpGet]
         [Authorize(Roles = "manager,admin")]
         public IActionResult HireEmployee(string userId)
@@ -471,7 +475,7 @@ namespace ClientServerHR.Controllers
             }
                                  
         }
-
+        #endregion
         public IActionResult HireComplete()
         {
             ViewBag.HireCompleteMessage = "Employee is hired";

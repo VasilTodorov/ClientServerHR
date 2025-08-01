@@ -3,7 +3,7 @@
     //var departments = new List<string> { "HR", "IT", "Finance", "Marketing" };
     var positions = new List<string> { "Junior Dev", "Mid Dev", "Senior dev", "Devops" };
     ViewData["Title"] = "User Profile";    
-    bool isEditable = (ViewData["IsEditable"] as bool?) ?? false;
+    //bool isEditable = (ViewData["IsEditable"] as bool?) ?? false;
 }
 
 <h2>User Profile</h2>
@@ -14,83 +14,46 @@
     
     <dl class="row">
         <dt class="col-sm-3">First Name</dt>
-        <dd class="col-sm-9">
-            @if (isEditable)
-            {
-                //Test
-                <input asp-for="FirstName" class="form-control" type="hidden" />
-                @Model.FirstName
-            }
-            else
-            {
-                <input asp-for="FirstName" class="form-control" type="hidden" />
-                @Model.FirstName
-            }
+        <dd class="col-sm-9">                            
+            <input asp-for="FirstName" class="form-control" type="hidden" />
+            @Model.FirstName            
         </dd>
 
         <dt class="col-sm-3">Last Name</dt>
-        <dd class="col-sm-9">
-            @if (isEditable)
-            {
-                <input asp-for="LastName" class="form-control" type="hidden" />
-                @Model.LastName
-            }
-            else
-            {
-                <input asp-for="LastName" class="form-control" type="hidden" />
-                @Model.LastName
-            }
+        <dd class="col-sm-9">            
+            <input asp-for="LastName" class="form-control" type="hidden" />
+            @Model.LastName           
         </dd>
 
         <dt class="col-sm-3">Email</dt>
-        <input asp-for="Email" class="form-control" type="hidden" />
+            <input asp-for="Email" class="form-control" type="hidden" />
         <dd class="col-sm-9">@Model.Email</dd>
 
         <dt class="col-sm-3">Position</dt>
-        <dd class="col-sm-9">        
-            @if (isEditable)
-            {
-                <select asp-for="Position" class="form-control">
-                    <option value="">-- Select Position --</option>
-                    @foreach (var pos in positions)
-                    {
-                        <option value="@pos">@pos</option>
-                    }
-                </select>
-                
-            }
-            else
-            {
-                <input asp-for="Position" class="form-control" type="hidden" />
-                @(Model.Position ?? "N/A")
-            }
+        <dd class="col-sm-9">                    
+            <select asp-for="Position" class="form-control">
+                <option value="">-- Select Position --</option>
+                @foreach (var pos in positions)
+                {
+                    <option value="@pos">@pos</option>
+                }
+            </select>                                        
         </dd>
 
         <dt class="col-sm-3">Salary</dt>
-        <dd class="col-sm-9">
-            @if (isEditable && Model.Salary.HasValue)
-            {
-                <input asp-for="Salary" class="form-control" />
-            }
-            else
-            {
-                <input asp-for="Salary" class="form-control" type="hidden" />
-                @(Model.Salary.HasValue ? Model.Salary.Value.ToString("C") : "N/A")
-            }
+        <dd class="col-sm-9">            
+            <input asp-for="Salary" class="form-control" />                        
         </dd>
         <dt class="col-sm-3">Country</dt>
-        <dd class="col-sm-9">
-            @{
-            //<label asp-for="CountryId">Country</label>
-                <select asp-for="CountryId" asp-items="Model.CountryOptions" class="form-control">
-                    <option value="">-- Select Country --</option>
-                </select>
-                <span asp-validation-for="CountryId" class="text-danger"></span>
-            }
+        <dd class="col-sm-9">            
+            <select asp-for="CountryId" asp-items="Model.CountryOptions" class="form-control">
+                <option value="">-- Select Country --</option>
+            </select>
+            <span asp-validation-for="CountryId" class="text-danger"></span>            
         </dd>
         <dt class="col-sm-3">Department</dt>
         <dd class="col-sm-9">
-            @if (isEditable && User.IsInRole("admin"))
+            @if (User.IsInRole("admin"))
             {
                  <select asp-for="DepartmentName" class="form-control">
                     <option value="">-- Select Department --</option>
@@ -109,9 +72,7 @@
         </dd>
         
     </dl>
-
-    @if (isEditable)
-    {
-        <button type="submit" class="btn btn-primary">Save Changes</button>
-    }
+    
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+    
 </form>
