@@ -15,8 +15,7 @@ namespace ClientServerHR.Controllers
     //[Authorize(Roles = "employee")]
     public class EmployeeController : Controller
     {
-        private readonly WorkingDaysService _service = new WorkingDaysService();
-        private readonly IBankDataProtectorService _ibanProtector;
+        private readonly WorkingDaysService _service = new WorkingDaysService();        
 
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IDepartmentRepository _departmentRepository;
@@ -33,15 +32,14 @@ namespace ClientServerHR.Controllers
                                 , IDepartmentRepository departmentRepository
                                 , UserManager<ApplicationUser> userManager
                                 , ICountryRepository countryRepository
-                                , ILogger<EmployeeController> logger
-                                , IBankDataProtectorService ibanProtector)
+                                , ILogger<EmployeeController> logger)
         {
             _employeeRepository = employeeRepository;
             _departmentRepository = departmentRepository;
             _userManager = userManager;
             _countryRepository = countryRepository;
             _logger = logger;
-            _ibanProtector = ibanProtector;
+            
         }
         #region Display               
         
@@ -249,7 +247,7 @@ namespace ClientServerHR.Controllers
             if(user?.Employee?.Country != null)
             {
                 model.IsEmployee= true;
-                model.User.Employee!.IBAN = _ibanProtector.DecryptIban(model.User.Employee.EncryptedIban);
+                //model.User.Employee!.IBAN = _ibanProtector.DecryptIban(model.User.Employee.EncryptedIban);
                 model.MonthWorkingDays = _service.GetWorkingDaysThisMonth(user.Employee.Country.Name, DateTime.Today.Month);
             }
             else

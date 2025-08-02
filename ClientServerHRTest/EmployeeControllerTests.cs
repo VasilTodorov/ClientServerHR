@@ -26,7 +26,7 @@ namespace ClientServerHR.Tests
 
             var store = new Mock<IUserStore<ApplicationUser>>();
             _userManagerMock = new Mock<UserManager<ApplicationUser>>(
-                store.Object, null, null, null, null, null, null, null, null
+                store.Object, null!, null!, null!, null!, null!, null!, null!, null!
             );
 
             _loggerMock = new Mock<ILogger<EmployeeController>>();

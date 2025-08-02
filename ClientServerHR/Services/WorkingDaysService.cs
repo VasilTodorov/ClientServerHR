@@ -25,7 +25,7 @@ public class WorkingDaysService
         {
             string json = response.Content.ReadAsStringAsync().Result;
             var obj = JObject.Parse(json);
-            return (int)obj["num_working_days"];
+            return (int)obj["num_working_days"]!;
         }
         else
         {

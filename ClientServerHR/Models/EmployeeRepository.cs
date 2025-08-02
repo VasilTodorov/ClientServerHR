@@ -5,6 +5,7 @@ namespace ClientServerHR.Models
 {
     public class EmployeeRepository : IEmployeeRepository
     {
+        //TODO transform it so IBAN is initilized
         private readonly ClientServerHRDbContext _clientServerHRDbContext;
 
         public EmployeeRepository(ClientServerHRDbContext clientServerHRDbContext)

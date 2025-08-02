@@ -1,13 +1,17 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using System.Reflection.Emit;
 
 namespace ClientServerHR.Models
 {
     public class ClientServerHRDbContext: IdentityDbContext<ApplicationUser>
     {
-        public ClientServerHRDbContext(DbContextOptions<ClientServerHRDbContext> options): base(options) 
+        private readonly IDataProtector _protector;
+        public ClientServerHRDbContext(DbContextOptions<ClientServerHRDbContext> options, IDataProtectionProvider provider) : base(options) 
         {
-            
+            _protector = provider.CreateProtector("IBANProtector");
         }
 
         public DbSet<Employee> Employees { get; set; }
@@ -16,6 +20,14 @@ namespace ClientServerHR.Models
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            var ibanConverter = new ValueConverter<string?, string?>(
+            v => v == null ? null : _protector.Protect(v),
+            v => v == null ? null : _protector.Unprotect(v));
+
+            builder.Entity<Employee>()
+            .Property(e => e.IBAN)
+            .HasConversion(ibanConverter);
+
             base.OnModelCreating(builder);
 
             //builder.Entity<ApplicationUser>()

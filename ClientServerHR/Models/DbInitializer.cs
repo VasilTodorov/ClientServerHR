@@ -19,10 +19,10 @@ namespace ClientServerHR.Models
             var services = scope.ServiceProvider;
             var context = services.GetRequiredService<ClientServerHRDbContext>();
             var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-            var provider = services.GetRequiredService<IDataProtectionProvider>();
+            //var provider = services.GetRequiredService<IDataProtectionProvider>();
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-            var protector = provider.CreateProtector("Employee.IBAN");
+            //var protector = provider.CreateProtector("Employee.IBAN");
             // 1. Seed roles
             string[] roles = { "employee", "manager", "admin" };
 
@@ -49,7 +49,7 @@ namespace ClientServerHR.Models
             }
             if (!context.Users.Any())
             {
-                CreateUserWithEmployee(userManager, context, protector,
+                CreateUserWithEmployee(userManager, context,
                     firstName: "Vasil",
                     lastName: "Todorov",
                     iban: "DE89370400440532013000",
@@ -61,7 +61,7 @@ namespace ClientServerHR.Models
                     role: "employee",                    
                     password: "Test123!");
 
-                CreateUserWithEmployee(userManager, context, protector,
+                CreateUserWithEmployee(userManager, context,
                     firstName: "Galin",
                     lastName: "Todorov",
                     iban: "FR1420041010050500013M02606",
@@ -73,7 +73,7 @@ namespace ClientServerHR.Models
                     role: "manager",
                     password: "Test123!");
 
-                CreateUserWithEmployee(userManager, context, protector,
+                CreateUserWithEmployee(userManager, context,
                     firstName: "Toni",
                     lastName: "Apatra",
                     iban: "ES9121000418450200051332",
@@ -85,7 +85,7 @@ namespace ClientServerHR.Models
                     role: "employee",
                     password: "Test123!");
 
-                CreateUserWithEmployee(userManager, context, protector,
+                CreateUserWithEmployee(userManager, context,
                     firstName: "Ivan",
                     lastName: "Grudev",
                     iban: "NL91ABNA0417164300",
@@ -146,8 +146,7 @@ namespace ClientServerHR.Models
             }
 
         }
-        private static void CreateUserWithEmployee(UserManager<ApplicationUser> userManager, ClientServerHRDbContext context,
-            IDataProtector protector,
+        private static void CreateUserWithEmployee(UserManager<ApplicationUser> userManager, ClientServerHRDbContext context,            
             string firstName, string lastName,string iban, string email,string position, decimal salary, string department,string country, string role, string password)
         {
             var user = new ApplicationUser
@@ -171,7 +170,7 @@ namespace ClientServerHR.Models
                 //FirstName = firstName,
                 //LastName = lastName,
                 //Email = email,
-                EncryptedIban = protector.Protect(iban),
+                IBAN = iban,
                 Position = position,
                 Salary = salary,
                 Department = Departments[department],
