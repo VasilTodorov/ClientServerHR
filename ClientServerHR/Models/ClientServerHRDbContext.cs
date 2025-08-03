@@ -20,9 +20,12 @@ namespace ClientServerHR.Models
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            var ibanConverter = new ValueConverter<string?, string?>(
-            v => v == null ? null : _protector.Protect(v),
-            v => v == null ? null : _protector.Unprotect(v));
+            //var ibanConverter = new ValueConverter<string?, string?>(
+            //v => v == null ? null : _protector.Protect(v),
+            //v => v == null ? null : _protector.Unprotect(v));
+            var ibanConverter = new ValueConverter<string, string>(
+            v =>  _protector.Protect(v),
+            v => _protector.Unprotect(v));
 
             builder.Entity<Employee>()
             .Property(e => e.IBAN)

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Configuration;
 
 namespace ClientServerHR.ViewModels
 {
@@ -31,6 +32,11 @@ namespace ClientServerHR.ViewModels
 
         [Required(ErrorMessage = "Country is required")]
         public int? CountryId { get; set; }
+
+        [Required]
+        [RegularExpression(@"^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}$",
+        ErrorMessage = "IBAN format is invalid.")]
+        public string IBAN { get; set; } = string.Empty;
         [BindNever]
         [ValidateNever]
         public List<SelectListItem> CountryOptions { get; set; } = new List<SelectListItem>();

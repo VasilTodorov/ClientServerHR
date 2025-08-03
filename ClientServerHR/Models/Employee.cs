@@ -37,10 +37,8 @@ namespace ClientServerHR.Models
         public int CountryId { get; set; } // FK to Country
         public Country Country { get; set; } = null!;
         [MaxLength(256)]
-        //public string EncryptedIban { get; set; } = string.Empty;
-
-        //[NotMapped]
-        public string? IBAN { get; set; } = string.Empty;
+        
+        public string IBAN { get; set; } = string.Empty;
 
     }
 }

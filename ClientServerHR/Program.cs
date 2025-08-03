@@ -20,7 +20,6 @@ builder.Services.AddDbContext<ClientServerHRDbContext>(options => {
         builder.Configuration["ConnectionStrings:ClientServerHRDbContextConnection"]);
 });
 
-builder.Services.AddScoped<IBankDataProtectorService, BankDataProtectorService>();
 builder.Services.AddDataProtection();
 
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

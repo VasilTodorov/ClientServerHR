@@ -46,8 +46,10 @@ namespace ClientServerHR.ViewModels
         public int CountryId { get; set; }
 
         public IEnumerable<SelectListItem> CountryOptions { get; set; } = new List<SelectListItem>();
-
-        //public string? IBAN { get; set; }
+        [Required]
+        [RegularExpression(@"^[A-Z]{2}[0-9]{2}[A-Z0-9]{11,30}$",
+        ErrorMessage = "IBAN format is invalid.")]
+        public string IBAN { get; set; } = string.Empty;
     }
 
 }

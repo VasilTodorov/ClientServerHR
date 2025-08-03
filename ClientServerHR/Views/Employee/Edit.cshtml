@@ -49,7 +49,7 @@
             <select asp-for="CountryId" asp-items="Model.CountryOptions" class="form-control">
                 <option value="">-- Select Country --</option>
             </select>
-            <span asp-validation-for="CountryId" class="text-danger"></span>            
+            @* <span asp-validation-for="CountryId" class="text-danger"></span> *@            
         </dd>
         <dt class="col-sm-3">Department</dt>
         <dd class="col-sm-9">
@@ -70,10 +70,17 @@
                 @(Model.DepartmentName ?? "N/A")
             }
         </dd>
-
+        <dt class="col-sm-3">IBAN</dt>
+        <dd class="col-sm-9">            
+            <input asp-for="IBAN" class="form-control" />  
+            @* <span asp-validation-for="IBAN" class="text-danger"></span> *@
+        </dd>
         
     </dl>
     
     <button type="submit" class="btn btn-primary">Save Changes</button>
-    
+    <div asp-validation-summary="All" class="text-danger"></div>
 </form>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
