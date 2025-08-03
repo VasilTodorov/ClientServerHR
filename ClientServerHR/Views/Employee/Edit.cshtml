@@ -72,13 +72,13 @@
         </dd>
         <dt class="col-sm-3">IBAN</dt>
         <dd class="col-sm-9">            
-            <input asp-for="IBAN" class="form-control" />  
-            @* <span asp-validation-for="IBAN" class="text-danger"></span> *@
+            <input asp-for="IBAN" class="form-control" />              
         </dd>
         
     </dl>
     
     <button type="submit" class="btn btn-primary">Save Changes</button>
+    
     <div asp-validation-summary="All" class="text-danger"></div>
 </form>
 @section Scripts {

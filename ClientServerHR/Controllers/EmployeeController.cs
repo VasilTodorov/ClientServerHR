@@ -16,7 +16,7 @@ namespace ClientServerHR.Controllers
     //[Authorize(Roles = "employee")]
     public class EmployeeController : Controller
     {
-        private readonly WorkingDaysService _service = new WorkingDaysService();
+        private readonly WorkingDaysService _service; 
         private readonly IIbanValidator _ibanValidator;
 
         private readonly IEmployeeRepository _employeeRepository;
@@ -43,6 +43,7 @@ namespace ClientServerHR.Controllers
             _logger = logger;
 
             _ibanValidator = new IbanValidator();
+            _service = new WorkingDaysService();
         }
         #region Display               
         
@@ -271,30 +272,7 @@ namespace ClientServerHR.Controllers
 
             if (user == null) return NotFound();
             if (user.Employee == null) return Forbid();
-
-            // Check if current user can edit
-            //bool isEditable = false;
-            //if(User.IsInRole("manager") && !User.IsInRole("admin"))
-            //{
-            //    var currentUserId = _userManager.GetUserId(User);
-            //    var currentUser = _userManager.Users
-            //        .Include(u => u.Employee)
-            //        .FirstOrDefault(u => u.Id == currentUserId);
-
-            //    if(currentUser?.Employee?.Department != null && user.Employee?.Department!=null)
-            //        isEditable = currentUser.Employee.Department == user.Employee.Department;
-            //}
-            //else if(User.IsInRole("admin"))
-            //{
-            //    isEditable = true;
-            //}
-            //if (!isEditable)
-            //{
-            //    _logger.LogInformation("EmployeeController.Profile called with invalid with no permissions user id: {UserId}", userId);
-            //    return Forbid();
-            //}
-
-
+           
             var viewModel = new UserProfileEditViewModel
             {
                 Id = user.Id,
@@ -339,6 +317,10 @@ namespace ClientServerHR.Controllers
             {
                 ModelState.AddModelError(nameof(model.IBAN), "Invalid IBAN.");
             }
+            //if (!result.IsValid)
+            //{
+            //    ModelState.AddModelError("IBAN", "Invalid IBAN.");
+            //}
 
             var user = _userManager.Users.Include(u => u.Employee).ThenInclude(e=>e!.Department)
                 .FirstOrDefault(u => u.Id == model.Id);
@@ -387,9 +369,15 @@ namespace ClientServerHR.Controllers
                 //_userManager.UpdateAsync(user).Wait();                
                 return RedirectToAction("List", new { departmentId=model.ViewDepartmentId });
             }
-
-            return RedirectToAction("Edit", new { userId = user.Id, viewDepartmentId= model.ViewDepartmentId });
-
+            else
+            {
+                model.Departments = _departmentRepository.AllDepartments.ToList();
+                model.CountryOptions = _countryRepository.CountryOptions.ToList();
+                return View(model);
+            }
+                //return RedirectToAction("Edit", new { userId = user.Id, viewDepartmentId= model.ViewDepartmentId });
+                
+        
         }
         #endregion
         #region HireEmployee

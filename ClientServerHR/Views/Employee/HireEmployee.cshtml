@@ -45,3 +45,8 @@
     <button type="submit" class="btn btn-primary">Submit</button>
     <div asp-validation-summary="All" class="text-danger"></div>
 </form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
