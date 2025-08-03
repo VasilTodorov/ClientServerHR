@@ -56,6 +56,14 @@
                 }
                 <dt class="col-sm-3">Month Working Days</dt>
                 <dd class="col-sm-9">@(!Model.IsEmployee ? "N/A" : Model.MonthWorkingDays)</dd>
+
+                <dt class="col-sm-3">IBAN</dt>
+                <dd class="col-sm-9">
+                    @(!Model.IsEmployee ? "N/A" : string.IsNullOrWhiteSpace(Model.User?.Employee?.IBAN) 
+                        ? "Not Provided" 
+                        :Model.User.Employee.IBAN)
+                        @* : "****" + Model.User.Employee.IBAN[^4..]) *@
+                </dd>
             </dl>
             
             @*<a asp-action="Index" asp-controller="Employee" class="btn btn-secondary mt-3">Back to List</a>*@

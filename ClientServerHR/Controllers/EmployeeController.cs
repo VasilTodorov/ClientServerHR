@@ -1,5 +1,7 @@
 ﻿using ClientServerHR.Models;
+using ClientServerHR.Services;
 using ClientServerHR.ViewModels;
+using IbanNet;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
@@ -14,7 +16,8 @@ namespace ClientServerHR.Controllers
     //[Authorize(Roles = "employee")]
     public class EmployeeController : Controller
     {
-        private readonly WorkingDaysService _service = new WorkingDaysService();
+        private readonly WorkingDaysService _service; 
+        private readonly IIbanValidator _ibanValidator;
 
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IDepartmentRepository _departmentRepository;
@@ -38,7 +41,12 @@ namespace ClientServerHR.Controllers
             _userManager = userManager;
             _countryRepository = countryRepository;
             _logger = logger;
+
+            _ibanValidator = new IbanValidator();
+            _service = new WorkingDaysService();
         }
+        #region Display               
+        
         [Authorize(Roles = "manager,admin")]
         public IActionResult List(int? departmentId)
         {
@@ -118,7 +126,7 @@ namespace ClientServerHR.Controllers
         {
             return View();
         }
-
+        #endregion
         [Authorize(Roles = "manager,admin")]
         public IActionResult Delete(string userId, int? viewDepartmentId)
         {
@@ -235,7 +243,7 @@ namespace ClientServerHR.Controllers
                 _logger.LogInformation("EmployeeController.MyProfile called with invalid user id: {UserId}", userId);
                 return NotFound();
             }
-
+            
             var model = new MyProfileViewModel
             {
                 User = user
@@ -243,6 +251,7 @@ namespace ClientServerHR.Controllers
             if(user?.Employee?.Country != null)
             {
                 model.IsEmployee= true;
+                //model.User.Employee!.IBAN = _ibanProtector.DecryptIban(model.User.Employee.EncryptedIban);
                 model.MonthWorkingDays = _service.GetWorkingDaysThisMonth(user.Employee.Country.Name, DateTime.Today.Month);
             }
             else
@@ -252,7 +261,7 @@ namespace ClientServerHR.Controllers
 
             return View(model);
         }
-        
+        #region Edit        
         [Authorize(Roles = "manager,admin")]
         public IActionResult Edit(string? userId,int? viewDepartmentId)
         {
@@ -263,30 +272,7 @@ namespace ClientServerHR.Controllers
 
             if (user == null) return NotFound();
             if (user.Employee == null) return Forbid();
-
-                // Check if current user can edit
-                bool isEditable = false;
-            if(User.IsInRole("manager") && !User.IsInRole("admin"))
-            {
-                var currentUserId = _userManager.GetUserId(User);
-                var currentUser = _userManager.Users
-                    .Include(u => u.Employee)
-                    .FirstOrDefault(u => u.Id == currentUserId);
-
-                if(currentUser?.Employee?.Department != null && user.Employee?.Department!=null)
-                    isEditable = currentUser.Employee.Department == user.Employee.Department;
-            }
-            else if(User.IsInRole("admin"))
-            {
-                isEditable = true;
-            }
-            if (!isEditable)
-            {
-                _logger.LogInformation("EmployeeController.Profile called with invalid with no permissions user id: {UserId}", userId);
-                return Forbid();
-            }
-
-
+           
             var viewModel = new UserProfileEditViewModel
             {
                 Id = user.Id,
@@ -299,10 +285,11 @@ namespace ClientServerHR.Controllers
                 Departments = _departmentRepository.AllDepartments.ToList(),
                 CountryOptions =  _countryRepository.CountryOptions,
                 CountryId = user.Employee!.CountryId,
-                ViewDepartmentId = viewDepartmentId
+                ViewDepartmentId = viewDepartmentId,
+                IBAN = user.Employee!.IBAN
             };
 
-            ViewData["IsEditable"] = isEditable;
+            //ViewData["IsEditable"] = isEditable;
 
             return View(viewModel);
         }
@@ -312,20 +299,29 @@ namespace ClientServerHR.Controllers
         [Authorize(Roles = "manager,admin")]
         public IActionResult Edit(UserProfileEditViewModel model)
         {
-            if(model.DepartmentName==null) ModelState.AddModelError("DepartmentName", "Department cant be null");
-            else if (!_departmentRepository.AllDepartments.Select(d => d.Name).Contains(model.DepartmentName))
-            {
-                ModelState.AddModelError("DepartmentName", "Invalid department selected.");
-            }
-            if(!_countryRepository.AllCountries.Select(c => c.CountryId).Contains(model.CountryId))
-            {
-                ModelState.AddModelError("CountryId", "Invalid country selected.");
-            }
-            if (!AllowedPositions.Contains(model.Position!))
-            {
-                ModelState.AddModelError("Position", "Invalid position selected.");
-            }
             
+            if (!ModelState["DepartmentName"]!.Errors.Any() && !_departmentRepository.AllDepartments.Select(d => d.Name).Contains(model.DepartmentName))
+            {
+                ModelState.AddModelError("DepartmentName", "Invalid Department.");
+            }
+            if (!ModelState["CountryId"]!.Errors.Any() && !_countryRepository.AllCountries.Select(c => c.CountryId).Contains(model.CountryId))
+            {
+                ModelState.AddModelError("CountryId", "Invalid Country.");
+            }
+            if (!ModelState["Position"]!.Errors.Any() && !AllowedPositions.Contains(model.Position ?? ""))
+            {
+                ModelState.AddModelError("DepartmentName", "Invalid Position.");
+            }
+            var result = _ibanValidator.Validate(model.IBAN);
+            if (!ModelState["IBAN"]!.Errors.Any() && !result.IsValid)
+            {
+                ModelState.AddModelError(nameof(model.IBAN), "Invalid IBAN.");
+            }
+            //if (!result.IsValid)
+            //{
+            //    ModelState.AddModelError("IBAN", "Invalid IBAN.");
+            //}
+
             var user = _userManager.Users.Include(u => u.Employee).ThenInclude(e=>e!.Department)
                 .FirstOrDefault(u => u.Id == model.Id);
 
@@ -358,27 +354,34 @@ namespace ClientServerHR.Controllers
                 
             }
             if (ModelState.IsValid)
-            { 
-                //user.FirstName = model.FirstName;
-                //user.LastName = model.LastName;
-                
+            {                                 
                 user.Employee.Salary = model.Salary ?? user.Employee.Salary;
                 user.Employee.Position = model.Position ?? user.Employee.Position;
                 user.Employee.CountryId = model.CountryId;
+                user.Employee.IBAN = model.IBAN;
                 if (User.IsInRole("admin"))
                 {
                     var modelDepartment = _departmentRepository.GetDepartmentByName(model.DepartmentName!);
                     user.Employee.Department = modelDepartment ?? user.Employee.Department;
                 }
-                                       
-                _userManager.UpdateAsync(user).Wait();                
+
+                _employeeRepository.Update(user.Employee);
+                //_userManager.UpdateAsync(user).Wait();                
                 return RedirectToAction("List", new { departmentId=model.ViewDepartmentId });
             }
-
-            return RedirectToAction("Edit", new { userId = user.Id, viewDepartmentId= model.ViewDepartmentId });
-
+            else
+            {
+                model.Departments = _departmentRepository.AllDepartments.ToList();
+                model.CountryOptions = _countryRepository.CountryOptions.ToList();
+                return View(model);
+            }
+                //return RedirectToAction("Edit", new { userId = user.Id, viewDepartmentId= model.ViewDepartmentId });
+                
+        
         }
-
+        #endregion
+        #region HireEmployee
+        
         [HttpGet]
         [Authorize(Roles = "manager,admin")]
         public IActionResult HireEmployee(string userId)
@@ -408,24 +411,29 @@ namespace ClientServerHR.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Authorize(Roles = "manager,admin")]
         public IActionResult HireEmployee(HireEmployeeViewModel emp)
         {
-            //if (emp.DepartmentName == null) ModelState.AddModelError("DepartmentName", "Department Name cant be null");
-            if (emp.DepartmentName != null && !_departmentRepository.AllDepartments.Select(d=>d.Name).Contains(emp.DepartmentName))
+            if (!ModelState["DepartmentName"]!.Errors.Any() && !_departmentRepository.AllDepartments.Select(d=>d.Name).Contains(emp.DepartmentName))
             {
-                ModelState.AddModelError("DepartmentName", "Invalid Department selected.");
+                ModelState.AddModelError("DepartmentName", "Invalid Department.");
             }
-            if (emp.CountryId != null && !_countryRepository.AllCountries.Select(c => c.CountryId).Contains(emp.CountryId ?? 0))
+            if (!ModelState["CountryId"]!.Errors.Any() && !_countryRepository.AllCountries.Select(c => c.CountryId).Contains(emp.CountryId ?? 0))
             {
-                ModelState.AddModelError("CountryId", "Invalid Country selected.");
+                ModelState.AddModelError("CountryId", "Invalid Country.");
             }
-            if (emp.Position != null &&  !AllowedPositions.Contains(emp.Position ?? ""))
+            if (!ModelState["Position"]!.Errors.Any() &&  !AllowedPositions.Contains(emp.Position ?? ""))
             {
-                ModelState.AddModelError("DepartmentName", "Invalid Position selected.");
-            }           
-            
-            if(ModelState.IsValid)
+                ModelState.AddModelError("DepartmentName", "Invalid Position.");
+            }
+            var result = _ibanValidator.Validate(emp.IBAN);
+            if (!ModelState["IBAN"]!.Errors.Any() && !result.IsValid)
+            {
+                ModelState.AddModelError(nameof(emp.IBAN), "Invalid IBAN.");
+            }
+
+            if (ModelState.IsValid)
             {
                 var user = _userManager.FindByIdAsync(emp.ApplicationUserId!).Result;
                 if (user == null)
@@ -441,9 +449,9 @@ namespace ClientServerHR.Controllers
                     ApplicationUserId = emp.ApplicationUserId!,
                     Position = emp.Position!,
                     Salary = (decimal)emp.Salary!,
-                    CountryId = emp.CountryId ?? 0,
-                    Department = _departmentRepository.GetDepartmentByName(emp.DepartmentName!)!
-                    
+                    CountryId = (int)emp.CountryId!,
+                    Department = _departmentRepository.GetDepartmentByName(emp.DepartmentName!)!,
+                    IBAN = emp.IBAN
                 };
                 
 
@@ -471,7 +479,7 @@ namespace ClientServerHR.Controllers
             }
                                  
         }
-
+        #endregion
         public IActionResult HireComplete()
         {
             ViewBag.HireCompleteMessage = "Employee is hired";

@@ -4,6 +4,7 @@ using ClientServerHR.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ClientServerHR.Migrations
 {
     [DbContext(typeof(ClientServerHRDbContext))]
-    partial class ClientServerHRDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250802165455_IBAN_Only_migration")]
+    partial class IBAN_Only_migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,7 +153,6 @@ namespace ClientServerHR.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("IBAN")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 

@@ -5,10 +5,7 @@
 }
 <form asp-action="HireEmployee" method="post" role="form">
     <input type="hidden" asp-for="ApplicationUserId" />  
-    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <div asp-validation-summary="All" class="text-danger"></div>
-    
-    
+          
     <div class="form-group">
         <label asp-for="Salary"></label>
         <input asp-for="Salary" class="form-control" />
@@ -39,7 +36,17 @@
             <option value="@dept.Name">@dept.Name</option>
         }
     </select>
-    
+    <div class="form-group">
+        <label asp-for="IBAN"></label>
+        <input asp-for="IBAN" class="form-control" />
+
+    </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
+    <div asp-validation-summary="All" class="text-danger"></div>
 </form>
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

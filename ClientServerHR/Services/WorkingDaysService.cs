@@ -3,8 +3,14 @@
 public class WorkingDaysService
 {
     private static readonly HttpClient client = new HttpClient();
-    private const string apiKey = "0ujgF1FUKULubdqvDyg3Pg==EfyEQBVf67KqBeoK";
-
+    private readonly string apiKey;
+    //private const string apiKey = "0ujgF1FUKULubdqvDyg3Pg==EfyEQBVf67KqBeoK";
+    
+    public WorkingDaysService()
+    {
+        apiKey = Environment.GetEnvironmentVariable("WORKING_DAYS_API_KEY")
+            ?? throw new InvalidOperationException("API key is missing. Set WORKING_DAYS_API_KEY environment variable.");
+    }
     public int GetWorkingDaysThisMonth(string country, int month, int year)
     {
         string url = $"https://api.api-ninjas.com/v1/workingdays?country={country}&month={month}&year={year}";
@@ -25,7 +31,7 @@ public class WorkingDaysService
         {
             string json = response.Content.ReadAsStringAsync().Result;
             var obj = JObject.Parse(json);
-            return (int)obj["num_working_days"];
+            return (int)obj["num_working_days"]!;
         }
         else
         {

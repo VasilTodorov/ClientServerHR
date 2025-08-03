@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
@@ -35,5 +36,9 @@ namespace ClientServerHR.Models
 
         public int CountryId { get; set; } // FK to Country
         public Country Country { get; set; } = null!;
+        [MaxLength(256)]
+        
+        public string IBAN { get; set; } = string.Empty;
+
     }
 }

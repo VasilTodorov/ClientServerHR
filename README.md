@@ -40,16 +40,22 @@ A web-based Human Resources Management System built with **ASP.NET**. This proje
 
 ### Setup Instructions
 
-1. Initilize detabase:
+1. Initialize database:
 ```bash
 dotnet ef database update
 ```
-2. Run program on port 5182
+
+2. Set up environment value
+```bash
+$env:WORKING_DAYS_API_KEY = "YOUR_API_KEY"
+```
+
+3. Run the program on port 5182
 ```bash
 dotnet run
 ```
 
-3. Run Tests
+4. Run Tests
 ```bash
 dotnet test
 ```
