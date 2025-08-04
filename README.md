@@ -22,11 +22,14 @@ A web-based Human Resources Management System built with **ASP.NET**. This proje
 
 ## 📷 Screenshots
 ### Applicants
-![](./Screenshots/Applicants.png)
+![](./Screenshots/ApplicantsAPI.png)
 ### Employees
 ![](./Screenshots/HR_Employees.png)
+### Department
+![](./Screenshots/Departments.png)
+![](./Screenshots/DepartmentView.png)
 ### Profile
-![](./Screenshots/MyProfile_admin.png)
+![](./Screenshots/MyProfileAPI_admin.png)
 
 
 ## 🛠️ Getting Started
