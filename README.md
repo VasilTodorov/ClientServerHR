@@ -45,7 +45,7 @@ A web-based Human Resources Management System built with **ASP.NET**. This proje
 dotnet ef database update
 ```
 
-2. Set up the environment value for api https://api-ninjas.com/api/workingdays
+2. Set up the environment value for api https://api-ninjas.com/api/workingdays (if the api key is not premium, you can't change the year in My Profile page)
 ```bash
 $env:WORKING_DAYS_API_KEY = "YOUR_API_KEY"
 ```
