@@ -4,7 +4,6 @@ public class WorkingDaysService
 {
     private static readonly HttpClient client = new HttpClient();
     private readonly string apiKey;
-    //private const string apiKey = "0ujgF1FUKULubdqvDyg3Pg==EfyEQBVf67KqBeoK";
     
     public WorkingDaysService()
     {
