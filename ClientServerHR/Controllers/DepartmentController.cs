@@ -23,7 +23,25 @@ namespace ClientServerHR.Controllers
             var list = _departmentRepository.AllDepartments.ToList() ;
             return View(list);
         }
-        
+
+        [Authorize(Roles = "manager,admin")]
+        public IActionResult PieChart()
+        {
+            var list = _departmentRepository.AllDepartments.Select(d=> new DepartmentPieViewModel
+            {
+                Name = d.Name,
+                Count = d.Employees.Count,
+            }).OrderBy(p=>p.Count).ToList();
+
+            int sum = list.Sum(p=>p.Count);
+            foreach(DepartmentPieViewModel departmentPie in list)
+            {
+                departmentPie.Percent = (departmentPie.Count/ Convert.ToDouble(sum)) * 100;
+            }
+            //var list = _departmentRepository.AllDepartments.ToList();
+            return View(list);
+        }
+
         [HttpGet]
         [Authorize(Roles = "admin")]
         public IActionResult Create()

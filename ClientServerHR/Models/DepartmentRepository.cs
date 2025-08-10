@@ -15,7 +15,7 @@ namespace ClientServerHR.Models
         {
             get
             {
-                return _clientServerHRDbContext.Departments;
+                return _clientServerHRDbContext.Departments.Include(d=>d.Employees);
             }
         }
         public Department? GetDepartmentById(int departmentId)

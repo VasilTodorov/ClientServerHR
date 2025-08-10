@@ -1,0 +1,38 @@
+﻿@model List<DepartmentPieViewModel>
+
+<div id="chartContainer" style="height: 370px; width: 100%;"></div>
+@* <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script> *@
+
+@section Scripts {
+	<script src='https://cdn.plot.ly/plotly-3.0.1.min.js'></script>
+	@{
+		
+		await Html.RenderPartialAsync("_PieScriptPartial");
+	}
+		
+	<script>
+		window.onload = function() {
+
+		var chart = new CanvasJS.Chart("chartContainer", {
+			animationEnabled: true,
+			title: {
+				text: "Department Pie Chart"
+			},
+			data: [{
+				type: "pie",
+				startAngle: 240,
+				yValueFormatString: "##0.00\"%\"",
+				indexLabel: "{label} {y}",
+				dataPoints: [
+					@for (int i = 0; i < Model.Count; i++)
+						{
+								<text>{ y: @Model[i].Percent, label: "@Model[i].Name" }@(i < Model.Count - 1 ? "," : "")</text>
+						}
+				]
+			}]
+		});
+		chart.render();
+
+		}
+	</script>
+}
