@@ -31,6 +31,7 @@ namespace ClientServerHR.Controllers
             {
                 Name = d.Name,
                 Count = d.Employees.Count,
+                DepartmentId = d.DepartmentId,
             }).OrderBy(p=>p.Count).ToList();
 
             int sum = list.Sum(p=>p.Count);
