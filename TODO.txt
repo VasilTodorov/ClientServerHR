@@ -3,3 +3,4 @@ complete department functionality
 complete country functionality
 Clean LINQ quaries and put them in repository functions
 Warn that api needs premium for years
+I should hide api key of working days
