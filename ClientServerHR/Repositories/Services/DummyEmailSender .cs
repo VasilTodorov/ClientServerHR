@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
-namespace ClientServerHR.Services
+namespace ClientServerHR.Repositories.Services
 {
     public class DummyEmailSender : IEmailSender
     {

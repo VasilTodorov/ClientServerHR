@@ -1,8 +1,7 @@
-﻿
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
-namespace ClientServerHR.Models
+namespace ClientServerHR.Repositories
 {
     public class CountryRepository : ICountryRepository
     {

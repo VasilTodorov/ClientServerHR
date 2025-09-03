@@ -2,11 +2,11 @@
 
 public class WorkingDaysService
 {
-    private static readonly HttpClient client = new HttpClient();
     private readonly string apiKey;
-    
-    public WorkingDaysService()
+    HttpClient client;
+    public WorkingDaysService(HttpClient client)
     {
+        this.client = client;
         apiKey = Environment.GetEnvironmentVariable("WORKING_DAYS_API_KEY")
             ?? throw new InvalidOperationException("API key is missing. Set WORKING_DAYS_API_KEY environment variable.");
     }
@@ -22,7 +22,7 @@ public class WorkingDaysService
     }
     private int Calculate(string url)
     {
-        client.DefaultRequestHeaders.Clear();
+        this.client.DefaultRequestHeaders.Clear();
         client.DefaultRequestHeaders.Add("X-Api-Key", apiKey);
 
         var response = client.GetAsync(url).Result;  

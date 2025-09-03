@@ -1,7 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using ClientServerHR.Models;
+using Microsoft.AspNetCore.Identity;
 using System.IO.Pipelines;
 
-namespace ClientServerHR.Models
+namespace ClientServerHR.Repositories
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.DataProtection;

@@ -1,4 +1,4 @@
-﻿using ClientServerHR.Models;
+﻿using ClientServerHR.Repositories;
 
 namespace ClientServerHR.ViewModels
 {

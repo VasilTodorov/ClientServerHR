@@ -1,6 +1,6 @@
 ﻿using System.IO.Pipelines;
 
-namespace ClientServerHR.Models
+namespace ClientServerHR.Repositories
 {
     public class Department
     {

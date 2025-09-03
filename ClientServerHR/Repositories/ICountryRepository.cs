@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace ClientServerHR.Models
+namespace ClientServerHR.Repositories
 {
     public interface ICountryRepository
     {

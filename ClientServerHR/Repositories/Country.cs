@@ -1,4 +1,4 @@
-﻿namespace ClientServerHR.Models
+﻿namespace ClientServerHR.Repositories
 {
     public class Country
     {

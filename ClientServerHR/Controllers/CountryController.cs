@@ -1,4 +1,4 @@
-﻿using ClientServerHR.Models;
+﻿using ClientServerHR.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 

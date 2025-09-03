@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
-using ClientServerHR.Models;
+using ClientServerHR.Repositories;
 
 namespace ClientServerHR.Areas.Identity.Pages.Account
 {

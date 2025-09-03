@@ -1,5 +1,5 @@
-using ClientServerHR.Models;
-using ClientServerHR.Services;
+using ClientServerHR.Repositories;
+using ClientServerHR.Repositories.Services;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
@@ -12,6 +12,11 @@ var connectionString = builder.Configuration.GetConnectionString("ClientServerHR
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
 builder.Services.AddScoped<ICountryRepository, CountryRepository>();
+// look at chatgpt guide for injecting http client
+//builder.Services.AddSingleton<HttpClient, HttpClient>();
+// add interface WorkingDaysService
+//builder.Services.AddScoped<WorkingDaysService, WorkingDaysService>();
+
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

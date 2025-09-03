@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Reflection.Emit;
 
-namespace ClientServerHR.Models
+namespace ClientServerHR.Repositories
 {
     public class ClientServerHRDbContext: IdentityDbContext<ApplicationUser>
     {

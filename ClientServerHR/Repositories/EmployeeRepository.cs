@@ -1,7 +1,6 @@
-﻿
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
-namespace ClientServerHR.Models
+namespace ClientServerHR.Repositories
 {
     public class EmployeeRepository : IEmployeeRepository
     {

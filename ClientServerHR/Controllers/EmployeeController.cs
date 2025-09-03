@@ -1,4 +1,4 @@
-﻿using ClientServerHR.Models;
+﻿using ClientServerHR.Repositories;
 using ClientServerHR.Services;
 using ClientServerHR.ViewModels;
 using IbanNet;
@@ -34,7 +34,8 @@ namespace ClientServerHR.Controllers
                                 , IDepartmentRepository departmentRepository
                                 , UserManager<ApplicationUser> userManager
                                 , ICountryRepository countryRepository
-                                , ILogger<EmployeeController> logger)
+                                , ILogger<EmployeeController> logger
+                                , WorkingDaysService service)
         {
             _employeeRepository = employeeRepository;
             _departmentRepository = departmentRepository;
@@ -42,8 +43,7 @@ namespace ClientServerHR.Controllers
             _countryRepository = countryRepository;
             _logger = logger;
 
-            _ibanValidator = new IbanValidator();
-            _service = new WorkingDaysService();
+            _service = service;
         }
         #region Display               
         
