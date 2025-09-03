@@ -1,5 +1,5 @@
 ﻿using ClientServerHR.Repositories;
-using ClientServerHR.Services;
+using ClientServerHR.Repositories.Services;
 using ClientServerHR.ViewModels;
 using IbanNet;
 using Microsoft.AspNetCore.Authorization;
@@ -35,7 +35,7 @@ namespace ClientServerHR.Controllers
                                 , UserManager<ApplicationUser> userManager
                                 , ICountryRepository countryRepository
                                 , ILogger<EmployeeController> logger
-                                , WorkingDaysService service)
+                                /*, WorkingDaysService service*/)
         {
             _employeeRepository = employeeRepository;
             _departmentRepository = departmentRepository;
@@ -43,7 +43,9 @@ namespace ClientServerHR.Controllers
             _countryRepository = countryRepository;
             _logger = logger;
 
-            _service = service;
+            //_service = service;
+            _service = new WorkingDaysService(new HttpClient());
+            _ibanValidator = new IbanValidator();
         }
         #region Display               
         

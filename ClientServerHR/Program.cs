@@ -46,6 +46,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
 //.AddEntityFrameworkStores<ClientServerHRDbContext>();
 
 builder.Services.AddSingleton<IEmailSender, DummyEmailSender>();
+//builder.Services.AddSingleton<WorkingDaysService, WorkingDaysService()>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

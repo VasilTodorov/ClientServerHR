@@ -17,6 +17,7 @@ namespace ClientServerHR.Tests
         private Mock<ICountryRepository> _countryRepoMock;
         private Mock<UserManager<ApplicationUser>> _userManagerMock;
         private Mock<ILogger<EmployeeController>> _loggerMock;
+        //private Mock<WorkingDaysService> serviceMock;
 
         public EmployeeControllerTests()
         {
@@ -40,6 +41,7 @@ namespace ClientServerHR.Tests
                 _userManagerMock.Object,
                 _countryRepoMock.Object,
                 _loggerMock.Object
+                //serviceMock.Object
             );
 
             if (user != null)

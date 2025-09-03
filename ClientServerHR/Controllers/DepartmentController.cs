@@ -1,5 +1,4 @@
-﻿using ClientServerHR.Models;
-using ClientServerHR.Repositories;
+﻿using ClientServerHR.Repositories;
 using ClientServerHR.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

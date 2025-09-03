@@ -1,6 +1,4 @@
-﻿using ClientServerHR.Models;
-
-namespace ClientServerHR.ViewModels
+﻿namespace ClientServerHR.ViewModels
 {
     public class DepartmentWithRoleViewModel
     {

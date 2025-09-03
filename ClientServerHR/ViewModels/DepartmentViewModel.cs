@@ -1,4 +1,4 @@
-﻿using ClientServerHR.Models;
+﻿using ClientServerHR.Repositories;
 using System.ComponentModel.DataAnnotations;
 using System.IO.Pipelines;
 
