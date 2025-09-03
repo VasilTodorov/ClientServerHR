@@ -1,5 +1,5 @@
 using ClientServerHR.Controllers;
-using ClientServerHR.Models;
+using ClientServerHR.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
